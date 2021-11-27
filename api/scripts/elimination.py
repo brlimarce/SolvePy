@@ -43,12 +43,38 @@ def gaussian(m):
     
     # Return a dictionary (solution and matrix after forward elimination).
     return { 'solution' : solution, 'resulting_matrix' : m }
+
 '''
 ** gauss_jordan
-| <>
+| This function performs the method of Gauss-Jordan Elimination.
+- - -
+** params
+| m: A matrix of n x m size
+- - -
+** returns
+| - solution: An array of the system's solution
+| - m: The identity matrix after elimination
 '''
 def gauss_jordan(m):
-    print('Gauss-Jordan')
+    # ** Declaration
+    nrow = len(m) # Stores the number of rows.
+
+    # 'pptr' serves as the pointer of the pivot row.
+    for pptr in range(nrow):
+        # Pivot if pptr isn't pointing to the last row.
+        if pptr != (nrow - 1):
+            m = pivot(m, pptr) # Employ partial pivoting.
+            if m is None:
+                return None
+        # Normalize the pivot row.
+        m[pptr, :] = m[pptr, :] / m[pptr, pptr]
+
+        # Eliminate the other rows.
+        for eptr in range(nrow):
+            if eptr != pptr:
+                m[eptr, :] = m[eptr, :] - (m[pptr, :] * m[eptr, pptr])
+    # Return a dictionary (solution and identity matrix).
+    return { 'solution' : m[:, len(m[0]) - 1], 'resulting_matrix' : m }
 
 '''
 ** pivot
@@ -71,7 +97,3 @@ def pivot(m, pptr):
         return None
     m[[row, pptr]] = m[[pptr, row]] # Swap the rows in the matrix.
     return m # Return the updated matrix.
-
-# Test the function here.
-m = np.array([[0.1, 7, -0.3, -19.3], [3, -0.1, -0.2, 7.85], [0.3, -0.2, 10, 71.4]])
-print(gaussian(m))
