@@ -22,22 +22,25 @@
         <div class="container">
             <!-- Start of Navigation Bar -->
             <div class="row d-flex align-items-center justify-content-between">
-                <nav class="navbar fixed-top navbar-light bg-light">
+                <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
                     <!-- Start of Header -->
                     <div class="navbar-brand text-primary">
                         <!-- Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
                             <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2z"/>
                         </svg>
+                        <small>&nbsp;SolvePy&nbsp;</small>
                     </div>
                     <!-- End of Header -->
 
-                    <!-- Start of Pages -->
+                    <!-- Start of Web Pages -->
                     <div class="collapse navbar-collapse text-dark">
-                        {% block pages %}
-                        {% endblock %}
+                        <ul class="navbar-nav mr-auto">
+                            {% block pages %}
+                            {% endblock %}
+                        </ul>
                     </div>
-                    <!-- End of Pages -->
+                    <!-- End of Web Pages -->
 
                     <!-- Start of Portal Button -->
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="button">Go Back to Portal</button>
