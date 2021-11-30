@@ -1,7 +1,7 @@
 {% extends "layouts/inner_header.html" %}
 
 <!-- Start of Navigation Bar -->
-{% block inner_pages %}
+{% block pages %}
     <li class="nav-item">
         <a class="nav-link active">QSI</a>
     </li>
@@ -72,16 +72,28 @@
 {% block inner_body %}
     <!-- Start of Form -->
     <form class="form-floating">
-        <!-- X Values -->
         <div class="mb-3 row">
+            <!-- Start of X Values -->
             <!-- Label -->
             <label for="xval" class="col-sm-1 col-form-label fw-bold">X Values</label>
 
             <!-- Input Text -->
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="xval" />
+                <input type="text" class="form-control" id="xval" placeholder="i.e. 1,2,3,4,5" />
                 <div id="xhelp" class="form-text">Enter values separated by a comma.</div>
             </div>
+            <!-- End of X Values -->
+
+            <!-- Start of Y Values -->
+            <!-- Label -->
+            <label for="uval" class="col-sm-1 col-form-label fw-bold">Y Values</label>
+            
+            <!-- Input Text -->
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="yval" placeholder="i.e. 1,2,3,4,5" />
+                <div id="yhelp" class="form-text">Enter values separated by a comma.</div>
+            </div>
+            <!-- End of Y Values -->
         </div>
     </form>
     <!-- End of Form -->
