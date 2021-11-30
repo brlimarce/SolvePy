@@ -1,8 +1,8 @@
-<!-- Layout -->
+<!-- ** Layout -->
 <!-- This contains the template for all webpages. -->
 <!DOCTYPE html>
 <html>
-    <!-- Header -->
+    <!-- Start of Header -->
     <head>
         <!-- Meta Tags -->
         <meta charset="utf-8">
@@ -22,15 +22,16 @@
         <!-- Title -->
         <title>SolvePy</title>
     </head>
+    <!-- End of Header -->
 
-    <!-- Body -->
+    <!-- Start of Body -->
     <body class="user-select-none">
-        <!-- Grid -->
+        <!-- Start of Grid -->
         <div class="container">
             <!-- Start of Navigation Bar -->
             <div class="row d-flex justify-content-between align-items-center">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-                    <!-- Start of Header -->
+                    <!-- Start of Navbar Header -->
                     <div class="navbar-brand">
                         <!-- Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
@@ -39,37 +40,40 @@
                         
                         <!-- Header -->
                         <small class="align-self-center">&nbsp;SolvePy&nbsp;</small>
-
+                        
                         <!-- Hamburger Menu -->
                         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#webpages" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
-                    <!-- End of Header -->
+                    <!-- End of Navbar Header -->
 
-                    <!-- Start of Navigation Bar -->
+                    <!-- Start of Navbar Pages -->
                     <div class="collapse navbar-collapse" id="webpages">
                         <ul class="navbar-nav mr-auto">
                             {% block pages %}
                             {% endblock %}
                         </ul>
                     </div>
-                    <!-- End of Navigation Bar -->
+                    <!-- End of Navbar Pages -->
 
-                    <!-- Start of Portal Button -->
+                    <!-- Start of Home Button -->
                     <button class="btn btn-outline-light my-2 my-sm-0" type="button">Go Back</button>
-                    <!-- End of Portal Button -->
+                    <!-- End of Home Button -->
                 </nav>
             </div> <br /> <br /> <br /> <br /> <br />
             <!-- End of Navigation Bar -->
-
-            <!-- Start of Body -->
+            
+            <!-- Start of Body Block -->
             {% block body %}
             {% endblock %}
-            <!-- End of Body -->
+            <!-- End of Body Block -->
         </div>
-
-        <!-- Bootstrap (JS) -->
+        <!-- End of Grid -->
+        
+        <!-- Start of Bootstrap (JS Script) -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <!-- End of Bootstrap (JS Script) -->
     </body>
+    <!-- End of Body -->
 </html>

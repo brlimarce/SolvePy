@@ -1,0 +1,118 @@
+{% extends "layouts/layout.html" %}
+
+<!-- Navigation Bar -->
+{% block pages %}
+    {% block inner_pages %}
+    {% endblock %}
+{% endblock %}
+
+<!-- Body -->
+{% block body %}
+    <!-- Start of Header -->
+    <div class="row">
+        <div class="col-12">
+            <small class="text-secondary text-uppercase">
+                {% block subtitle %}
+                {% endblock %}
+            </small>
+
+            <h1 class="text-primary">
+                {% block title %}
+                {% endblock %}
+            </h1>
+        </div>
+    </div> <br />
+    <!-- End of Header -->
+
+    <!-- Start of Tutorial Card -->
+    <div class="row">
+        <div class="col-12 card">
+            <!-- Start of Card Header -->
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="faq-tabs" role="tablist">
+                    <!-- Start of Header Items -->
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="first-tab" data-bs-toggle="tab" data-bs-target="#first" type="button" role="tab" aria-controls="first" aria-selected="true">
+                            {% block first_tab_name %}
+                            {% endblock %}
+                        </button>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="second-tab" data-bs-toggle="tab" data-bs-target="#second" type="button" role="tab" aria-controls="second" aria-selected="true">
+                            {% block second_tab_name %}
+                            {% endblock %}
+                        </button>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="third-tab" data-bs-toggle="tab" data-bs-target="#third" type="button" role="tab" aria-controls="third" aria-selected="true">
+                            {% block third_tab_name %}
+                            {% endblock %}
+                        </button>
+                    </li>
+                    <!-- End of Header Items -->
+                </ul>
+            </div>
+            <!-- End of Card Header -->
+
+            <!-- Start of Card Body -->
+            <div class="card-body tab-content" id="item-content">
+                <!-- Start of First Tab -->
+                <div class="tab-pane fade show active" id="first" role="tabpanel" aria-labelledby="first-tab">
+                    <!-- Header -->
+                    <br /> <h5>
+                        {% block first_tab_header %}
+                        {% endblock %}
+                    </h5>
+
+                    <!-- Content -->
+                    <p>
+                        {% block first_tab_body %}
+                        {% endblock %}
+                    </p>
+                </div>
+                <!-- End of First Tab -->
+
+                <!-- Start of Second Tab -->
+                <div class="tab-pane fade show" id="second" role="tabpanel" aria-labelledby="second-tab">
+                    <!-- Header -->
+                    <br /> <h5>
+                        {% block second_tab_header %}
+                        {% endblock %}
+                    </h5>
+
+                    <!-- Content -->
+                    <p>
+                        {% block second_tab_body %}
+                        {% endblock %}
+                    </p>
+                </div>
+                <!-- End of Second Tab -->
+
+                <!-- Start of Third Tab -->
+                <div class="tab-pane fade show" id="third" role="tabpanel" aria-labelledby="third-tab">
+                    <!-- Header -->
+                    <br /> <h5>
+                        {% block third_tab_header %}
+                        {% endblock %}
+                    </h5>
+
+                    <!-- Content -->
+                    <p>
+                        {% block third_tab_body %}
+                        {% endblock %}
+                    </p>
+                </div>
+                <!-- End of Third Tab -->
+            </div>
+            <!-- End of Card Body -->
+        </div>
+    </div> <br /> <br />
+    <!-- End of Tutorial Card -->
+
+    <!-- Start of Body -->
+    {% block inner_body %}
+    {% endblock %}
+    <!-- End of Body -->
+{% endblock %}

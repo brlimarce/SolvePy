@@ -1,70 +1,89 @@
-{% extends "layout.html" %}
+{% extends "layouts/inner_header.html" %}
 
-<!-- Navigation Bar -->
-{% block pages %}
+<!-- Start of Navigation Bar -->
+{% block inner_pages %}
     <li class="nav-item">
         <a class="nav-link active">QSI</a>
     </li>
+
     <li class="nav-item">
         <a class="nav-link" href="/solve/simplex">Simplex</a>
     </li>
+
     <li class="nav-item">
         <a class="nav-link" href="/about">About</a>
     </li>
 {% endblock %}
+<!-- End of Navigation Bar -->
 
-<!-- Body -->
-{% block body %}
-    <!-- Start of Header -->
-    <div class="row">
-        <div class="col-12">
-            <small class="text-secondary text-uppercase">Generic Solver</small>
-            <h1 class="fw-bold text-primary">Quadratic Spline Interpolation</h1>
-        </div>
-    </div> <br />
-    <!-- End of Header -->
-
-    <!-- Start of Tutorial Card -->
-    <div class="row">
-        <div class="col-12 card">
-            <!-- Header (Tabs) -->
-            <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs" id="faq-tabs" role="tablist">
-                    <!-- Header (Items) -->
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="tutorial-tab" data-bs-toggle="tab" data-bs-target="#tutorial" type="button" role="tab" aria-controls="tutorial" aria-selected="true">Tutorial</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="input-tab" data-bs-toggle="tab" data-bs-target="#input" type="button" role="tab" aria-controls="input" aria-selected="true">Input</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="output-tab" data-bs-toggle="tab" data-bs-target="#output" type="button" role="tab" aria-controls="output" aria-selected="true">Output</button>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Body -->
-            <div class="card-body tab-content" id="item-content">
-                <div class="tab-pane fade show active" id="tutorial" role="tabpanel" aria-labelledby="tutorial-tab">
-                    <!-- Header -->
-                    <br />
-                    <h5 class="fw-bold">How do I use this solver?</h4>
-
-                    <!-- Content -->
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet sed diam nulla id etiam nisl mattis lectus suscipit. Vel id leo facilisi et convallis. Egestas convallis leo tristique adipiscing pharetra amet. At tempor ornare blandit aliquam et egestas etiam faucibus tortor. Neque nisi consectetur parturient nulla egestas. Egestas lacus, augue pretium scelerisque feugiat orci, at. Metus vulputate massa ultrices tellus dui molestie in fermentum purus. Nunc ipsum tincidunt eleifend amet id fringilla accumsan dictum urna. Senectus dui pellentesque cras ante pellentesque eget mauris potenti dapibus. Eu ornare eu accumsan eget dictumst habitant platea est purus. Lorem pulvinar purus fames amet porttitor amet blandit quis.
-                    </p>
-                </div>
-
-                <div class="tab-pane fade show" id="input" role="tabpanel" aria-labelledby="input-tab">
-                    This is the input tab.
-                </div>
-
-                <div class="tab-pane fade show" id="output" role="tabpanel" aria-labelledby="output-tab">
-                    This is the output tab.
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End of Tutorial Card -->
+<!-- Start of Header -->
+{% block subtitle %}
+    Generic Solver
 {% endblock %}
+
+{% block title %}
+    Quadratic Spline Interpolation
+{% endblock %}
+<!-- End of Header -->
+
+<!-- Start of Tab Names -->
+{% block first_tab_name %}
+    Tutorial
+{% endblock %}
+
+{% block second_tab_name %}
+    Input
+{% endblock %}
+
+{% block third_tab_name %}
+    Output
+{% endblock %}
+<!-- End of Tab Names -->
+
+<!-- Start of Tab Headers -->
+{% block first_tab_header %}
+    How do I use this solver? 🤔
+{% endblock %}
+
+{% block second_tab_header %}
+    What should I input? ⚙️
+{% endblock %}
+
+{% block third_tab_header %}
+    What should I receive? ✨
+{% endblock %}
+<!-- End of Tab Header -->
+
+<!-- Start of Tab Bodies -->
+{% block first_tab_body %}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.
+{% endblock %}
+
+{% block second_tab_body %}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.
+{% endblock %}
+
+{% block third_tab_body %}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.
+{% endblock %}
+<!-- End of Tab Bodies -->
+
+<!-- Start of Body -->
+{% block inner_body %}
+    <!-- Start of Form -->
+    <form class="form-floating">
+        <!-- X Values -->
+        <div class="mb-3 row">
+            <!-- Label -->
+            <label for="xval" class="col-sm-1 col-form-label fw-bold">X Values</label>
+
+            <!-- Input Text -->
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="xval" />
+                <div id="xhelp" class="form-text">Enter values separated by a comma.</div>
+            </div>
+        </div>
+    </form>
+    <!-- End of Form -->
+{% endblock %}
+<!-- End of Body -->
