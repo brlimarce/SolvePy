@@ -1,4 +1,4 @@
-{% extends "layouts/inner_header.html" %}
+{% extends "layouts/inner_layout.html" %}
 
 <!-- Start of Navigation Bar -->
 {% block pages %}
@@ -72,30 +72,52 @@
 {% block inner_body %}
     <!-- Start of Form -->
     <form class="form-floating">
-        <div class="mb-3 row">
-            <!-- Start of X Values -->
-            <!-- Label -->
-            <label for="xval" class="col-sm-1 col-form-label fw-bold">X Values</label>
-
-            <!-- Input Text -->
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="xval" placeholder="i.e. 1,2,3,4,5" />
-                <div id="xhelp" class="form-text">Enter values separated by a comma.</div>
+        <div class="row">
+            <!-- Start of X-Values -->
+            <div class="col-6">
+                <label for="xval" class="form-label fw-bold">X Values</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="xval" placeholder="i.e. 1,2,3,4,5" aria-label="X Values" aria-describedby="xhelp" />
+                    <span class="input-group-text" id="xhelp">?</span>
+                </div>
+                <small id="xmsg" class="form-text text-muted">Enter numerical values separated by commas.</small>
             </div>
-            <!-- End of X Values -->
+            <!-- End of X-Values -->
 
-            <!-- Start of Y Values -->
-            <!-- Label -->
-            <label for="uval" class="col-sm-1 col-form-label fw-bold">Y Values</label>
-            
-            <!-- Input Text -->
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="yval" placeholder="i.e. 1,2,3,4,5" />
-                <div id="yhelp" class="form-text">Enter values separated by a comma.</div>
+            <!-- Start of Y-Values -->
+            <div class="col-6">
+                <label for="yval" class="form-label fw-bold">Y Values</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="yval" placeholder="i.e. 1,2,3,4,5" aria-label="Y Values" aria-describedby="yhelp" />
+                    <span class="input-group-text" id="yhelp">?</span>
+                </div>
+                <small id="ymsg" class="form-text text-muted">Enter numerical values separated by commas.</small>
             </div>
-            <!-- End of Y Values -->
+            <!-- End of Y-Values -->
+        </div> <br />
+
+        <div class="row">
+            <!-- Start of Value -->
+            <div class="col-6">
+                <label for="val" class="form-label fw-bold">Value</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="val" placeholder="i.e. 1" aria-label="Value" aria-describedby="valhelp" />
+                    <span class="input-group-text" id="valhelp">?</span>
+                </div>
+                <small id="valmsg" class="form-text text-muted">Enter a number.</small>
+            </div>
+            <!-- End of Value -->
+        </div> <br /> <br />
+
+        <!-- Start of Buttons -->
+        <div class="row d-flex flex-row justify-content-around">
+            <div class="col-1"></div>
+            <button type="submit" class="btn btn-primary col-4">Display Output</button>
+            <div class="col-2"></div>
+            <button type="reset" class="btn btn-secondary col-4">Reset</button>
+            <div class="col-1"></div>
         </div>
+        <!-- End of Buttons -->
     </form>
     <!-- End of Form -->
 {% endblock %}
-<!-- End of Body -->
