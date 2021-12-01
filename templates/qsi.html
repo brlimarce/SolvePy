@@ -76,8 +76,8 @@
     <form>
         <div class="row">
             <!-- Start of X-Values -->
-            <div class="col-6">
-                <label for="xval" class="form-label fw-bold">X Values</label>
+            <label for="xval" class="form-label fw-bold col-1">X Values</label>
+            <div class="col-5">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="xval" placeholder="i.e. 1,2,3,4,5" aria-label="X Values" aria-describedby="xhelp" />
                     <span class="input-group-text" id="xhelp">?</span>
@@ -87,8 +87,8 @@
             <!-- End of X-Values -->
 
             <!-- Start of Y-Values -->
-            <div class="col-6">
-                <label for="yval" class="form-label fw-bold">Y Values</label>
+            <label for="yval" class="form-label fw-bold col-1">Y Values</label>
+            <div class="col-5">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="yval" placeholder="i.e. 1,2,3,4,5" aria-label="Y Values" aria-describedby="yhelp" />
                     <span class="input-group-text" id="yhelp">?</span>
@@ -96,12 +96,12 @@
                 <small id="ymsg" class="form-text text-muted">Enter numerical values separated by commas.</small>
             </div>
             <!-- End of Y-Values -->
-        </div> <br />
+        </div> <br /> <br />
 
         <div class="row">
             <!-- Start of Value -->
-            <div class="col-6">
-                <label for="val" class="form-label fw-bold">Value</label>
+            <label for="val" class="form-label fw-bold col-1">Value</label>
+            <div class="col-5">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="val" placeholder="i.e. 1" aria-label="Value" aria-describedby="valhelp" />
                     <span class="input-group-text" id="valhelp">?</span>
@@ -109,15 +109,22 @@
                 <small id="valmsg" class="form-text text-muted">Enter a number.</small>
             </div>
             <!-- End of Value -->
-        </div> <br /> <br />
+        </div> <br /> <br /> <br />
 
         <!-- Start of Buttons -->
-        <div class="row d-flex flex-row justify-content-around">
-            <div class="col-1"></div>
-            <button type="submit" class="btn btn-primary col-4">Display Output</button>
-            <div class="col-2"></div>
-            <button type="reset" class="btn btn-secondary col-4">Reset</button>
-            <div class="col-1"></div>
+        <div class="row col-12">
+            <!-- Divider -->
+            <div class="col-4"></div>
+
+            <!-- Start of Button Container -->
+            <div class="d-flex flex-row justify-content-around col-3">
+                <button type="submit" class="btn btn-primary">Display Output</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+            <!-- End of Button Container -->
+
+            <!-- Divider -->
+            <div class="col-4"></div>
         </div>
         <!-- End of Buttons -->
     </form>
