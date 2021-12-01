@@ -1,0 +1,158 @@
+<!-- ** Simplex
+    | This serves as the web page for the
+    | generic solver using Simplex method.
+-->
+{% extends "layouts/sublayout.html" %}
+
+<!-- Start of Navbar -->
+{% block pages %}
+    <li class="nav-item">
+        <a class="nav-link" href="/solve/qsi">QSI</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active">Simplex</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
+    </li>
+{% endblock %}
+<!-- End of Navbar -->
+
+<!-- Start of Header -->
+{% block subtitle %}
+    Generic Solver
+{% endblock %}
+
+{% block title %}
+    Simplex Method
+{% endblock %}
+<!-- End of Header -->
+
+<!-- Start of Tab Names -->
+{% block first_tab_name %}
+    Tutorial
+{% endblock %}
+
+{% block second_tab_name %}
+    Problem
+{% endblock %}
+
+{% block third_tab_name %}
+    Legend
+{% endblock %}
+<!-- End of Tab Names -->
+
+<!-- Start of Tab Headers -->
+{% block first_tab_header %}
+    How do I use this solver? 🤔
+{% endblock %}
+
+{% block second_tab_header %}
+    What should I input? ⚙️
+{% endblock %}
+
+{% block third_tab_header %}
+    What should I receive? ✨
+{% endblock %}
+<!-- End of Tab Headers -->
+
+<!-- Start of Tab Bodies -->
+{% block first_tab_body %}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.
+{% endblock %}
+
+{% block second_tab_body %}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.
+{% endblock %}
+
+{% block third_tab_body %}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.
+{% endblock %}
+<!-- End of Tab Bodies -->
+
+<!-- Start of Nested Body -->
+{% block subbody %}
+    <!-- Start of Form -->
+    <form>
+        <!-- Start of Demand Table -->
+        <table class="table table-borderless">
+            <!-- Start of Header -->
+            <thead class="bg-light text-center text-secondary">
+                <tr>
+                    <th scope="col"></th>
+                    {% for _ in range(1, 6) %}
+                        <th scope="col">W{{_}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <!-- End of Header -->
+
+            <!-- Start of Body -->
+            <tbody>
+                <tr>
+                    <th scope="row" class="text-secondary">Demands</th>
+                    {% for _ in range(1, 6) %}
+                        <td>
+                            <input type="text" class="form-control" id="w{{_}}" aria-label="Warehouse {{_}}" aria-describedby="w{{_}}" />
+                        </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+            <!-- End of Body -->
+        </table>
+        <!-- End of Demand Table -->
+
+        <!-- Start of Supply Table -->
+        <table class="table">
+            <!-- Start of Header -->
+            <thead class="bg-light text-center text-secondary">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Supply</th>
+                    {% for _ in range(1, 6) %}
+                        <th scope="col">Cost for W{{_}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <!-- End of Header -->
+
+            <!-- Start of Body -->
+            <tbody>
+                {% for i in range(1, 4) %}
+                    <tr>
+                        <th scope="row" class="text-secondary">P{{i}}</th>
+                        <td>
+                            <input type="text" class="form-control" id="s{{i}}" aria-label="Supply for Warehouse {{i}}" aria-describedby="s{{i}}" />
+                        </td>
+                        {% for j in range(1, 6) %}
+                            <td>
+                                <input type="text" class="form-control" id="p{{i}}c{{j}}" aria-label="Cost for Warehouse {{j}}" aria-describedby="p{{i}}c{{j}}" />
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <!-- End of Body -->
+        </table> <br /> <br /> <br />
+        <!-- End of Supply Table -->
+
+        <!-- Start of Buttons -->
+        <div class="row col-12">
+            <!-- Divider -->
+            <div class="col-4"></div>
+
+            <!-- Start of Button Container -->
+            <div class="d-flex flex-row justify-content-around col-3">
+                <button type="submit" class="btn btn-primary">Display Output</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+            <!-- End of Button Container -->
+
+            <!-- Divider -->
+            <div class="col-4"></div>
+        </div>
+        <!-- End of Buttons -->
+    </form>
+    <!-- End of Form -->
+{% endblock %}
+<!-- End of Nested Body -->
