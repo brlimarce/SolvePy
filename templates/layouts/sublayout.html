@@ -28,9 +28,11 @@
         <!-- Start of Web Pages -->
         <div class="collapse navbar-collapse" id="webpages">
             <ul class="navbar-nav mr-auto">
-                <!-- Pages in List Items -->
-                {% block pages %}
-                {% endblock %}
+                {% for k in pages.keys() %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if page == k %} active {% endif %}" {% if page != k %} href="{{ (pages[k])['route'] }}" {% endif %}>{{ (pages[k])['name'] }}</a>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
         <!-- End of Web Pages -->
@@ -69,70 +71,25 @@
             <!-- Start of Card Header -->
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs" id="faq-tabs" role="tablist">
-                    <!-- Start of List Items -->
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="first-tab" data-bs-toggle="tab" data-bs-target="#first" type="button" role="tab" aria-controls="first" aria-selected="true">
-                            {% block first_tab_name %}
-                            {% endblock %}
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="second-tab" data-bs-toggle="tab" data-bs-target="#second" type="button" role="tab" aria-controls="second" aria-selected="true">
-                            {% block second_tab_name %}
-                            {% endblock %}
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="third-tab" data-bs-toggle="tab" data-bs-target="#third" type="button" role="tab" aria-controls="third" aria-selected="true">
-                            {% block third_tab_name %}
-                            {% endblock %}
-                        </button>
-                    </li>
-                    <!-- End of List Items -->
+                    {% for _ in range(0, tabs|length) %}
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {% if _ == 0 %} active {% endif %} text-capitalize" id="{{ (tabs[_])['name'] }}" data-bs-toggle="tab" data-bs-target="#{{ (tabs[_])['name'] }}-tab" type="button" role="tab" aria-controls="{{ (tabs[_])['name'] }}" aria-selected="true">
+                                {{ (tabs[_])['name'] }}
+                            </button>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
             <!-- End of Card Header -->
 
             <!-- Start of Card Body -->
             <div class="card-body tab-content" id="item-content">
-                <!-- Start of First Tab -->
-                <div class="tab-pane fade show active" id="first" role="tabpanel" aria-labelledby="first-tab">
-                    <br /> <h5>
-                        {% block first_tab_header %}
-                        {% endblock %}
-                    </h5>
-                    <p>
-                        {% block first_tab_body %}
-                        {% endblock %}
-                    </p>
-                </div>
-                <!-- End of First Tab -->
-
-                <!-- Start of Second Tab -->
-                <div class="tab-pane fade show" id="second" role="tabpanel" aria-labelledby="second-tab">
-                    <br /> <h5>
-                        {% block second_tab_header %}
-                        {% endblock %}
-                    </h5>
-                    <p>
-                        {% block second_tab_body %}
-                        {% endblock %}
-                    </p>
-                </div>
-                <!-- End of Second Tab -->
-
-                <!-- Start of Third Tab -->
-                <div class="tab-pane fade show" id="third" role="tabpanel" aria-labelledby="third-tab">
-                    <br /> <h5>
-                        {% block third_tab_header %}
-                        {% endblock %}
-                    </h5>
-                    <p>
-                        {% block third_tab_body %}
-                        {% endblock %}
-                    </p>
-                </div>
-                <!-- End of Third Tab -->
+                {% for _ in range(0, tabs|length) %}
+                    <div class="tab-pane fade show {% if _ == 0 %} active {% endif %}" id="{{ (tabs[_])['name'] }}-tab" role="tabpanel" aria-labelledby="{{ (tabs[_])['name'] }}">
+                        <br /><h5>{{ (tabs[_])['header'] }}</h5>
+                        <p>{{ (tabs[_])['body'] }}</p>
+                    </div>
+                {% endfor %}
             </div>
             <!-- End of Card Body -->
         </div>
