@@ -16,42 +16,18 @@
 
 <!-- Start of Nested Body -->
 {% block subbody %}
+    <!-- Start of Information Cards -->
     <div class="row">
-        <!-- Start of About Me -->
-        <div class="card col-4">
-            <img src="https://designshack.net/wp-content/uploads/placeholder-image-368x247.png" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of the card's content.
-                </p>
+        {% for _ in range(0, information|length) %}
+            <div class="card col-4">
+                <img src="https://designshack.net/wp-content/uploads/placeholder-image-368x247.png" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ (information[_])['header'] }}</h5>
+                    <p class="card-text">{{ (information[_])['body'] }}</p>
+                </div>
             </div>
-        </div>
-        <!-- End of About Me -->
-
-        <!-- Start of Technologies Used -->
-        <div class="card col-4">
-            <img src="https://designshack.net/wp-content/uploads/placeholder-image-368x247.png" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of the card's content.
-                </p>
-            </div>
-        </div>
-        <!-- End of Technologies Used -->
-
-        <!-- Start of Dedication -->
-        <div class="card col-4">
-            <img src="https://designshack.net/wp-content/uploads/placeholder-image-368x247.png" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of the card's content.
-                </p>
-            </div>
-        </div>
-        <!-- End of Dedication -->
+        {% endfor %}
     </div>
+    <!-- End of Information Cards -->
 {% endblock %}
 <!-- End of Nested Body -->

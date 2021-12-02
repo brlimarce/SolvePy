@@ -19,7 +19,7 @@
     <!-- Start of Form -->
     <form>
         <!-- Start of Demand Table -->
-        <table class="table table-borderless">
+        <table class="table table-borderless mb-5">
             <!-- Start of Header -->
             <thead class="bg-light text-center text-secondary">
                 <tr>
@@ -34,7 +34,7 @@
             <!-- Start of Body -->
             <tbody>
                 <tr>
-                    <th scope="row">Demands</th>
+                    <th scope="row">Demand</th>
                     {% for _ in range(1, 6) %}
                         <td>
                             <input type="text" class="form-control" id="w{{ _ }}" aria-label="Warehouse {{ _ }}" aria-describedby="w{{ _ }}" />
@@ -54,7 +54,7 @@
                     <th scope="col"></th>
                     <th scope="col">Supply</th>
                     {% for _ in range(1, 6) %}
-                        <th scope="col">Cost for W{{ _ }}</th>
+                        <th scope="col">CW{{ _ }}</th>
                     {% endfor %}
                 </tr>
             </thead>
@@ -80,9 +80,9 @@
         </table> <br />
         <!-- End of Supply Table -->
 
-        <div class="row">
+        <div class="row mb-5">
             <!-- Start of Method Type -->
-            <div class="col-3">
+            <div class="col-6">
                 <h6 class="text-primary mb-3">Type of Method</h6>
                 {% for _ in ['Maximization', 'Minimization']%}
                     <div class="input-group mb-3">
@@ -98,7 +98,7 @@
             <!-- End of Method Type -->
 
             <!-- Start of Options -->
-            <div class="col-3">
+            <div class="col-6">
                 <h6 class="text-primary mb-3">Options</h6>
                     <!-- Initial Tableau -->
                     <div class="input-group mb-3">
@@ -121,24 +121,16 @@
                     </div>
             </div>
             <!-- End of Options -->
-        </div> <br /> <br /> <br />
+        </div>
 
-        <!-- Start of Buttons -->
-        <div class="row col-12">
-            <!-- Divider -->
-            <div class="col-4"></div>
-
-            <!-- Start of Button Container -->
-            <div class="d-flex flex-row justify-content-around col-3">
-                <button type="submit" class="btn btn-primary">Display Output</button>
+        <!-- Start of Button Container -->
+        <div class="row">
+            <div class="d-flex flex-row">
+                <button type="submit" class="btn btn-primary">Display Output</button> &nbsp;
                 <button type="reset" class="btn btn-secondary">Reset</button>
             </div>
-            <!-- End of Button Container -->
-
-            <!-- Divider -->
-            <div class="col-4"></div>
         </div>
-        <!-- End of Buttons -->
+        <!-- End of Button Container -->
     </form>
     <!-- End of Form -->
 {% endblock %}
