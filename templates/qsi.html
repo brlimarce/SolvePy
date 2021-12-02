@@ -20,8 +20,8 @@
     <form>
         <div class="row mb-4">
             <!-- Start of X-Values -->
-            <div class="col-6">
-                <label for="xval" class="form-label fw-bold">X Values</label>
+            <label for="xval" class="form-label fw-bold col-1">X Values</label>
+            <div class="col-5">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="xval" placeholder="i.e. 1,2,3,4,5" aria-label="X Values" aria-describedby="xhelp" />
                     <button type="button" class="input-group-text fw-bold text-secondary" id="xhelp">?</button>
@@ -31,8 +31,8 @@
             <!-- End of X-Values -->
 
             <!-- Start of Y-Values -->
-            <div class="col-6">
-                <label for="yval" class="form-label fw-bold">Y Values</label>
+            <label for="yval" class="form-label fw-bold col-1">Y Values</label>
+            <div class="col-5">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="yval" placeholder="i.e. 1,2,3,4,5" aria-label="Y Values" aria-describedby="yhelp" />
                     <button type="button" class="input-group-text fw-bold text-secondary" id="yhelp">?</button>
@@ -44,8 +44,8 @@
 
         <div class="row mb-5">
             <!-- Start of Value -->
-            <label for="val" class="form-label fw-bold">Value</label>
-            <div class="col-6">
+            <label for="val" class="form-label fw-bold col-1">Value</label>
+            <div class="col-5">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="val" placeholder="i.e. 1" aria-label="Value" aria-describedby="valhelp" />
                     <button type="button" class="input-group-text fw-bold text-secondary" id="valhelp">?</button>
@@ -65,6 +65,81 @@
         <!-- End of Button Container -->
     </form>
     <!-- End of Form -->
+
+    <!-- Start of Output -->
+    <div id="output" class="d-none">
+        <!-- Divider -->
+        <br /> <hr />
+
+        <!-- Start of Tables -->
+        <div class="row mt-5">
+            <!-- Start of Polynomials -->
+            <div class="col-6">
+                <!-- Header -->
+                <h4 class="text-primary">Polynomials</h4>
+                <p class="text-secondary">Below are the polynomials along with its corresponding interval.</p>
+                
+                <!-- Table -->
+                <table class="table table-striped table-borderless">
+                    <!-- Start of Header -->
+                    <thead class="text-center">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Polynomial</th>
+                            <th scope="col">Interval</th>
+                        </tr>
+                    </thead>
+                    <!-- End of Header -->
+
+                    <!-- Start of Body -->
+                    <tbody class="text-center">
+                        {% for _ in range(1, 4) %}
+                            <tr>
+                                <th scope="row">{{ _ }}</th>
+                                <td>3x² + 4x + 5</td>
+                                <td>4 &#60;= x &#60;= 3</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <!-- End of Body -->
+                </table>
+            </div>
+            <!-- End of Polynomials -->
+
+            <!-- Start of Approximate -->
+            <div class="col-6">
+                <!-- Header -->
+                <h4 class="text-primary">Approximate</h4>
+                <p class="text-secondary">Below is the approximate value of f(x) based on the interval.</p>
+                
+                <!-- Table -->
+                <table class="table table-striped table-borderless">
+                    <!-- Start of Header -->
+                    <thead class="text-center">
+                        <tr>
+                            <th scope="col">Interval</th>
+                            <th scope="col">Polynomial</th>
+                            <th scope="col">Approximate Value</th>
+                        </tr>
+                    </thead>
+                    <!-- End of Header -->
+
+                    <!-- Start of Body -->
+                    <tbody class="text-center">
+                        <tr>
+                            <td scope="row">4 &#60;= x &#60;= 3</td>
+                            <td>3x² + 4x + 5</td>
+                            <td>20</td>
+                        </tr>
+                    </tbody>
+                    <!-- End of Body -->
+                </table>
+            </div>
+            <!-- End of Approximate -->
+        </div>
+        <!-- End of Tables -->
+    </div>
+    <!-- End of Output -->
 
     <!-- Start of Popover Script -->
     <script>

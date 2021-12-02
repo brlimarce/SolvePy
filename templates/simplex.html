@@ -120,6 +120,52 @@
     <!-- End of Form -->
 
     <!-- Start of Output -->
+    <div id="output" class="d-none">
+        <!-- Divider -->
+        <br /> <hr />
+
+        <!-- Start of Optimal Value -->
+        <div class="card mt-5">
+            <!-- Header -->
+            <div class="card-header">
+                Optimal Value
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+                <h5 class="card-title text-success">PHP 5,000.00</h5>
+                <p class="card-text">Therefore, the company can reap this amount as the maximum profit if they shipped 500 items to 3 plants.</p>
+            </div>
+        </div>
+        <!-- End of Optimal Value -->
+
+        <!-- Start of Basic Solution -->
+        <table class="table table-striped table-borderless">
+            <!-- Start of Header -->
+            <thead class="text-center">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Polynomial</th>
+                    <th scope="col">Interval</th>
+                </tr>
+            </thead>
+            <!-- End of Header -->
+
+            <!-- Start of Body -->
+            <h4 class="text-primary mt-5">Basic Solution</h4>
+            <p class="text-secondary">Below is the basic solution based on your data.</p>
+
+            <tbody class="text-center">
+                <tr>
+                    <th scope="row">Plant 1</th>
+                    <td>3x² + 4x + 5</td>
+                    <td>4 &#60;= x &#60;= 3</td>
+                </tr>
+            </tbody>
+            <!-- End of Body -->
+        </table>
+        <!-- End of Basic Solution -->
+    </div>
     <!-- End of Output -->
 {% endblock %}
 <!-- End of Nested Body -->
