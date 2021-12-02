@@ -21,7 +21,7 @@
         <!-- Start of Demand Table -->
         <table class="table table-borderless mb-5">
             <!-- Start of Header -->
-            <thead class="bg-light text-center text-secondary">
+            <thead class="bg-light text-center text-primary">
                 <tr>
                     <th scope="col"></th>
                     {% for _ in range(1, 6) %}
@@ -49,7 +49,7 @@
         <!-- Start of Supply Table -->
         <table class="table table-borderless">
             <!-- Start of Header -->
-            <thead class="bg-light text-center text-secondary">
+            <thead class="bg-light text-center text-primary">
                 <tr>
                     <th scope="col"></th>
                     <th scope="col">Supply</th>
@@ -80,18 +80,16 @@
         </table> <br />
         <!-- End of Supply Table -->
 
-        <div class="row mb-5">
+        <div class="row col-6 mb-5">
             <!-- Start of Method Type -->
             <div class="col-6">
-                <h6 class="text-primary mb-3">Type of Method</h6>
-                {% for _ in ['Maximization', 'Minimization']%}
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                &nbsp;<input type="radio" aria-label="Method Selector">&nbsp;
-                            </div>
-                        </div>
-                        <input type="text" class="form-control bg-light" aria-label="Method Label" placeholder={{ _ }} disabled>
+                <h5 class="mb-3"><span class="badge bg-primary">Type of Method</span></h5>
+                {% for _ in ['maximization', 'minimization'] %}
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="method" id="{{ _ }}">
+                        <label class="form-check-label text-capitalize" for="{{ _ }}">
+                            {{ _ }}
+                        </label>
                     </div>
                 {% endfor %}
             </div>
@@ -99,26 +97,13 @@
 
             <!-- Start of Options -->
             <div class="col-6">
-                <h6 class="text-primary mb-3">Options</h6>
-                    <!-- Initial Tableau -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                &nbsp;<input type="checkbox" aria-label="Option Selector">&nbsp;
-                            </div>
-                        </div>
-                        <input type="text" class="form-control bg-light" aria-label="Option Label" placeholder="Display Initial Tableau" disabled>
+                <h5 class="mb-3"><span class="badge bg-primary">Options</span></h5>
+                {% for k, v in options.items() %}
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" value="" id="{{ k }}">
+                        <label class="form-check-label" for="{{ k }}">{{ v }}</label>
                     </div>
-
-                    <!-- Number of Shipped Items -->
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                &nbsp;<input type="checkbox" aria-label="Option Selector">&nbsp;
-                            </div>
-                        </div>
-                        <input type="text" class="form-control bg-light" aria-label="Option Label" placeholder="Get Number of Shipped Items" disabled>
-                    </div>
+                {% endfor %}
             </div>
             <!-- End of Options -->
         </div>
@@ -133,5 +118,8 @@
         <!-- End of Button Container -->
     </form>
     <!-- End of Form -->
+
+    <!-- Start of Output -->
+    <!-- End of Output -->
 {% endblock %}
 <!-- End of Nested Body -->

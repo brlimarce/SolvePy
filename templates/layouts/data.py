@@ -114,3 +114,9 @@ about_data = [
         'body' : 'Some quick example text to build on the card title and make up the bulk of the cards content.'
     }
 ]
+
+# ** Options for Simplex
+simplex_options = {
+    'tableau' : 'Display Initial Tableau',
+    'shipped' : 'Get Number of Shipped Items'
+}
