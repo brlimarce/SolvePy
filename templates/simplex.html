@@ -24,8 +24,8 @@
             <thead class="bg-light text-center">
                 <tr>
                     <th scope="col"></th>
-                    {% for _ in range(1, 6) %}
-                        <th scope="col">W{{ _ }}</th>
+                    {% for k, v in warehouses.items() %}
+                        <th scope="col">{{ v }} <span class="text-primary">({{ k }})</span></th>
                     {% endfor %}
                 </tr>
             </thead>
@@ -53,8 +53,8 @@
                 <tr>
                     <th scope="col"></th>
                     <th scope="col">Supply</th>
-                    {% for _ in range(1, 6) %}
-                        <th scope="col">CW{{ _ }}</th>
+                    {% for k in warehouses.keys() %}
+                        <th scope="col">Cost for {{ k }}</th>
                     {% endfor %}
                 </tr>
             </thead>
@@ -64,7 +64,7 @@
             <tbody>
                 {% for i in range(1, 4) %}
                     <tr>
-                        <th scope="row">P{{ i }}</th>
+                        <th scope="row">{{ (plants[i - 1])['name'] }}</th>
                         <td>
                             <input type="text" class="form-control" id="s{{ i }}" aria-label="Supply for Warehouse {{ i }}" aria-describedby="s{{ i }}" />
                         </td>

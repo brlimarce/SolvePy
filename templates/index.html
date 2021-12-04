@@ -1,5 +1,43 @@
 {% extends "layouts/layout.html" %}
 
 {% block body %}
-    <!-- Place the content here. -->
+    <!-- Start of Header -->
+    <div class="row text-primary mt-5">
+        <div class="d-flex flex-row">
+            <!-- Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
+                <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2z"/>
+            </svg>
+            
+            <!-- Header -->
+            <h3 class="align-self-center">&nbsp;&nbsp;SolvePy&nbsp;</h3>
+        </div>
+    </div>
+    <!-- End of Header -->
+
+    <!-- Start of Left Container -->
+    <div class="row mt-5">
+        <!-- Header -->
+        <div class="col-6">
+            <h1 class="text-primary">Let's get solving.</h1>
+            <p class="lead text-secondary">SolvePy is a generic solver for Quadratic Spline Interpolation and Simplex Method.</p>
+        </div>
+
+        <!-- Image -->
+        <div class="col-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+            </svg>
+        </div>
+    </div>
+    <!-- End of Left Container -->
+
+    <!-- Start of Button Container -->
+    <div class="row mt-4">
+        <div class="d-flex flex-row">
+            <a href="/solve/qsi" class="btn btn-outline-primary">Solve QSI</a> &nbsp;
+            <a href="/solve/simplex" class="btn btn-outline-secondary">Solve Simplex</a>
+        </div>
+    </div>
+    <!-- End of Button Container -->
 {% endblock %}

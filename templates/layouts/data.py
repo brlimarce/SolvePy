@@ -4,28 +4,32 @@
 | the data for the subpages.
 '''
 
-# ** Pages for the Navigation Bar
+'''
+** Navigation Bar
+| Key: First letter of the page
+| Values: Name and route of the page
+'''
 pages = {
-    # QSI
     'q' : {
         'name' : 'QSI',
         'route' : '/solve/qsi'
     },
 
-    # Simplex
     's' : {
         'name' : 'Simplex',
         'route' : '/solve/simplex'
     },
 
-    # About
     'a' : {
         'name' : 'About',
         'route' : '/about'
     }
 }
 
-# ** QSI
+'''
+** Tabs for QSI
+| Pairs: Name, header, and body of each tab
+'''
 qsi_tabs = [
     # Tutorial
     { 
@@ -49,7 +53,10 @@ qsi_tabs = [
     }
 ]
 
-# ** Simplex
+'''
+** Tabs for Simplex
+| Pairs: Name, header, and body of each tab
+'''
 simplex_tabs = [
     # Tutorial
     { 
@@ -73,7 +80,10 @@ simplex_tabs = [
     }
 ]
 
-# ** About
+'''
+** Tabs for About
+| Pairs: Name, header, and body of each tab
+'''
 about_tabs = [
     # Ideation
     { 
@@ -97,7 +107,10 @@ about_tabs = [
     }
 ]
 
-# ** Cards for the About Page
+'''
+** Tabs for About (Data)
+| Pairs: Header and body of each card
+'''
 about_data = [
     {
         'header': 'About Me',
@@ -115,7 +128,49 @@ about_data = [
     }
 ]
 
-# ** Options for Simplex
+'''
+** Plants
+| Key: Shortcut name of the plant
+| Value: Full name of the place
+'''
+plants = [
+    # Denver
+    {
+        'keyword' : 'DEN',
+        'name' : 'Denver'
+    },
+
+    # Phoenix
+    {
+        'keyword' : 'PHO',
+        'name' : 'Phoenix'
+    },
+
+    # Dallas
+    {
+        'keyword' : 'DAL',
+        'name' : 'Dallas'
+    }
+]
+
+'''
+** Warehouses
+| Key: Shortcut name of the warehouse
+| Value: Full name of the place
+'''
+warehouses = {
+    'SAC' : 'Sacramento',
+    'SL' : 'Salt Lake City',
+    'ALB' : 'Albuquerque',
+    'CHI' : 'Chicago',
+    'NYC' : 'New York City'
+}
+
+'''
+** Options for Simplex
+| Key: Keyword for the option
+| Value: Full name of the place
+'''
 simplex_options = {
     'tableau' : 'Display Initial Tableau',
     'shipped' : 'Get Number of Shipped Items'

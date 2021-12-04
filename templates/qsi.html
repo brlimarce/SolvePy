@@ -66,6 +66,16 @@
     </form>
     <!-- End of Form -->
 
+    <br /> <br />
+    <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+        Popover on top
+    </button>
+
+    <br />
+    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+        Tooltip on right
+    </button>
+
     <!-- Start of Output -->
     <div id="output" class="d-none">
         <!-- Divider -->
@@ -94,7 +104,7 @@
                     {% for _ in range(1, 4) %}
                         <tr>
                             <th scope="row">{{ _ }}</th>
-                            <td>3x² + 4x + 5</td>
+                            <td>3x^2 + 4x + 5</td>
                             <td>4 &#60;= x &#60;= 3</td>
                         </tr>
                     {% endfor %}
@@ -126,7 +136,7 @@
                 <tbody class="text-center">
                     <tr>
                         <td scope="row">4 &#60;= x &#60;= 3</td>
-                        <td>3x² + 4x + 5</td>
+                        <td>3x^2 + 4x + 5</td>
                         <td>20</td>
                     </tr>
                 </tbody>
@@ -136,10 +146,5 @@
         <!-- End of Approximate -->
     </div>
     <!-- End of Output -->
-
-    <!-- Start of Popover Script -->
-    <script>
-    </script>
-    <!-- End of Popover Script -->
 {% endblock %}
 <!-- End of Nested Body -->
