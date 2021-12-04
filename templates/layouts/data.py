@@ -9,9 +9,9 @@
 | This contains the information regarding
 | the pages of the navigation bar.
 - - -
-| ** key - Contain the page keyword.
-| ** name - Contain the display name in the navbar.
-| ** route - Contain the link of the page.
+| - key: Contain the page keyword.
+| - name: Contain the display name in the navbar.
+| - route: Contain the link of the page.
 '''
 pages = {
     'qsi' : {
@@ -35,9 +35,9 @@ pages = {
 | This contains the tab information in
 | the qsi page.
 - - -
-| ** name - Contain the name of the tab.
-| ** header - Contain the tab header.
-| ** body - Contain the tab's content.
+| - name: Contain the name of the tab.
+| - header: Contain the tab header.
+| - body: Contain the tab's content.
 '''
 tabs_qsi = [
     # ** Tutorial
@@ -67,9 +67,9 @@ tabs_qsi = [
 | This contains the tab information in
 | the simplex page.
 - - -
-| ** name - Contain the name of the tab.
-| ** header - Contain the tab header.
-| ** body - Contain the tab's content.
+| - name: Contain the name of the tab.
+| - header: Contain the tab header.
+| - body: Contain the tab's content.
 '''
 tabs_simplex = [
     # ** Tutorial
@@ -99,9 +99,9 @@ tabs_simplex = [
 | This contains the tab information in
 | the about page.
 - - -
-| ** name - Contain the name of the tab.
-| ** header - Contain the tab header.
-| ** body - Contain the tab's content.
+| - name: Contain the name of the tab.
+| - header: Contain the tab header.
+| - body: Contain the tab's content.
 '''
 tabs_about = [
     # ** Ideation
@@ -131,8 +131,8 @@ tabs_about = [
 | This contains the information in
 | the cards of the about page.
 - - -
-| ** header - Contain the card's header.
-| ** body - Contain the card's content.
+| - header: Contain the card's header.
+| - body: Contain the card's content.
 '''
 profile = [
     # ** About Me
@@ -159,8 +159,8 @@ profile = [
 | This contains information about the
 | plants in the problem.
 - - -
-| ** keyword - Contain the plant's acronym/keyword.
-| ** name - Contain the plant's city name.
+| - keyword: Contain the plant's acronym/keyword.
+| - name: Contain the plant's city name.
 '''
 plants = [
     # ** Denver, Colorado
@@ -187,8 +187,8 @@ plants = [
 | This contains the information about the
 | warehouses in the problem.
 - - -
-| ** key - Contain the warehouse's keyword.
-| ** value - Contain the warehouse's city name.
+| - key: Contain the warehouse's keyword.
+| - value: Contain the warehouse's city name.
 '''
 warehouses = {
     'SAC' : 'Sacramento',
@@ -203,8 +203,8 @@ warehouses = {
 | This contains options in displaying
 | specific information in the simplex page.
 - - -
-| ** key - Contain the option's keyword.
-| ** value - Contain the option's description.
+| - key: Contain the option's keyword.
+| - value: Contain the option's description.
 '''
 simplex_options = {
     'tableau' : 'Display Initial Tableau',
