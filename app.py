@@ -20,14 +20,14 @@ def index():
 # QSI Solver
 @app.route('/solve/qsi')
 def solve_qsi():
-    return render_template('qsi.html', pages = d.pages, page = 'q', tabs = d.qsi_tabs)
+    return render_template('qsi.html', pages = d.pages, page = 'qsi', tabs = d.tabs_qsi)
 
 # Simplex Solver
 @app.route('/solve/simplex')
 def solve_simplex():
-    return render_template('simplex.html', pages = d.pages, page = 's', tabs = d.simplex_tabs, options = d.simplex_options, plants = d.plants, warehouses = d.warehouses)
+    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, options = d.simplex_options, plants = d.plants, warehouses = d.warehouses)
 
 # About SolvePy
 @app.route('/about')
 def about():
-    return render_template('about.html', pages = d.pages, page = 'a', tabs = d.about_tabs, information = d.about_data)
+    return render_template('about.html', pages = d.pages, page = 'about', tabs = d.tabs_about, information = d.profile)
