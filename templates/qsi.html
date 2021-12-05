@@ -17,25 +17,24 @@
 <!-- Start of Nested Body -->
 {% block subbody %}
     <!-- Start of Form -->
-    <form>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
         <div class="row mb-4">
             <!-- Start of X-Values -->
-            <label for="xval" class="form-label fw-bold col-1">X Values</label>
+            {{ form.xval.label(class="form-label fw-bold col-1", text = "X Values") }}
             <div class="col-5">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="xval" placeholder="i.e. 1,2,3,4,5" aria-label="X Values" aria-describedby="xhelp" />
-                    <button type="button" class="input-group-text fw-bold text-secondary" id="xhelp">?</button>
+                    {{ form.xval(class = "form-control", placeholder = "i.e. 1, 2, 3, 4, 5") }}
                 </div>
                 <small id="xmsg" class="form-text text-muted">Enter numerical values separated by commas.</small>
             </div>
             <!-- End of X-Values -->
 
             <!-- Start of Y-Values -->
-            <label for="yval" class="form-label fw-bold col-1">Y Values</label>
+            {{ form.yval.label(class = "form-label fw-bold col-1", text = "Y Values") }}
             <div class="col-5">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="yval" placeholder="i.e. 1,2,3,4,5" aria-label="Y Values" aria-describedby="yhelp" />
-                    <button type="button" class="input-group-text fw-bold text-secondary" id="yhelp">?</button>
+                    {{ form.yval(class = "form-control", placeholder = "i.e. 1, 2, 3, 4, 5") }}
                 </div>
                 <small id="ymsg" class="form-text text-muted">Enter numerical values separated by commas.</small>
             </div>
@@ -44,11 +43,10 @@
 
         <div class="row mb-5">
             <!-- Start of Value -->
-            <label for="val" class="form-label fw-bold col-1">Value</label>
+            {{ form.val.label(class = "form-label fw-bold col-1", text = "Value") }}
             <div class="col-5">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="val" placeholder="i.e. 1" aria-label="Value" aria-describedby="valhelp" />
-                    <button type="button" class="input-group-text fw-bold text-secondary" id="valhelp">?</button>
+                    {{ form.val(class = "form-control", placeholder = "i.e. 1") }}
                 </div>
                 <small id="valmsg" class="form-text text-muted">Enter a number.</small>
             </div>
@@ -58,7 +56,7 @@
         <!-- Start of Button Container -->
         <div class="row">
             <div class="d-flex flex-row">
-                <button type="submit" class="btn btn-primary">Display Output</button> &nbsp;
+                {{ form.send(class = "btn btn-primary", value = "Display Output") }} &nbsp;
                 <button type="reset" class="btn btn-secondary">Reset</button>
             </div>
         </div>

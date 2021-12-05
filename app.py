@@ -2,11 +2,12 @@
 ** app
 | This runs the Flask application.
 '''
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from templates.layouts import data as d
+from api.scripts.forms import QSIForm
 
-# Redirect the application to this file.
-app = Flask(__name__)
+app = Flask(__name__) # Redirect the application to this file.
+app.config['SECRET_KEY'] = '2d0e13d09775d283668ef17a6f808894' # Generate the secret key in the form.
 
 '''
 ** routes
@@ -18,9 +19,10 @@ def index():
     return render_template('index.html', pages = d.pages)
 
 # QSI Solver
-@app.route('/solve/qsi')
+@app.route('/solve/qsi', methods = ['GET', 'POST'])
 def solve_qsi():
-    return render_template('qsi.html', pages = d.pages, page = 'qsi', tabs = d.tabs_qsi)
+    form = QSIForm()
+    return render_template('qsi.html', pages = d.pages, page = 'qsi', tabs = d.tabs_qsi, form = form)
 
 # Simplex Solver
 @app.route('/solve/simplex')
