@@ -63,7 +63,7 @@ def poly_qsi(xv, yv, x):
         if x >= xv[_] and x <= xv[_ + 1]:
             y = (solution[a] * (x ** 2)) + (solution[a + 1] * x) + solution[a + 2]
     # Return a dictionary (polynomials and y).
-    return { 'p' : polynomials, 'y' : y }
+    return { 'polynomials' : polynomials, 'y' : y }
 
 '''
 ** get_row
