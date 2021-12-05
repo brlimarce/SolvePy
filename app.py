@@ -15,7 +15,7 @@ app = Flask(__name__)
 # Home
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', pages = d.pages)
 
 # QSI Solver
 @app.route('/solve/qsi')

@@ -60,7 +60,7 @@ def simplex(tableau, is_max, problem):
     # Get the basic solution for maximization/minimization.
     if is_max:
         # The long line in the row index unlists the result, which is an array.
-        basic_solution = [tableau[(np.array(np.where(tableau[:, i] == 1), dtype = int)[0])[0], ncol - 1] if len((tableau[:, i])[tableau[:, i] == 1]) == 1 and len((tableau[:, i])[tableau[:, i] == 0]) == nrow - 1 else 0 for i in range(7, ncol - 1)]
+        basic_solution = [tableau[(np.array(np.where(tableau[:, i] == 1), dtype = int)[0])[0], ncol - 1] if len((tableau[:, i])[tableau[:, i] == 1]) == 1 and len((tableau[:, i])[tableau[:, i] == 0]) == nrow - 1 else 0 for i in range(8, ncol - 1)]
 
         # Store the number of shipped items.
         shipped_items = basic_solution[0:14]

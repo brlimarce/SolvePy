@@ -2,7 +2,7 @@
 
 {% block body %}
     <!-- Start of Header -->
-    <div class="row text-primary mt-5">
+    <div class="row text-primary mt-5 d-flex align-items-center">
         <div class="d-flex flex-row">
             <!-- Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
@@ -12,32 +12,36 @@
             <!-- Header -->
             <h3 class="align-self-center">&nbsp;&nbsp;SolvePy&nbsp;</h3>
         </div>
-    </div>
+    </div> <br />
     <!-- End of Header -->
 
-    <!-- Start of Left Container -->
-    <div class="row mt-5">
-        <!-- Header -->
-        <div class="col-6">
-            <h1 class="text-primary">Let's get solving.</h1>
-            <p class="lead text-secondary">SolvePy is a generic solver for Quadratic Spline Interpolation and Simplex Method.</p>
+    <!-- Start of Title -->
+    <div class="row">
+        <!-- Badge -->
+        <div class="d-flex justify-content-center">
+            <h1 class="display-4 mt-5"><span class="badge bg-primary">>> Let's get solving.</span></h1>
         </div>
 
-        <!-- Image -->
-        <div class="col-6">
-            <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
-                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
-            </svg>
+        <!-- Description -->
+        <div class="d-flex justify-content-center">
+            <p class="lead mt-3 col-8 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra risus mollis pharetra ultrices amet, blandit vestibulum viverra viverra.</p>
         </div>
-    </div>
-    <!-- End of Left Container -->
 
-    <!-- Start of Button Container -->
-    <div class="row mt-4">
-        <div class="d-flex flex-row">
-            <a href="/solve/qsi" class="btn btn-outline-primary">Solve QSI</a> &nbsp;
-            <a href="/solve/simplex" class="btn btn-outline-secondary">Solve Simplex</a>
+        <!-- Cards -->
+        <div class="d-flex flex-row justify-content-center mt-5">
+            <div class="col-1"></div>
+            {% for k in pages.keys() %}
+                <div class="card col-3 mr-5 mt-4">
+                    <div class="card-header">{{ (pages[k])['subheader'] }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ (pages[k])['name'] }}</h5>
+                        <p class="card-text">{{ (pages[k])['description'] }}</p>
+                        <a href="{{ (pages[k])['route'] }}" class="btn btn-primary">Redirect {{ (pages[k])['name'] }}</a>
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            {% endfor %}
         </div>
     </div>
-    <!-- End of Button Container -->
+    <!-- End of Title -->
 {% endblock %}

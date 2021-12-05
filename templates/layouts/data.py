@@ -13,23 +13,33 @@
 | - key: Contain the page keyword.
 | - name: Contain the display name in the navbar.
 | - route: Contain the link of the page.
+| - subheader: Contain the card header in home.
+| - description: Contain the card description in home.
 '''
 pages = {
     'qsi' : {
         'name' : 'QSI',
-        'route' : '/solve/qsi'
+        'route' : '/solve/qsi',
+        'subheader' : 'Generic Solver',
+        'description' : 'Loren ipsum'
     },
 
     'simplex' : {
         'name' : 'Simplex',
-        'route' : '/solve/simplex'
+        'route' : '/solve/simplex',
+        'subheader' : 'Generic Solver',
+        'description' : 'Loren ipsum'
     },
 
     'about' : {
         'name' : 'About',
-        'route' : '/about'
+        'route' : '/about',
+        'subheader' : 'About the App',
+        'description' : 'Loren ipsum'
     }
 }
+
+
 
 '''
 ** QSI Tabs
@@ -46,21 +56,21 @@ tabs_qsi = [
     { 
         'name' : 'tutorial',
         'header' : 'How do I use this solver? 🤔',
-        'body' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.'
+        'body' : 'Place the description here.'
     },
 
     # ** Input
     {
         'name' : 'input',
         'header' : 'What should I input? ⚙️',
-        'body' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.'
+        'body' : 'Place a description here.'
     },
 
     # ** Output
     {
         'name' : 'output',
-        'header' : 'What should I receive? ✨',
-        'body' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.'
+        'header' : 'What should the outcome be? ✨',
+        'body' : 'Place a description here.'
     }
 ]
 
@@ -79,21 +89,21 @@ tabs_simplex = [
     { 
         'name' : 'tutorial',
         'header' : 'How do I use this solver? 🤔',
-        'body' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.'
+        'body' : 'Place a description here.'
     },
 
     # ** Problem
     {
         'name' : 'problem',
-        'header' : 'What should I input? ⚙️',
-        'body' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.'
+        'header' : 'What is the context of this solver? 🚢',
+        'body' : 'Place a description here.'
     },
 
     # ** Legend
     {
         'name' : 'legend',
-        'header' : 'What should I receive? ✨',
-        'body' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.'
+        'header' : 'How should I be guided? 🗺️',
+        'body' : 'Place a description here.'
     }
 ]
 
@@ -111,22 +121,22 @@ tabs_about = [
     # ** Ideation
     { 
         'name' : 'ideation',
-        'header' : 'How do I use this solver? 🤔',
-        'body' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.'
+        'header' : 'Where did this idea come from? 💡',
+        'body' : 'Place a description here.'
     },
 
     # ** Design
     {
         'name' : 'design',
-        'header' : 'What should I input? ⚙️',
-        'body' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.'
+        'header' : 'How did I design this? 🎨',
+        'body' : 'Place a description here.'
     },
 
     # ** Development
     {
         'name' : 'development',
-        'header' : 'What should I receive? ✨',
-        'body' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices et ipsum tellus. Sit mattis sem ac aliquet aenean amet nibh. Turpis eget lorem sem leo suscipit netus faucibus sed. Consectetur velit dolor sed sed. Ipsum enim laoreet odio accumsan nulla. Quam eget lorem magna id arcu. Ultricies odio feugiat semper purus sem sit magna sed gravida.'
+        'header' : 'How did I develop this? 💻',
+        'body' : 'Place a description here.'
     }
 ]
 
@@ -142,20 +152,20 @@ tabs_about = [
 profile = [
     # ** About Me
     {
-        'header': 'About Me',
-        'body' : 'Some quick example text to build on the card title and make up the bulk of the cards content.'
+        'header': 'About Me 🥺',
+        'body' : 'Place a description here.'
     },
 
     # ** Technologies Used
     {
-        'header': 'Technologies Used',
-        'body' : 'Some quick example text to build on the card title and make up the bulk of the cards content.'
+        'header': 'Technologies Used 🐱‍💻',
+        'body' : 'Place a description here.'
     },
 
     # ** Dedication
     {
-        'header': 'Dedication',
-        'body' : 'Some quick example text to build on the card title and make up the bulk of the cards content.'
+        'header': 'Dedication ❤️',
+        'body' : 'Place a description here.'
     }
 ]
 
