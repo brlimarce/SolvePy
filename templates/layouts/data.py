@@ -9,6 +9,7 @@
 | This contains the information regarding
 | the pages of the navigation bar.
 - - -
+** returns
 | - key: Contain the page keyword.
 | - name: Contain the display name in the navbar.
 | - route: Contain the link of the page.
@@ -35,6 +36,7 @@ pages = {
 | This contains the tab information in
 | the qsi page.
 - - -
+** returns
 | - name: Contain the name of the tab.
 | - header: Contain the tab header.
 | - body: Contain the tab's content.
@@ -67,6 +69,7 @@ tabs_qsi = [
 | This contains the tab information in
 | the simplex page.
 - - -
+** returns
 | - name: Contain the name of the tab.
 | - header: Contain the tab header.
 | - body: Contain the tab's content.
@@ -99,6 +102,7 @@ tabs_simplex = [
 | This contains the tab information in
 | the about page.
 - - -
+** returns
 | - name: Contain the name of the tab.
 | - header: Contain the tab header.
 | - body: Contain the tab's content.
@@ -131,6 +135,7 @@ tabs_about = [
 | This contains the information in
 | the cards of the about page.
 - - -
+** returns
 | - header: Contain the card's header.
 | - body: Contain the card's content.
 '''
@@ -159,6 +164,7 @@ profile = [
 | This contains information about the
 | plants in the problem.
 - - -
+** returns
 | - keyword: Contain the plant's acronym/keyword.
 | - name: Contain the plant's city name.
 '''
@@ -187,6 +193,7 @@ plants = [
 | This contains the information about the
 | warehouses in the problem.
 - - -
+** returns
 | - key: Contain the warehouse's keyword.
 | - value: Contain the warehouse's city name.
 '''
@@ -203,6 +210,7 @@ warehouses = {
 | This contains options in displaying
 | specific information in the simplex page.
 - - -
+** returns
 | - key: Contain the option's keyword.
 | - value: Contain the option's description.
 '''
