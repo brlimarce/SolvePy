@@ -17,13 +17,18 @@ from api.scripts import elimination as el
 - - -
 ** returns
 | - polynomials: All polynomials per interval
+| - intervals: All intervals for each polynomial
+| - intindex: The index of the chosen equation in the list
 | - y: Approximate of f_n(x) using the appropriate function of an interval (based on x)
 '''
 def poly_qsi(xv, yv, x):
     # ** Declaration
     m = [] # Store the matrix from the conditions.
     n = len(xv) - 1 # Store the number of intervals.
+    
     polynomials = [] # Store the polynomials per interval.
+    intervals = [] # Store the intervals for each polynomial.
+    intindex = 0 # Store the index of the equation in the list.
     y = 0 # Store the approximate value of f_n(x).
 
     # Return None if xv and yv are unequal in size.
@@ -50,7 +55,7 @@ def poly_qsi(xv, yv, x):
         # Add a row to the matrix for condition 3.
         m.append([coefficients[i - a1] if i >= a1 and i <= a1 + 1 else -coefficients[i - a2] if i >= a2 and i <= a2 + 1 else 0 for i in range(3 * n + 1)])
     m = np.delete(np.array(m), 0, axis = 1) # Delete the first column since a1 = 0.
-    solution = np.concatenate(([0], el.gauss_jordan(m)['solution'])) # Get the solution of the matrix.
+    solution = [np.round(num, 4) for num in np.concatenate(([0], el.gauss_jordan(m)['solution']))]
 
     # Create the polynomials per interval.
     for _ in range(len(solution) // 3):
@@ -58,12 +63,15 @@ def poly_qsi(xv, yv, x):
         a = 3 * (_) # Get the adder for morphing.
         test = str(solution[a]) + 'x^2 + ' + str(solution[a + 1]) + 'x + ' + str(solution[a + 2])
         polynomials.append(str(solution[a]) + 'x^2 + ' + str(solution[a + 1]) + 'x + ' + str(solution[a + 2]))
+        intervals.append([xv[_], xv[_ + 1]]) # Append the intervals.
 
         # Get the approximate value if it is within the interval.
         if x >= xv[_] and x <= xv[_ + 1]:
             y = (solution[a] * (x ** 2)) + (solution[a + 1] * x) + solution[a + 2]
+            intindex = _
+    
     # Return a dictionary (polynomials and y).
-    return { 'polynomials' : polynomials, 'y' : y }
+    return { 'polynomials' : polynomials, 'intervals' : intervals, 'intindex' : intindex, 'y' : np.round(y, 4) }
 
 '''
 ** get_row

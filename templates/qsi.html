@@ -92,74 +92,76 @@
     <!-- End of Form -->
 
     <!-- Start of Output -->
-    <div id="output" class="d-none">
-        <!-- Divider -->
-        <br /> <hr />
+    {% if output is not none %}
+        <div id="output" class="d-block">
+            <!-- Divider -->
+            <br /> <hr />
 
-        <!-- Start of Polynomials -->
-        <div class="row mt-5">
-            <!-- Header -->
-            <h4 class="text-primary">Polynomials</h4>
-            <p class="text-secondary">Below are the polynomials along with its corresponding interval.</p>
-            
-            <!-- Table -->
-            <table class="table table-striped table-borderless">
-                <!-- Start of Header -->
-                <thead class="text-center">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Polynomial</th>
-                        <th scope="col">Interval</th>
-                    </tr>
-                </thead>
-                <!-- End of Header -->
-
-                <!-- Start of Body -->
-                <tbody class="text-center">
-                    {% for _ in range(1, 4) %}
+            <!-- Start of Polynomials -->
+            <div class="row mt-5">
+                <!-- Header -->
+                <h4 class="text-success">Polynomials</h4>
+                <p class="text-secondary">Below are the polynomials along with its corresponding interval.</p>
+                
+                <!-- Table -->
+                <table class="table table-striped table-borderless">
+                    <!-- Start of Header -->
+                    <thead class="text-center">
                         <tr>
-                            <th scope="row">{{ _ }}</th>
-                            <td>3x^2 + 4x + 5</td>
-                            <td>4 &#60;= x &#60;= 3</td>
+                            <th scope="col">#</th>
+                            <th scope="col">Polynomial</th>
+                            <th scope="col">Interval</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-                <!-- End of Body -->
-            </table>
-        </div>
-        <!-- End of Polynomials -->
+                    </thead>
+                    <!-- End of Header -->
 
-        <!-- Start of Approximate -->
-        <div class="row">
-            <!-- Header -->
-            <h4 class="text-primary mt-5">Approximate</h4>
-            <p class="text-secondary">Below is the approximate value of f(x) based on the interval.</p>
-            
-            <!-- Table -->
-            <table class="table table-striped table-borderless">
-                <!-- Start of Header -->
-                <thead class="text-center">
-                    <tr>
-                        <th scope="col">Interval</th>
-                        <th scope="col">Polynomial</th>
-                        <th scope="col">Approximate Value</th>
-                    </tr>
-                </thead>
-                <!-- End of Header -->
+                    <!-- Start of Body -->
+                    <tbody class="text-center">
+                        {% for _ in range(1, 4) %}
+                            <tr>
+                                <th scope="row">{{ _ }}</th>
+                                <td>{{ (output['polynomials'])[_ - 1] }}</td>
+                                <td>{{ (output['intervals'])[_ - 1][0] }} &#60;= x &#60;= {{ (output['intervals'])[_ - 1][1] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <!-- End of Body -->
+                </table>
+            </div>
+            <!-- End of Polynomials -->
 
-                <!-- Start of Body -->
-                <tbody class="text-center">
-                    <tr>
-                        <td scope="row">4 &#60;= x &#60;= 3</td>
-                        <td>3x^2 + 4x + 5</td>
-                        <td>20</td>
-                    </tr>
-                </tbody>
-                <!-- End of Body -->
-            </table>
+            <!-- Start of Approximate -->
+            <div class="row">
+                <!-- Header -->
+                <h4 class="text-success mt-5">Approximate</h4>
+                <p class="text-secondary">Below is the approximate value of f(x) based on the interval.</p>
+                
+                <!-- Table -->
+                <table class="table table-striped table-borderless">
+                    <!-- Start of Header -->
+                    <thead class="text-center">
+                        <tr>
+                            <th scope="col">Interval</th>
+                            <th scope="col">Polynomial</th>
+                            <th scope="col">Approximate Value</th>
+                        </tr>
+                    </thead>
+                    <!-- End of Header -->
+
+                    <!-- Start of Body -->
+                    <tbody class="text-center">
+                        <tr>
+                            <td scope="row">{{ (output['intervals'])[output['intindex']][0] }} &#60;= x &#60;= {{ (output['intervals'])[output['intindex']][1] }}</td>
+                            <td>{{ (output['polynomials'])[output['intindex']] }}</td>
+                            <td>{{ output['y'] }}</td>
+                        </tr>
+                    </tbody>
+                    <!-- End of Body -->
+                </table>
+            </div>
+            <!-- End of Approximate -->
         </div>
-        <!-- End of Approximate -->
-    </div>
+    {% endif %}
     <!-- End of Output -->
 {% endblock %}
 <!-- End of Nested Body -->

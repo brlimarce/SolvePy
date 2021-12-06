@@ -115,7 +115,3 @@ def create_initial_tableau(m, is_max):
 
     # Return a dictionary (tableau and colnames).
     return { 'tableau' : np.array(tableau, dtype = float).transpose(),  'colnames' : ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12', 'x13', 'x14', 'x15', 'Z', 'Solution'] }
-
-# Test the function here.
-m = [[431, 332, 350, 450, 400],  [30, 29, 31, 35, 33, 26, 24, 23, 25, 27, 11, 13, 15, 20, 17], [1400, 400, 200]]
-print(simplex(create_initial_tableau(m, False)['tableau'], False, False))
