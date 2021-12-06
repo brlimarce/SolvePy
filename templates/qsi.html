@@ -21,34 +21,61 @@
         {{ form.hidden_tag() }}
         <div class="row mb-4">
             <!-- Start of X-Values -->
-            {{ form.xval.label(class="form-label fw-bold col-1", text = "X Values") }}
+            {{ form.xv.label(class="form-label fw-bold col-1", text = "X Values") }}
             <div class="col-5">
                 <div class="input-group mb-3">
-                    {{ form.xval(class = "form-control", placeholder = "i.e. 1, 2, 3, 4, 5") }}
+                    {% if form.xv.errors %}
+                        {{ form.xv(class = "form-control is-invalid", placeholder = "i.e. 1,2,3,4,5", required = false) }}
+                        {% for e in form.xv.errors %}
+                            <div class="invalid-feedback mt-3">
+                                <span>{{ e }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.xv(class = "form-control", placeholder = "i.e. 1,2,3,4,5", required = false) }}
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter values separated by a comma.</small>
+                    {% endif %}
                 </div>
-                <small id="xmsg" class="form-text text-muted">Enter numerical values separated by commas.</small>
             </div>
             <!-- End of X-Values -->
 
             <!-- Start of Y-Values -->
-            {{ form.yval.label(class = "form-label fw-bold col-1", text = "Y Values") }}
+            {{ form.yv.label(class = "form-label fw-bold col-1", text = "Y Values") }}
             <div class="col-5">
                 <div class="input-group mb-3">
-                    {{ form.yval(class = "form-control", placeholder = "i.e. 1, 2, 3, 4, 5") }}
+                    {% if form.yv.errors %}
+                        {{ form.yv(class = "form-control is-invalid", placeholder = "i.e. 1,2,3,4,5", required = false) }}
+                        {% for e in form.yv.errors %}
+                            <div class="invalid-feedback mt-3">
+                                <span>{{ e }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.yv(class = "form-control", placeholder = "i.e. 1,2,3,4,5", required = false) }}
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter values separated by a comma.</small>
+                    {% endif %}
                 </div>
-                <small id="ymsg" class="form-text text-muted">Enter numerical values separated by commas.</small>
             </div>
             <!-- End of Y-Values -->
         </div>
 
         <div class="row mb-5">
             <!-- Start of Value -->
-            {{ form.val.label(class = "form-label fw-bold col-1", text = "Value") }}
+            {{ form.x.label(class = "form-label fw-bold col-1", text = "Value") }}
             <div class="col-5">
                 <div class="input-group mb-3">
-                    {{ form.val(class = "form-control", placeholder = "i.e. 1") }}
+                    {% if form.x.errors %}
+                        {{ form.x(class = "form-control is-invalid", placeholder = "i.e. 1", required = false) }}
+                        {% for e in form.x.errors %}
+                            <div class="invalid-feedback mt-3">
+                                <span>{{ e }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.x(class = "form-control", placeholder = "i.e. 1", required = false) }}
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter a numerical value.</small>
+                    {% endif %}
                 </div>
-                <small id="valmsg" class="form-text text-muted">Enter a number.</small>
             </div>
             <!-- End of Value -->
         </div>
@@ -57,7 +84,7 @@
         <div class="row">
             <div class="d-flex flex-row">
                 {{ form.send(class = "btn btn-primary", value = "Display Output") }} &nbsp;
-                <button type="reset" class="btn btn-secondary">Reset</button>
+                <input type="reset" class="btn btn-secondary" />
             </div>
         </div>
         <!-- End of Button Container -->

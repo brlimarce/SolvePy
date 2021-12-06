@@ -4,7 +4,7 @@
 | interval based on the data set using QSI.
 '''
 import numpy as np
-import elimination as el
+from api.scripts import elimination as el
 
 '''
 ** poly_qsi
@@ -79,5 +79,18 @@ def poly_qsi(xv, yv, x):
 def get_row(coefficients, n, a = 0):
     return [coefficients[i - a] if i >= a and i <= a + 2 else coefficients[3] if i == 3 * n else 0 for i in range(3 * n + 1)]
 
-# Test the function here.
-poly_qsi(np.array([3.0, 4.5, 7.0, 9.0]), np.array([2.5, 1.0, 2.5, 0.5]), 5)
+'''
+** clean_input
+| This is a helper function to clean the data
+| from the form.
+- - -
+** params
+| - xv: A vector containing the x values
+| - yv: A vector containing the y values
+| - x: Value to be evaluated using the appropriate polynomial
+- - -
+** returns
+| All parameters in the correct data type.
+'''
+def clean_input(xv, yv, x):
+    return [np.array([float(num) for num in xv.split(',')], dtype = float), np.array([float(num) for num in yv.split(',')], dtype = float), float(x)]
