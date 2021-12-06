@@ -115,3 +115,19 @@ def create_initial_tableau(m, is_max):
 
     # Return a dictionary (tableau and colnames).
     return { 'tableau' : np.array(tableau, dtype = float).transpose(),  'colnames' : ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12', 'x13', 'x14', 'x15', 'Z', 'Solution'] }
+
+'''
+** clean_input
+| This is a helper function to clean the data
+| from the form.
+- - -
+** params
+| - demands: A list containing the number of demand for each warehouse
+| - supplies: A list containing the number of supply for each plant
+| - costs: A list containing the shipping cost from a plant to a warehouse
+- - -
+** returns
+| All parameters in the correct data type.
+'''
+def clean_input(demands, supplies, cost):
+    print('hi')

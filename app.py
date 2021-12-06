@@ -4,7 +4,7 @@
 '''
 from flask import Flask, render_template, request
 from templates.layouts import data as d
-from api.scripts.forms import QSIForm
+from api.scripts.forms import QSIForm, SimplexForm
 from api.scripts import qsi
 from api.scripts import simplex
 
@@ -43,9 +43,22 @@ def solve_qsi():
     return render_template('qsi.html', pages = d.pages, page = 'qsi', tabs = d.tabs_qsi, form = form, output = result)
 
 # Simplex Solver
-@app.route('/solve/simplex')
+@app.route('/solve/simplex', methods = ['GET', 'POST'])
 def solve_simplex():
-    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, options = d.simplex_options, plants = d.plants, warehouses = d.warehouses)
+    # ** Declaration
+    form = SimplexForm(request.form) # Store the page's form.
+    result = None # Store the result (dictionary)
+
+    # If the form is submitted, collect the data.
+    if form.validate_on_submit():
+        # Collect the input arrays.
+        demand_set = [d.demand for d in form.demands]
+        supply_set = [s.supply for s in form.supplies]
+        shipping_costs = [c.cost for c in form.costs]
+
+        # Collect the radio and select choices.
+        method = form.method.data
+    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, plants = d.plants, warehouses = d.warehouses, form = form)
 
 # About SolvePy
 @app.route('/about')
