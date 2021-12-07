@@ -125,9 +125,14 @@ def create_initial_tableau(m, is_max):
 | - demands: A list containing the number of demand for each warehouse
 | - supplies: A list containing the number of supply for each plant
 | - costs: A list containing the shipping cost from a plant to a warehouse
+| - method: A string of the type of method of Simplex
+| - is_display_tableau: A string containing a boolean if the initial tableau is displayed
+| - is_get_shipped: A string containign a boolean if the number of shipped items is displayed
 - - -
 ** returns
-| All parameters in the correct data type.
+| - All parameters in the correct data type.
+| - demands, supplies, and cost: A matrix containing a problem-specific format
+| - method: Returns True if it's maximization else False
 '''
-def clean_input(demands, supplies, cost):
-    print('hi')
+def clean_input(demands, supplies, costs, method, is_display_tableau, is_get_shipped):
+    return [np.array([[float(s) for s in supplies], [float(d) for d in demands], [float(c) for c in costs]], dtype = float), True if method == 'maximization' else False, bool(is_display_tableau), bool(is_get_shipped)]

@@ -5,8 +5,10 @@
 from flask import Flask, render_template, request
 from templates.layouts import data as d
 from api.scripts.forms import QSIForm, SimplexForm
-from api.scripts import qsi
-from api.scripts import simplex
+from api.scripts import qsi as q
+from api.scripts import simplex as s
+
+import sys
 
 app = Flask(__name__) # Redirect the application to this file.
 app.config['SECRET_KEY'] = '2d0e13d09775d283668ef17a6f808894' # Generate the secret key in the form.
@@ -35,8 +37,8 @@ def solve_qsi():
         x = form.x.data
 
         # Get the clean input and perform QSI.
-        clean_data = qsi.clean_input(xv, yv, x)
-        result = qsi.poly_qsi(clean_data[0], clean_data[1], clean_data[2])
+        clean_data = q.clean_input(xv, yv, x)
+        result = q.poly_qsi(clean_data[0], clean_data[1], clean_data[2])
 
         # Reset the data.
         form.xv.data = form.yv.data = form.x.data = None
@@ -52,12 +54,18 @@ def solve_simplex():
     # If the form is submitted, collect the data.
     if form.validate_on_submit():
         # Collect the input arrays.
-        demand_set = [d.demand for d in form.demands]
-        supply_set = [s.supply for s in form.supplies]
-        shipping_costs = [c.cost for c in form.costs]
+        demands = [d.demand.data for d in form.demands]
+        supplies = [s.supply.data for s in form.supplies]
+        costs = [c.cost.data for c in form.costs]
 
         # Collect the radio and select choices.
         method = form.method.data
+        is_display_tableau = form.is_display_tableau.data
+        is_get_shipped = form.is_get_shipped.data
+
+        # Get the clean data and perform Simplex.
+        clean_data = s.clean_input(demands, supplies, costs, method, is_display_tableau, is_get_shipped)
+        result = s.simplex(s.create_initial_tableau(clean_data[0], clean_data[1]), clean_data[1], clean_data[3])
     return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, plants = d.plants, warehouses = d.warehouses, form = form)
 
 # About SolvePy

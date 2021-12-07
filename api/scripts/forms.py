@@ -9,30 +9,38 @@ from wtforms import StringField, SubmitField, FieldList, FormField, Form, RadioF
 from wtforms.validators import DataRequired, ValidationError
 
 '''
-** is_number
-| This is a custom validator, which checks
-| if the value is numerical.
+** Validator
+| This class contains the custom validators
+| and error messages for form validation.
 - - -
-** params
-| - form: The current form
-| - field: The input field of the data
+** properties
+| - msg_required: Error message for required fields
+- - -
+** methods
+| - is_number: Check if a value is numerical
+| - is_csv: Check if multiple values are separated by a comma
 '''
-def is_number(form, field):
-    try:
-        num = float(field.data)
-    except:
-        raise ValidationError('❌ Enter a number.')
+class Validator():
+    # ** Properties
+    MSG_REQUIRED = '❌ Field is empty.'
 
-'''
-** QSIForm
-| This class contains the validation for the form of QSI.
-- - -
-** input
-| - xv: A vector of x values separated by a comma
-| - yv: A vector of y values separated by a comma
-| - x: The x value (to be evaluated by a function)
-'''
-class QSIForm(FlaskForm):
+    # ** Methods
+    '''
+    ** is_number
+    | This is a custom validator, which checks
+    | if the value is numerical.
+    - - -
+    ** params
+    | - form: The current form
+    | - field: The input field of the data
+    '''
+    @staticmethod
+    def is_number(form, field):
+        try:
+            num = float(field.data)
+        except:
+            raise ValidationError('❌ Enter a number.')
+    
     '''
     ** is_csv
     | This is a custom validator, which checks
@@ -42,6 +50,7 @@ class QSIForm(FlaskForm):
     | - form: The current form
     | - field: The input field of the data
     '''
+    @staticmethod
     def is_csv(form, field):
         try:
             # Split the data; then, convert each into a float.
@@ -51,15 +60,22 @@ class QSIForm(FlaskForm):
             if len(splitter) <= 1:
                 raise Exception()
         except:
-            raise ValidationError('❌ Enter values separated by a comma.')
-    
-    # ** Error Messages
-    __msg_required = '❌ Field is empty.'
+            raise ValidationError('❌ Enter multiple values separated by a comma.')
 
-    # ** Schema
-    xv = StringField('xv', validators = [DataRequired(message = __msg_required), is_csv])
-    yv = StringField('yv', validators = [DataRequired(message = __msg_required), is_csv])
-    x = StringField('x', validators = [DataRequired(message = __msg_required), is_number])
+'''
+** QSIForm
+| This class contains the validation for the form of QSI.
+- - -
+** properties
+| - xv: A vector of x values separated by a comma
+| - yv: A vector of y values separated by a comma
+| - x: The x value (to be evaluated by a function)
+'''
+class QSIForm(FlaskForm):
+    xv = StringField('xv', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_csv])
+    yv = StringField('yv', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_csv])
+    x = StringField('x', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
+
     send = SubmitField('display-qsi')
 
 '''
@@ -67,66 +83,57 @@ class QSIForm(FlaskForm):
 | This class contains the single schema for the warehouse's
 | number of demands.
 - - -
-** input
-| demand: The number of demands and supplies or the shipping cost
+** properties
+| demand: The number of demands of each warehouse
 '''
 class Demand(Form):
-    # ** Error Messages
-    __msg_required = '❌ Field is empty.'
-
-    # ** Schema
-    demand = StringField('', validators = [DataRequired(message = __msg_required), is_number])
+    demand = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
 
 '''
 ** Supply
 | This class contains the single schema for the plant's
 | number of supply.
 - - -
-** input
-| supply: The number of demands and supplies or the shipping cost
+** properties
+| supply: The number of supplies of each plant
 '''
 class Supply(Form):
-    # ** Error Messages
-    __msg_required = '❌ Field is empty.'
-
-    # ** Schema
-    supply = StringField('', validators = [DataRequired(message = __msg_required), is_number])
+    supply = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
 
 '''
 ** ShippingCost
 | This class contains the single schema for the shipping cost
 | from a plant to a warehouse.
 - - -
-** input
-| cost: The number of demands and supplies or the shipping cost
+** properties
+| cost: The shipping cost from a plant to a warehouse
 '''
 class ShippingCost(Form):
-    # ** Error Messages
-    __msg_required = '❌ Field is empty.'
-
-    # ** Schema
-    cost = StringField('', validators = [DataRequired(message = __msg_required), is_number])
+    cost = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
 
 '''
 ** SimplexForm
 | This class contains the validation for the form of Simplex Method.
 - - -
-** input
+** properties
 | - demands: A list containing the number of demand for each warehouse
 | - supplies: A list containing the number of supply for each plant
 | - costs: A list containing the shipping cost from a plant to a warehouse
 | - method: The type of method used (Default: Maximization)
-| - options: A list containing the user's choices
+| - is_display_tableau: A boolean for displaying the initial tableau
+| - is_get_shipped: A boolean for display the number of shipped items
 '''
 class SimplexForm(FlaskForm):
-    # ** Schema
+    # ** Field List Schema
     demands = FieldList(FormField(Demand), min_entries = 5, max_entries = 5)
     supplies = FieldList(FormField(Supply), min_entries = 3, max_entries = 3)
     costs = FieldList(FormField(ShippingCost), min_entries = 15, max_entries = 15)
 
+    # ** Radio Schema
     method = RadioField('method', choices = [('maximization', 'Maximization'), ('minimization', 'Minimization')], default = 'maximization')
 
-    display_tableau = BooleanField('Display Initial Tableau')
-    get_shipped_items = BooleanField('Get Number of Shipped Items')
+    # ** Checkbox Schema
+    is_display_tableau = BooleanField('Display Initial Tableau')
+    is_get_shipped = BooleanField('Get Number of Shipped Items')
 
     send = SubmitField('display-simplex')
