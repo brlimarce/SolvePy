@@ -65,8 +65,11 @@ def solve_simplex():
 
         # Get the clean data and perform Simplex.
         clean_data = s.clean_input(demands, supplies, costs, method, is_display_tableau, is_get_shipped)
-        result = s.simplex(s.create_initial_tableau(clean_data[0], clean_data[1]), clean_data[1], clean_data[3])
-    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, plants = d.plants, warehouses = d.warehouses, form = form)
+        tableau = s.create_initial_tableau(clean_data[0], clean_data[1])
+
+        # Get the result from Simplex method.
+        result = s.simplex(tableau['tableau'], clean_data[1], clean_data[3])
+    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, plants = d.plants, warehouses = d.warehouses, form = form, tableau = tableau, options = [clean_data[2], clean_data[3]], output = result)
 
 # About SolvePy
 @app.route('/about')

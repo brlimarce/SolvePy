@@ -20,6 +20,7 @@ import math as mt
 | - basic_solution: A matrix of the basic solution
 | - optimal: The maximum/minimum value
 | - shipped_items: A matrix of the number of shipped items from a plant to a warehouse
+| - is_max: A boolean value to determine if maximization/minimization is applied
 '''
 def simplex(tableau, is_max, problem):
     # ** Declaration
@@ -75,7 +76,8 @@ def simplex(tableau, is_max, problem):
         'final_tableau' : tableau,
         'basic_solution' : basic_solution,
         'optimal' : basic_solution[len(basic_solution) - 1],
-        'shipped_items' : np.array(shipped_items, dtype = float).reshape((3, 5))
+        'shipped_items' : np.array(shipped_items, dtype = float).reshape((3, 5)),
+        'is_max' : is_max
     }
 
 '''
@@ -135,4 +137,4 @@ def create_initial_tableau(m, is_max):
 | - method: Returns True if it's maximization else False
 '''
 def clean_input(demands, supplies, costs, method, is_display_tableau, is_get_shipped):
-    return [np.array([[float(s) for s in supplies], [float(d) for d in demands], [float(c) for c in costs]], dtype = float), True if method == 'maximization' else False, bool(is_display_tableau), bool(is_get_shipped)]
+    return [[[float(d) for d in demands], [float(c) for c in costs], [float(s) for s in supplies]], True if method == 'maximization' else False, bool(is_display_tableau), bool(is_get_shipped)]
