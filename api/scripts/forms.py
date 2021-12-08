@@ -136,8 +136,8 @@ class ShippingCost(FlaskForm):
     cost = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
 
 '''
-** SimplexForm
-| This class contains the validation for the form of Simplex Method.
+** ProblemForm
+| This class contains the validation for the form of Simplex Method (Problem).
 - - -
 ** properties
 | - demands: A list containing the number of demand for each warehouse
@@ -147,7 +147,7 @@ class ShippingCost(FlaskForm):
 | - is_display_tableau: A boolean for displaying the initial tableau
 | - is_get_shipped: A boolean for display the number of shipped items
 '''
-class SimplexForm(FlaskForm):
+class ProblemForm(FlaskForm):
     # ** Field List Schema
     demands = FieldList(FormField(Demand), min_entries = 5, max_entries = 5)
     supplies = FieldList(FormField(Supply), min_entries = 3, max_entries = 3)

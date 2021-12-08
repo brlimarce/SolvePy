@@ -5,7 +5,7 @@
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from templates.layouts import data as d
-from api.scripts.forms import QSIForm, SimplexForm
+from api.scripts.forms import QSIForm, ProblemForm
 from api.scripts import qsi as q
 from api.scripts import simplex as s
 
@@ -46,11 +46,16 @@ def solve_qsi():
         form.xv.data = form.yv.data = form.x.data = None
     return render_template('qsi.html', pages = d.pages, page = 'qsi', tabs = d.tabs_qsi, form = form, output = result)
 
-# Simplex Solver
+# Simplex Generic Solver
 @app.route('/solve/simplex', methods = ['GET', 'POST'])
 def solve_simplex():
+    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex)
+
+# Problem-Specific Simplex Solver
+@app.route('/solve/simplex/problem', methods = ['GET', 'POST'])
+def solve_problem():
     # ** Declaration
-    form = SimplexForm(request.form) # Store the page's form.
+    form = ProblemForm(request.form) # Store the page's form.
     result = -1 # Store the result (dictionary)
     tableau = None # Store the initial tableau.
     
@@ -75,7 +80,7 @@ def solve_simplex():
 
         # Get the result from Simplex method.
         result = s.simplex(tableau['tableau'], clean_data[1], bool(is_get_shipped))
-    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, plants = d.plants, warehouses = d.warehouses, form = form, tableau = tableau, options = [bool(is_display_tableau), bool(is_get_shipped)], output = result)
+    return render_template('problem.html', pages = d.pages, page = 'problem', tabs = d.tabs_problem, plants = d.plants, warehouses = d.warehouses, form = form, tableau = tableau, options = [bool(is_display_tableau), bool(is_get_shipped)], output = result)
 
 # About SolvePy
 @app.route('/about')

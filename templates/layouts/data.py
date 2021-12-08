@@ -28,6 +28,13 @@ pages = {
         'name' : 'Simplex',
         'route' : '/solve/simplex',
         'subheader' : 'Generic Solver',
+        'description' : 'Solve the tableau using Simplx method.'
+    },
+
+    'problem' : {
+        'name' : 'Problem (Simplex)',
+        'route' : '/solve/simplex/problem',
+        'subheader' : 'Problem-Specific Solver',
         'description' : 'Display a basic shipping log to maximize/minimize the cost using Simplex.'
     },
 
@@ -108,7 +115,7 @@ tabs_qsi = [
 ]
 
 '''
-** Simplex Tabs
+** Simplex Tabs (Generic)
 | This contains the tab information in
 | the simplex page.
 - - -
@@ -118,6 +125,72 @@ tabs_qsi = [
 | - body: Contain the tab's content.
 '''
 tabs_simplex = [
+    # ** Tutorial
+    { 
+        'name' : 'tutorial',
+        'header' : 'How to use this solver? 🤔',
+        'body' : 'Place a description here.'
+    },
+
+    # ** Input
+    {
+        'name' : 'input',
+        'header' : 'Input ⚙️',
+        'body' : 
+            '''
+            To get the desired result, you should follow the input's format. Below is a guide for your reference.
+            <ul class="list-group mt-4">
+                <!-- X Values -->
+                <li class="list-group-item">
+                    <span class="fw-bold text-primary">X Values:</span> This is your independent vector. It should contain multiple numbers <span class="fw-bold text-info">(size ≥ 1)</span>, which are separated by commas <span class="fw-bold text-info">( , ).</span>
+                </li>
+
+                <!-- Y Values -->
+                <li class="list-group-item">
+                    <span class="fw-bold text-primary">Y Values:</span> This is your dependent vector. It should contain multiple numbers <span class="fw-bold text-info">(size ≥ 1)</span>, which are separated by commas <span class="fw-bold text-info">( , ).</span>
+                </li>
+
+                <!-- Value -->
+                <li class="list-group-item">
+                    <span class="fw-bold text-primary">Value:</span> This is your x-value, which will be evaluated by the appropriate interpolating polynomial. This should be a single numerical value.
+                </li>
+            </ul>
+            '''
+    },
+
+    # ** Output
+    {
+        'name' : 'output',
+        'header' : 'Output ✨',
+        'body' :
+            '''
+            Based on your input, you'll receive its corresponding output. Below is a guide for your reference.
+            <ul class="list-group mt-4">
+                <!-- Polynomials -->
+                <li class="list-group-item">
+                    <span class="fw-bold text-primary">Polynomials:</span> This displays a table consisting of interpolating polynomials <span class="fw-bold text-info">(Polynomial)</span> with their respective intervals <span class="fw-bold text-info">(Interval)</span>.
+                </li>
+
+                <!-- Approximate -->
+                <li class="list-group-item">
+                    <span class="fw-bold text-primary">Approximate:</span> This is the result of your x-value when substituted in the appropriate interpolating polynomial. This displays a table, which contains the interval of x <span class="fw-bold text-info">(Interval)</span>, its respective polynomial <span class="fw-bold text-info">(Polynomial)</span>, and the y-value <span class="fw-bold text-info">(Approximate Value)</span>.
+                </li>
+            </ul>
+            '''
+    }
+]
+
+'''
+** Simplex Tabs (Problem-specific)
+| This contains the tab information in
+| the simplex page.
+- - -
+** returns
+| - name: Contain the name of the tab.
+| - header: Contain the tab header.
+| - body: Contain the tab's content.
+'''
+tabs_problem = [
     # ** Tutorial
     { 
         'name' : 'tutorial',
