@@ -1,5 +1,6 @@
 {% extends "layouts/layout.html" %}
 
+<!-- External Styles -->
 {% block body %}
     <!-- Start of Header -->
     <div class="row text-primary mt-5 d-flex align-items-center">
@@ -15,36 +16,29 @@
     </div> <br />
     <!-- End of Header -->
 
-    <!-- Start of Title -->
+    <!-- Start of Container -->
     <div class="row">
-        <!-- Start of Badge -->
-        <div class="d-flex justify-content-center">
-            <h1 class="display-4 mt-5"><span class="badge bg-primary">>> Let's get solving.</span></h1>
-        </div>
-        <!-- End of Badge -->
+        <!-- Start of Header -->
+        <div class="col-6 d-flex align-items-center">
+            <div class="d-flex flex-column">
+                <h1 class="text-primary text-left">Let's get solving.</h1>
+                <p class="lead">SolvePy is a generic solver for Quadratic Spline Interpolation and Simplex Method.</p>
 
-        <!-- Start of Description -->
-        <div class="d-flex justify-content-center">
-            <p class="lead mt-3 col-8 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra risus mollis pharetra ultrices amet, blandit vestibulum viverra viverra.</p>
-        </div>
-        <!-- End of Description -->
-
-        <!-- Start of Cards -->
-        <div class="d-flex flex-row justify-content-center mt-5">
-            <div class="col-1"></div>
-            {% for k in pages.keys() %}
-                <div class="card col-3 mr-5 mt-4">
-                    <div class="card-header">{{ (pages[k])['subheader'] }}</div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ (pages[k])['name'] }}</h5>
-                        <p class="card-text">{{ (pages[k])['description'] }}</p>
-                        <a href="{{ (pages[k])['route'] }}" class="btn btn-primary">Redirect {{ (pages[k])['name'] }}</a>
-                    </div>
+                <!-- Start of Button Container -->
+                <div class="mt-4">
+                    <a href="/solve/qsi" class="btn btn-outline-primary" role="button" aria-disabled="true">Solve QSI</a>
+                    <a href="/solve/simplex" class="btn btn-outline-secondary" role="button" aria-disabled="true">Solve Simplex</a>
                 </div>
-                <div class="col-1"></div>
-            {% endfor %}
+                <!-- End of Button Container -->
+            </div>
         </div>
-        <!-- End of Cards -->
+        <!-- End of Header -->
+
+        <!-- Start of Icon -->
+        <div class="col-6">
+            <img src="{{ url_for('static', filename='index.svg') }}" width="100%" height="100%" />
+        </div>
+        <!-- End of Icon -->
     </div>
-    <!-- End of Title -->
+    <!-- End of Container -->
 {% endblock %}

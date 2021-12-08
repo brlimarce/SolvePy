@@ -5,7 +5,7 @@
 '''
 from flask.app import Flask
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FieldList, FormField, Form, RadioField, BooleanField
+from wtforms import StringField, SubmitField, FieldList, FormField, RadioField, BooleanField
 from wtforms.validators import DataRequired, ValidationError
 
 '''
@@ -76,6 +76,30 @@ class QSIForm(FlaskForm):
     yv = StringField('yv', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_csv])
     x = StringField('x', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
 
+    '''
+    ** validate
+    | This overrides the validate function to
+    | validate xv and yv at the same time.
+    - - -
+    ** params
+    | self: The class in question
+    '''
+    def validate(self):
+        # Store the error message for the custom validator.
+        msg_size = '❌ Both vectors should have equal sizes.'
+
+        # Use the normal validation for the form.
+        if not FlaskForm.validate(self):
+            return False
+        # Check if xv and yv have equal sizes.
+        if len((self.xv.data).split(',')) != len((self.yv.data).split(',')):
+            # Append the error messages.
+            self.xv.errors.append(msg_size)
+            self.yv.errors.append(msg_size)
+
+            # Return False.
+            return False
+        return True
     send = SubmitField('display-qsi')
 
 '''
@@ -86,7 +110,7 @@ class QSIForm(FlaskForm):
 ** properties
 | demand: The number of demands of each warehouse
 '''
-class Demand(Form):
+class Demand(FlaskForm):
     demand = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
 
 '''
@@ -97,7 +121,7 @@ class Demand(Form):
 ** properties
 | supply: The number of supplies of each plant
 '''
-class Supply(Form):
+class Supply(FlaskForm):
     supply = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
 
 '''
@@ -108,7 +132,7 @@ class Supply(Form):
 ** properties
 | cost: The shipping cost from a plant to a warehouse
 '''
-class ShippingCost(Form):
+class ShippingCost(FlaskForm):
     cost = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
 
 '''

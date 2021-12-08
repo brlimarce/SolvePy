@@ -10,7 +10,7 @@ from api.scripts import simplex as s
 
 import sys
 
-app = Flask(__name__) # Redirect the application to this file.
+app = Flask(__name__, static_folder = 'static') # Redirect the application to this file.
 app.config['SECRET_KEY'] = '2d0e13d09775d283668ef17a6f808894' # Generate the secret key in the form.
 
 '''
@@ -49,7 +49,11 @@ def solve_qsi():
 def solve_simplex():
     # ** Declaration
     form = SimplexForm(request.form) # Store the page's form.
-    result = None # Store the result (dictionary)
+    result = -1 # Store the result (dictionary)
+    tableau = None # Store the initial tableau.
+    
+    is_display_tableau = False # Determine if the initial tableau is displayed.
+    is_get_shipped = False # Determine if the no. of shipped items is displayed.
 
     # If the form is submitted, collect the data.
     if form.validate_on_submit():
@@ -64,12 +68,12 @@ def solve_simplex():
         is_get_shipped = form.is_get_shipped.data
 
         # Get the clean data and perform Simplex.
-        clean_data = s.clean_input(demands, supplies, costs, method, is_display_tableau, is_get_shipped)
+        clean_data = s.clean_input(demands, supplies, costs, method)
         tableau = s.create_initial_tableau(clean_data[0], clean_data[1])
 
         # Get the result from Simplex method.
-        result = s.simplex(tableau['tableau'], clean_data[1], clean_data[3])
-    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, plants = d.plants, warehouses = d.warehouses, form = form, tableau = tableau, options = [clean_data[2], clean_data[3]], output = result)
+        result = s.simplex(tableau['tableau'], clean_data[1], bool(is_get_shipped))
+    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, plants = d.plants, warehouses = d.warehouses, form = form, tableau = tableau, options = [bool(is_display_tableau), bool(is_get_shipped)], output = result)
 
 # About SolvePy
 @app.route('/about')

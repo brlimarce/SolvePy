@@ -44,7 +44,7 @@ def simplex(tableau, is_max, problem):
         filtered = [_ for _ in ratio if not mt.isinf(_)]
         pptr = None if len(filtered) == 0 or len(filtered) == len(ratio) else min(np.where(ratio == min(filtered)))[0]
 
-        # If all test ratios are negative, return None.
+        # If all test ratios are negative, return -1 (Output).
         if pptr == None:
             return None
         
@@ -128,13 +128,11 @@ def create_initial_tableau(m, is_max):
 | - supplies: A list containing the number of supply for each plant
 | - costs: A list containing the shipping cost from a plant to a warehouse
 | - method: A string of the type of method of Simplex
-| - is_display_tableau: A string containing a boolean if the initial tableau is displayed
-| - is_get_shipped: A string containign a boolean if the number of shipped items is displayed
 - - -
 ** returns
 | - All parameters in the correct data type.
 | - demands, supplies, and cost: A matrix containing a problem-specific format
 | - method: Returns True if it's maximization else False
 '''
-def clean_input(demands, supplies, costs, method, is_display_tableau, is_get_shipped):
-    return [[[float(d) for d in demands], [float(c) for c in costs], [float(s) for s in supplies]], True if method == 'maximization' else False, bool(is_display_tableau), bool(is_get_shipped)]
+def clean_input(demands, supplies, costs, method):
+    return [[[float(d) for d in demands], [float(c) for c in costs], [float(s) for s in supplies]], True if method == 'maximization' else False]

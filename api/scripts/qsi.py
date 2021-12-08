@@ -30,10 +30,6 @@ def poly_qsi(xv, yv, x):
     intervals = [] # Store the intervals for each polynomial.
     intindex = 0 # Store the index of the equation in the list.
     y = 0 # Store the approximate value of f_n(x).
-
-    # Return None if xv and yv are unequal in size.
-    if len(xv) != len(yv):
-        return None
     
     # Add rows to the matrix for condition 1.
     for _ in range(1, n):
@@ -69,7 +65,6 @@ def poly_qsi(xv, yv, x):
         if x >= xv[_] and x <= xv[_ + 1]:
             y = (solution[a] * (x ** 2)) + (solution[a + 1] * x) + solution[a + 2]
             intindex = _
-    
     # Return a dictionary (polynomials and y).
     return { 'polynomials' : polynomials, 'intervals' : intervals, 'intindex' : intindex, 'y' : np.round(y, 4) }
 
