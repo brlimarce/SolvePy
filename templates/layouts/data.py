@@ -1,4 +1,4 @@
-'''
+u'''
 ** data
 | This is a helper file that contains
 | the data for the subpages.
@@ -56,21 +56,54 @@ tabs_qsi = [
     { 
         'name' : 'tutorial',
         'header' : 'How to use this solver? 🤔',
-        'body' : 'This is a generic solver for Quadratic Spline Interpolation (QSI). Browse the tabs in this card to check the input and output. Click \'Display Output\' to display the outcome from your data. On the other hand, click \'Reset\' to clear the text fields.'
+        'body' : 'Place a description here.'
     },
 
     # ** Input
     {
         'name' : 'input',
-        'header' : 'What should the input be? ⚙️',
-        'body' : 'X Values and Y Values are vectors for independent and dependent variables, respectively. Both should contain multiple values separated by a comma as well as have equal sizes. On the other hand, value is the x value or the value to be evaluated by a particular function. It should be a single numerical value.'
+        'header' : 'Input ⚙️',
+        'body' : 
+            '''
+            To get the desired result, you should follow the input's format. Below is a guide for your reference.
+            <ul class="list-group mt-4">
+                <!-- X Values -->
+                <li class="list-group-item">
+                    <span class="fw-bold text-primary">X Values:</span> This is your independent vector. It should contain multiple numbers <span class="fw-bold text-info">(size ≥ 1)</span>, which are separated by commas <span class="fw-bold text-info">( , ).</span>
+                </li>
+
+                <!-- Y Values -->
+                <li class="list-group-item">
+                    <span class="fw-bold text-primary">Y Values:</span> This is your dependent vector. It should contain multiple numbers <span class="fw-bold text-info">(size ≥ 1)</span>, which are separated by commas <span class="fw-bold text-info">( , ).</span>
+                </li>
+
+                <!-- Value -->
+                <li class="list-group-item">
+                    <span class="fw-bold text-primary">Value:</span> This is your x-value, which will be evaluated by the appropriate interpolating polynomial. This should be a single numerical value.
+                </li>
+            </ul>
+            '''
     },
 
     # ** Output
     {
         'name' : 'output',
-        'header' : 'What should the outcome be? ✨',
-        'body' : 'The first output is a table of QSI interpolating polynomials, which contains the polynomial with its respective interval. The other output is the approximate value from the function, which is a row containing the interval, polynomial, and value itself.'
+        'header' : 'Output ✨',
+        'body' :
+            '''
+            Based on your input, you'll receive its corresponding output. Below is a guide for your reference.
+            <ul class="list-group mt-4">
+                <!-- Polynomials -->
+                <li class="list-group-item">
+                    <span class="fw-bold text-primary">Polynomials:</span> This displays a table consisting of interpolating polynomials <span class="fw-bold text-info">(Polynomial)</span> with their respective intervals <span class="fw-bold text-info">(Interval)</span>.
+                </li>
+
+                <!-- Approximate -->
+                <li class="list-group-item">
+                    <span class="fw-bold text-primary">Approximate:</span> This is the result of your x-value when substituted in the appropriate interpolating polynomial. This displays a table, which contains the interval of x <span class="fw-bold text-info">(Interval)</span>, its respective polynomial <span class="fw-bold text-info">(Polynomial)</span>, and the y-value <span class="fw-bold text-info">(Approximate Value)</span>.
+                </li>
+            </ul>
+            '''
     }
 ]
 
@@ -89,21 +122,99 @@ tabs_simplex = [
     { 
         'name' : 'tutorial',
         'header' : 'How to use this solver? 🤔',
-        'body' : 'This is a generic solver for Simplex method. Browse the tabs in this card to check the problem and legend. Also, this solver sets the type of method to maximization. On the other hand, you are also given options to display the initial tableau or the matrix containing the number of shipped items.'
+        'body' : 'Place a description here.'
     },
 
     # ** Problem
     {
-        'name' : 'problem',
-        'header' : 'What is the context of this solver? 🚢',
-        'body' : 'Dedmond Integrated Valley Operations Company (DIVOC) is a production company for personal protective equipment (PPEs). One of the main products of DIVOC is a full-body PPE for hospitals and/or laboratories. The full-body PPEs are manufactured at three plants (Denver, Colorado; Phoenix, Arizona; and Dallas, Texas) and are then shipped by truck to five distribution warehouses in Sacramento, California; Salt Lake City, Utah; Albuquerque, New Mexico; Chicago, Illinois; and New York City, New York. Because shipping costs are a major expense, management is investigating a way to reduce them. Because of the world-wide pandemic, an estimate has been created as to the total output needed from each manufacturing plant and how each warehouse will require satisfying its customers. The CIO from DIVOC has created a spreadsheet of the shipping costs from each manufacturing plant to each warehouse as a baseline analysis.'
+        'name' : 'legend',
+        'header' : 'Legend 🚢',
+        'body' :
+            '''
+            Below is a guide for the acronyms of the plants and warehouses in the problem.
+
+            <!-- Plants -->
+            <h5 class="text-secondary mt-4">Plants 🌱</h5>
+            '''
     },
 
-    # ** Legend
+    # ** Variables
     {
-        'name' : 'legend',
-        'header' : 'How should I be guided? 🗺️',
-        'body' : 'x1, to x5 represent the number of shipped items from Denver to SAC, SL, ALB, CHI, and NYC, respectively. x6 to x10 represents the same order but from Phoenix, and x11 to x15 from Dallas to the same warehouses.'
+        'name' : 'variables',
+        'header' : 'Variables 🗺️',
+        'body' :
+            '''
+            <span class="text-primary fw-bold">Z</span> represents the maximized/minimized cost. On the other hand, the variables represent the <span class="text-primary fw-bold">number of shipped items</span> from one plant to one warehouse.
+
+            <!-- Variables (x1 to x5) -->
+            <table class="table text-center table-borderless table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-primary">x1</th>
+                        <th scope="col" class="text-primary">x2</th>
+                        <th scope="col" class="text-primary">x3</th>
+                        <th scope="col" class="text-primary">x4</th>
+                        <th scope="col" class="text-primary">x5</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>DEN to SAC</td>
+                        <td>DEN to SL</td>
+                        <td>DEN to ALB</td>
+                        <td>DEN to CHI</td>
+                        <td>DEN to NYC</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Variables (x6 to x10) -->
+            <table class="table text-center table-borderless table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-primary">x6</th>
+                        <th scope="col" class="text-primary">x7</th>
+                        <th scope="col" class="text-primary">x8</th>
+                        <th scope="col" class="text-primary">x9</th>
+                        <th scope="col" class="text-primary">x10</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>PHO to SAC</td>
+                        <td>PHO to SL</td>
+                        <td>PHO to ALB</td>
+                        <td>PHO to CHI</td>
+                        <td>PHO to NYC</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Variables (x11 to x15) -->
+            <table class="table text-center table-borderless table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-primary">x11</th>
+                        <th scope="col" class="text-primary">x12</th>
+                        <th scope="col" class="text-primary">x13</th>
+                        <th scope="col" class="text-primary">x14</th>
+                        <th scope="col" class="text-primary">x15</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>DAL to SAC</td>
+                        <td>DAL to SL</td>
+                        <td>DAL to ALB</td>
+                        <td>DAL to CHI</td>
+                        <td>DAL to NYC</td>
+                    </tr>
+                </tbody>
+            </table>
+            '''
     }
 ]
 
@@ -122,7 +233,7 @@ tabs_about = [
     { 
         'name' : 'ideation',
         'header' : 'Where did this idea come from? 💡',
-        'body' : 'SolvePy came from a friend who suggested Python as a PL. Since we\'re using R for numerical analysis, the thought of Python provided some inspiration to look for a more modern approach. Thus, I have decided to merge HTML, CSS, and Python into one platform.'
+        'body' : '<span class="text-primary fw-bold">SolvePy</span> stemmed'
     },
 
     # ** Design

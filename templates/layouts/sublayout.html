@@ -87,7 +87,7 @@
                 {% for _ in range(0, tabs|length) %}
                     <div class="tab-pane fade show {% if _ == 0 %} active {% endif %}" id="{{ (tabs[_])['name'] }}-tab" role="tabpanel" aria-labelledby="{{ (tabs[_])['name'] }}">
                         <br /><h5>{{ (tabs[_])['header'] }}</h5>
-                        <p>{{ (tabs[_])['body'] }}</p>
+                        <p>{{ (tabs[_])['body'] | safe }}</p>
                     </div>
                 {% endfor %}
             </div>

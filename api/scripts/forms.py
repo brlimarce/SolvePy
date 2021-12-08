@@ -72,9 +72,9 @@ class Validator():
 | - x: The x value (to be evaluated by a function)
 '''
 class QSIForm(FlaskForm):
-    xv = StringField('xv', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_csv])
-    yv = StringField('yv', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_csv])
-    x = StringField('x', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
+    xv = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_csv])
+    yv = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_csv])
+    x = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
 
     '''
     ** validate

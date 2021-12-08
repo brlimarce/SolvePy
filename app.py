@@ -3,6 +3,7 @@
 | This runs the Flask application.
 '''
 from flask import Flask, render_template, request
+from flask_bootstrap import Bootstrap
 from templates.layouts import data as d
 from api.scripts.forms import QSIForm, SimplexForm
 from api.scripts import qsi as q
@@ -12,6 +13,7 @@ import sys
 
 app = Flask(__name__, static_folder = 'static') # Redirect the application to this file.
 app.config['SECRET_KEY'] = '2d0e13d09775d283668ef17a6f808894' # Generate the secret key in the form.
+Bootstrap(app) # Integrate Bootstrap into the app.
 
 '''
 ** routes

@@ -3,6 +3,7 @@
     | generic solver using Simplex method.
 -->
 {% extends "layouts/sublayout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 <!-- Start of Header -->
 {% block subtitle %}
@@ -18,15 +19,15 @@
 {% block subbody %}
     <!-- Start of Form -->
     <form method="post">
-        {{ form.hidden_tag() }}
+        {{ form.csrf_token() }}
         <!-- Start of Demand Table -->
         <table class="table table-borderless mb-5">
             <!-- Start of Header -->
             <thead class="bg-light text-center">
                 <tr>
                     <th scope="col"></th>
-                    {% for k, v in warehouses.items() %}
-                        <th scope="col">{{ v }} <span class="text-primary">({{ k }})</span></th>
+                    {% for k in warehouses.keys() %}
+                        <th scope="col">{{ k }}</th>
                     {% endfor %}
                 </tr>
             </thead>
@@ -40,11 +41,11 @@
                         {% for d in form.demands %}
                             {% if d.errors %}
                                 <td>
-                                    {{ d(class = "form-control is-invalid", required = false) }}
+                                    {{ wtf.form_field(d, class = "form-control is-invalid") }}
                                 </td>
                             {% else %}
                                 <td>
-                                    {{ d(class = "form-control", required = false) }}
+                                    {{ wtf.form_field(d, class = "form-control") }}
                                 </td>
                             {% endif %}
                         {% endfor %}
@@ -73,25 +74,25 @@
             <tbody>
                 {% for i in range(0, 3) %}
                     <tr>
-                        <th scope="row">{{ (plants[i])['name'] }}</th>
+                        <th scope="row">{{ (plants[i])['keyword'] }}</th>
                         {% if form.supplies[i].errors %}
                             <td>
-                                {{ form.supplies[i](class = "form-control is-invalid", required = "false") }}
+                                {{ wtf.form_field(form.supplies[i], class = "form-control is-invalid") }}
                             </td>
                         {% else %}
                             <td>
-                                {{ form.supplies[i](class = "form-control", required = "false") }}
+                                {{ wtf.form_field(form.supplies[i], class = "form-control") }}
                             </td>
                         {% endif %}
 
                         {% for j in range(0, 5) %}
                             {% if form.costs[(5 * i) + j].errors %}
                                 <td>
-                                    {{ form.costs[(5 * i) + j](class = "form-control is-invalid", required = "false") }}
+                                    {{ wtf.form_field(form.costs[(5 * i) + j], class = "form-control is-invalid") }}
                                 </td>
                             {% else %}
                                 <td>
-                                    {{ form.costs[(5 * i) + j](class = "form-control", required = "false") }}
+                                    {{ wtf.form_field(form.costs[(5 * i) + j], class = "form-control is-invalid") }}
                                 </td>
                             {% endif %}
                         {% endfor %}

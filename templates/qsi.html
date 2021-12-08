@@ -121,7 +121,7 @@
                             <tr>
                                 <th scope="row">{{ _ }}</th>
                                 <td>{{ (output['polynomials'])[_ - 1] }}</td>
-                                <td>{{ (output['intervals'])[_ - 1][0] }} &#60;= x &#60;= {{ (output['intervals'])[_ - 1][1] }}</td>
+                                <td>{{ (output['intervals'])[_ - 1][0] }} ≤ x ≤ {{ (output['intervals'])[_ - 1][1] }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -151,7 +151,7 @@
                     <!-- Start of Body -->
                     <tbody class="text-center">
                         <tr>
-                            <td scope="row">{{ (output['intervals'])[output['intindex']][0] }} &#60;= x &#60;= {{ (output['intervals'])[output['intindex']][1] }}</td>
+                            <td scope="row">{{ (output['intervals'])[output['intindex']][0] }} ≤ x ≤ {{ (output['intervals'])[output['intindex']][1] }}</td>
                             <td>{{ (output['polynomials'])[output['intindex']] }}</td>
                             <td>{{ output['y'] }}</td>
                         </tr>
