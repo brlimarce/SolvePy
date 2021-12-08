@@ -20,33 +20,27 @@ pages = {
     'qsi' : {
         'name' : 'QSI',
         'route' : '/solve/qsi',
-        'subheader' : 'Generic Solver',
-        'description' : 'Get the approximate and interpolating polynomials using QSI.'
+        'subheader' : 'Generic Solver'
     },
 
     'simplex' : {
         'name' : 'Simplex',
         'route' : '/solve/simplex',
-        'subheader' : 'Generic Solver',
-        'description' : 'Solve the tableau using Simplx method.'
+        'subheader' : 'Generic Solver'
     },
 
     'problem' : {
         'name' : 'Problem',
         'route' : '/solve/simplex/problem',
-        'subheader' : 'Problem-Specific Solver',
-        'description' : 'Display a basic shipping log to maximize/minimize the cost using Simplex.'
+        'subheader' : 'Problem-Specific Solver'
     },
 
     'about' : {
         'name' : 'About',
         'route' : '/about',
-        'subheader' : 'About the App',
-        'description' : 'Know more about the inner workings of SolvePy!'
+        'subheader' : 'About the App'
     }
 }
-
-
 
 '''
 ** QSI Tabs
@@ -63,7 +57,10 @@ tabs_qsi = [
     { 
         'name' : 'tutorial',
         'header' : 'How to use this solver? 🤔',
-        'body' : 'Place a description here.'
+        'body' :
+            '''
+            This is a generic solver for <span class="text-primary">Quadratic Spline Interpolation (QSI).</span> Browse the succeeding tabs to check out the input and output of this web page. For other solvers, check out the <span class="text-primary">navigation bar</span> above.
+            '''
     },
 
     # ** Input
@@ -72,21 +69,23 @@ tabs_qsi = [
         'header' : 'Input ⚙️',
         'body' : 
             '''
-            To get the desired result, you should follow the input's format. Below is a guide for your reference.
-            <ul class="list-group mt-4">
+            <ul class="list-group">
+                <!-- Description -->
+                <span class="mb-3">Below is a guide on how you should input your values.</span>
+
                 <!-- X Values -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">X Values:</span> This is your independent vector. It should contain multiple numbers <span class="fw-bold text-info">(size ≥ 1)</span>, which are separated by commas <span class="fw-bold text-info">( , ).</span>
+                    <span class="fw-bold text-primary">X Values -</span> This serves as your <span class="text-secondary">independent vector.</span> Enter multiple numbers <span class="text-secondary">(size ≥ 1)</span>, which are separated by commas.
                 </li>
 
                 <!-- Y Values -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Y Values:</span> This is your dependent vector. It should contain multiple numbers <span class="fw-bold text-info">(size ≥ 1)</span>, which are separated by commas <span class="fw-bold text-info">( , ).</span>
+                    <span class="fw-bold text-primary">Y Values -</span> This serves as your <span class="text-secondary">dependent vector.</span> Enter multiple numbers <span class="text-secondary">(size ≥ 1)</span>, which are separated by commas.
                 </li>
 
                 <!-- Value -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Value:</span> This is your x-value, which will be evaluated by the appropriate interpolating polynomial. This should be a single numerical value.
+                    <span class="fw-bold text-primary">Value -</span> This serves as your <span class="text-secondary">x value</span> or the single number to be evaluated by an interpolating polynomial.
                 </li>
             </ul>
             '''
@@ -98,16 +97,18 @@ tabs_qsi = [
         'header' : 'Output ✨',
         'body' :
             '''
-            Based on your input, you'll receive its corresponding output. Below is a guide for your reference.
-            <ul class="list-group mt-4">
+            <ul class="list-group">
+                <!-- Description -->
+                <span class="mb-3">Below is a guide on what you'll be receiving as outputs.</span>
+
                 <!-- Polynomials -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Polynomials:</span> This displays a table consisting of interpolating polynomials <span class="fw-bold text-info">(Polynomial)</span> with their respective intervals <span class="fw-bold text-info">(Interval)</span>.
+                    <span class="fw-bold text-primary">Interpolating Polynomials -</span> This displays a table consisting of interpolating polynomials <span class="text-secondary">(Polynomial)</span> along with their respective intervals <span class="text-secondary">(Interval)</span>.
                 </li>
 
                 <!-- Approximate -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Approximate:</span> This is the result of your x-value when substituted in the appropriate interpolating polynomial. This displays a table, which contains the interval of x <span class="fw-bold text-info">(Interval)</span>, its respective polynomial <span class="fw-bold text-info">(Polynomial)</span>, and the y-value <span class="fw-bold text-info">(Approximate Value)</span>.
+                    <span class="fw-bold text-primary">Approximate -</span> This is the result of x when substituted in the appropriate interpolating polynomial. This displays a table, which contains the interval (covering x) <span class="text-secondary">(Interval)</span>, its respective polynomial <span class="text-secondary">(Polynomial)</span>, and y <span class="text-secondary">(Approximate Value)</span>.
                 </li>
             </ul>
             '''
@@ -129,7 +130,10 @@ tabs_simplex = [
     { 
         'name' : 'tutorial',
         'header' : 'How to use this solver? 🤔',
-        'body' : 'Place a description here.'
+        'body' :
+            '''
+            This is a generic solver for <span class="text-primary">Simplex Method.</span> Browse the succeeding tabs to check out the input and output of this web page. For other solvers, check out the <span class="text-primary">navigation bar</span> above.
+            '''
     },
 
     # ** Input
@@ -140,19 +144,19 @@ tabs_simplex = [
             '''
             To get the desired result, you should follow the input's format. Below is a guide for your reference.
             <ul class="list-group mt-4">
-                <!-- X Values -->
+                <!-- Constraints -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">X Values:</span> This is your independent vector. It should contain multiple numbers <span class="fw-bold text-info">(size ≥ 1)</span>, which are separated by commas <span class="fw-bold text-info">( , ).</span>
+                    <span class="fw-bold text-primary">Constraints -</span> This serves as the <span class="text-secondary">size of your constraints.</span> Enter a <span class="text-secondary">single number</span> as the size of your constraints.
                 </li>
 
-                <!-- Y Values -->
+                <!-- Variables -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Y Values:</span> This is your dependent vector. It should contain multiple numbers <span class="fw-bold text-info">(size ≥ 1)</span>, which are separated by commas <span class="fw-bold text-info">( , ).</span>
+                    <span class="fw-bold text-primary">Variables -</span> This serves as the <span class="text-secondary">size of your variables.</span> Enter a <span class="text-secondary">single number</span> as the size of your variables.
                 </li>
 
-                <!-- Value -->
+                <!-- Initial Tableau -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Value:</span> This is your x-value, which will be evaluated by the appropriate interpolating polynomial. This should be a single numerical value.
+                    <span class="fw-bold text-primary">Initial Tableau -</span> This serves as the <span class="text-secondary">initial tableau.</span> Based on the size of your constraints and variables, fill the cells of the table, which is inclusive of <span class="text-secondary">the variables, slack variables, Z, and the right-hand side.</span>
                 </li>
             </ul>
             '''
@@ -166,14 +170,19 @@ tabs_simplex = [
             '''
             Based on your input, you'll receive its corresponding output. Below is a guide for your reference.
             <ul class="list-group mt-4">
-                <!-- Polynomials -->
+                <!-- Optimal Value -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Polynomials:</span> This displays a table consisting of interpolating polynomials <span class="fw-bold text-info">(Polynomial)</span> with their respective intervals <span class="fw-bold text-info">(Interval)</span>.
+                    <span class="fw-bold text-primary">Optimal Value -</span> This displays the <span class="text-secondary"> maximized or minimized optimal value based on the initial tableau.
                 </li>
 
-                <!-- Approximate -->
+                <!-- Final Tableau -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Approximate:</span> This is the result of your x-value when substituted in the appropriate interpolating polynomial. This displays a table, which contains the interval of x <span class="fw-bold text-info">(Interval)</span>, its respective polynomial <span class="fw-bold text-info">(Polynomial)</span>, and the y-value <span class="fw-bold text-info">(Approximate Value)</span>.
+                    <span class="fw-bold text-primary">Final Tableau -</span> This serves as the final tableau after performing Simplex method. The <span class="text-secondary">basic solution</span> can also be found here.
+                </li>
+
+                <!-- Basic Solution -->
+                <li class="list-group-item">
+                    <span class="fw-bold text-primary">Basic Solution -</span> This serves as the <span class="text-secondary">last basic solution</span> based on the final tableau.
                 </li>
             </ul>
             '''
@@ -195,7 +204,10 @@ tabs_problem = [
     { 
         'name' : 'tutorial',
         'header' : 'How to use this solver? 🤔',
-        'body' : 'Place a description here.'
+        'body' :
+            '''
+            This is the problem-specific solver for <span class="text-primary">Simplex Method.</span> Browse the succeeding tabs to check out the input and output of this web page. For other solvers, check out the <span class="text-primary">navigation bar</span> above.
+            '''
     },
 
     # ** Problem
@@ -207,7 +219,50 @@ tabs_problem = [
             Below is a guide for the acronyms of the plants and warehouses in the problem.
 
             <!-- Plants -->
-            <h5 class="text-secondary mt-4">Plants 🌱</h5>
+            <table class="table text-center table-borderless table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-primary"></th>
+                        <th scope="col" class="text-primary">DEN</th>
+                        <th scope="col" class="text-primary">PHO</th>
+                        <th scope="col" class="text-primary">DAL</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="text-secondary">Plant</td>
+                        <td>Denver, Colorado</td>
+                        <td>Phoenix, Arizona</td>
+                        <td>Dallas, Texas</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Warehouses -->
+            <table class="table text-center table-borderless table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-primary"></th>
+                        <th scope="col" class="text-primary">SAC</th>
+                        <th scope="col" class="text-primary">SL</th>
+                        <th scope="col" class="text-primary">ALB</th>
+                        <th scope="col" class="text-primary">CHI</th>
+                        <th scope="col" class="text-primary">NYC</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="text-secondary">Warehouse</td>
+                        <td>Sacramento, California</td>
+                        <td>Salt Lake City, Utah</td>
+                        <td>Albuquerque, New Mexico</td>
+                        <td>Chicago, Illinois</td>
+                        <td>New York City, New York</td>
+                    </tr>
+                </tbody>
+            </table>
             '''
     },
 
@@ -217,7 +272,7 @@ tabs_problem = [
         'header' : 'Variables 🗺️',
         'body' :
             '''
-            <span class="text-primary fw-bold">Z</span> represents the maximized/minimized cost. On the other hand, the variables represent the <span class="text-primary fw-bold">number of shipped items</span> from one plant to one warehouse.
+            <span class="text-primary">Z</span> represents the <span class="text-secondary">maximized/minimized</span> cost. On the other hand, the variables represent the <span class="text-secondary">number of shipped items</span> from a plant to a warehouse.
 
             <!-- Variables (x1 to x5) -->
             <table class="table text-center table-borderless table-striped">
@@ -306,21 +361,30 @@ tabs_about = [
     { 
         'name' : 'ideation',
         'header' : 'Where did this idea come from? 💡',
-        'body' : '<span class="text-primary fw-bold">SolvePy</span> stemmed'
+        'body' : 
+            '''
+            I wanted to explore more technologies other than R. Thus, I've resorted to Python as well as a framework that is fitting to this PL. At the same time, it is easy and convenient to learn and use. I strived to integrate creativity and functionality into this app.
+            '''
     },
 
     # ** Design
     {
         'name' : 'design',
         'header' : 'How did I design this? 🎨',
-        'body' : 'Due to time constraints and learning curve, I\'ve decided to rely on something I\'m comfortable to use, which is Bootstrap. Supposedly, the overall feel of the web app is professional yet easy to follow through the eye.'
+        'body' :
+            '''
+            Due to time constraints, I've resorted to using Bootstrap as my frontend library. Other than that, Bootstrap has the necessary components to provide a professional vibe to the app's interface. I've experimented with different themes and components to put both solves together in an interactive way.
+            '''
     },
 
     # ** Development
     {
         'name' : 'development',
         'header' : 'How did I develop this? 💻',
-        'body' : 'My previous R exercises were converted into Python. All of them serve as modules to be utilized by an external Python file for the app. Other than that, there are templates, which serve as the structure and design of all web pages. These templates are directly connected to the Python modules.'
+        'body' : 
+            '''
+            All exercises in R were converted into Python. They served as modules in the form of external Python files. For the web pages, they were through templates, which served as their structure and design. The templates and modules can be directly connected to each other.
+            '''
     }
 ]
 
@@ -338,21 +402,36 @@ profile = [
     {
         'icon' : 'about.svg',
         'header': 'About Me',
-        'body' : 'Hello, I\'m Bia! I really love designing, which makes UI/UX one of my primary interests. Other than that, I also love software development. I visualize a future where functional things are done creatively not only in the aesthetic but also in innovation.'
+        'body' : 
+            '''
+            Hi! I'm <span class="text-primary">Bia!</span> I love <span class="text-secondary">design</span>, which makes UI/UX as one of my primary interests. Other than that, I love software development; my favorite PL is <span class="text-secondary">C#</span>. I visualize a future where things function creatively. This is not only limited in the visual aspect but also in the innovation part.
+            '''
     },
 
     # ** Technologies Used
     {
         'icon' : 'technology.svg',
         'header': 'Technologies Used',
-        'body' : 'For frontend, I have used Bootstrap 5 to translate the mockups into HTML code. For backend, however, I have used Python for the scripts. Overall, I have used Flask to integrate Python into the HTML files.'
+        'body' :
+            '''
+            For <span class="text-primary">frontend development,</span> I've utilized Bootstrap 5 to translate the mockups from Figma into HTML code. <br /> <br />
+            
+            For <span class="text-primary">backend development,</span> however, I've used Python and Flask for the scripts and integration, respectively. I've also used other libraries such as WTForms. <br />
+            '''
     },
 
     # ** Dedication
     {
         'icon' : 'dedication.svg',
         'header': 'Dedication',
-        'body' : 'To Sir Lei, thank you for these wonderful learnings. To Junel, thanks a lot. I owe you one.'
+        'body' :
+            '''
+            To <span class="text-primary">Sir Lei,</span> <br />
+            Thank you for the learnings in 150. I've been challenged with these exercises, and I was able to improve and hone my programming skills. <br /> <br />
+
+            To <span class="text-primary">Junel,</span> <br />
+            Thanks. I owe you one, bro.
+            '''
     }
 ]
 

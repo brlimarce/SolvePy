@@ -60,7 +60,7 @@ class Validator():
             if len(splitter) <= 1:
                 raise Exception()
         except:
-            raise ValidationError('❌ Enter multiple values separated by a comma.')
+            raise ValidationError('❌ Enter multiple numbers separated by commas.')
     
     '''
     ** is_integer
@@ -94,7 +94,7 @@ class Validator():
             if int(field.data) < 1:
                 raise Exception()
         except:
-            raise ValidationError('❌ The value should be greater than 1.')
+            raise ValidationError('❌ Number should be greater than 1.')
 
 '''
 ** QSIForm
