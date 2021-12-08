@@ -20,6 +20,10 @@
     label:not(.form-check-label) {
         display: none;
     }
+
+    .help-block {
+        color: #DC3545;
+    }
 {% endblock %}
 <!-- End of Custom CSS -->
 
@@ -27,9 +31,9 @@
 {% block subbody %}
     <!-- Start of Form -->
     <form method="post">
-        {{ form.csrf_token() }}
+        {{ form.hidden_tag() }}
         <!-- Start of Demand Table -->
-        <table class="table table-borderless mb-5">
+        <table class="table table-borderless">
             <!-- Start of Header -->
             <thead class="bg-light text-center">
                 <tr>

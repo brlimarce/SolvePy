@@ -32,7 +32,7 @@ pages = {
     },
 
     'problem' : {
-        'name' : 'Problem (Simplex)',
+        'name' : 'Problem',
         'route' : '/solve/simplex/problem',
         'subheader' : 'Problem-Specific Solver',
         'description' : 'Display a basic shipping log to maximize/minimize the cost using Simplex.'

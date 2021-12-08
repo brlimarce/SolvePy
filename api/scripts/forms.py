@@ -61,6 +61,40 @@ class Validator():
                 raise Exception()
         except:
             raise ValidationError('❌ Enter multiple values separated by a comma.')
+    
+    '''
+    ** is_integer
+    | This is a custom validator, which checks
+    | if the value is an integer.
+    - - -
+    ** params
+    | - form: The current form
+    | - field: The input field of the data
+    '''
+    @staticmethod
+    def is_integer(form, field):
+        try:
+            num = int(field.data)
+        except:
+            raise ValidationError('❌ Enter an integer.')
+    
+    '''
+    ** is_many
+    | This is a custom validator, which checks
+    | if the value is greater than 0.
+    - - -
+    ** params
+    | - form: The current form
+    | - field: The input field of the data
+    '''
+    @staticmethod
+    def is_many(form, field):
+        try:
+            # Raise an exception if there is only 1 data point.
+            if int(field.data) < 1:
+                raise Exception()
+        except:
+            raise ValidationError('❌ The value should be greater than 1.')
 
 '''
 ** QSIForm
@@ -84,6 +118,7 @@ class QSIForm(FlaskForm):
     ** params
     | self: The class in question
     '''
+    @staticmethod
     def validate(self):
         # Store the error message for the custom validator.
         msg_size = '❌ Both vectors should have equal sizes.'
@@ -160,4 +195,39 @@ class ProblemForm(FlaskForm):
     is_display_tableau = BooleanField('Display Initial Tableau')
     is_get_shipped = BooleanField('Get Number of Shipped Items')
 
+    send = SubmitField('display-problem')
+
+'''
+** ComposeForm
+| This class contains the specifications in composing the initial tableau.
+- - -
+** properties
+| - clen: The number of constraints
+| - vlen: The number of variables
+'''
+class ComposeForm(FlaskForm):
+    clen = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_integer, Validator.is_many])
+    vlen = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_integer, Validator.is_many])
+    send = SubmitField('display-tableau')
+
+'''
+** Element
+| This class contains the element in the initial tableau.
+- - -
+** properties
+| - value: The numerical value of the element
+'''
+class Element(FlaskForm):
+    value = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
+
+'''
+** SimplexForm
+| This class contains the initial tableau.
+- - -
+** properties
+| - ?
+'''
+class SimplexForm(FlaskForm):
+    tableau = FieldList(FormField(Element), min_entries = 5, max_entries = 5)
+    method = RadioField('method', choices = [('maximization', 'Maximization'), ('minimization', 'Minimization')], default = 'maximization')
     send = SubmitField('display-simplex')

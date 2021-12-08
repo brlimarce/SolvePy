@@ -5,6 +5,7 @@
 '''
 import numpy as np
 import math as mt
+import sys
 
 '''
 ** simplex
