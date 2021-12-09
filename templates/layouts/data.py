@@ -144,19 +144,17 @@ tabs_simplex = [
             '''
             To get the desired result, you should follow the input's format. Below is a guide for your reference.
             <ul class="list-group mt-4">
-                <!-- Constraints -->
+                <!-- Equations -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Constraints -</span> This serves as the <span class="text-secondary">size of your constraints.</span> Enter a <span class="text-secondary">single number</span> as the size of your constraints.
+                    <span class="fw-bold text-primary">Equations -</span> This contains the objective function and  its constraints. The equations must be separated by a new line, and it should follow the format below: <br />
+                    Z = 10x1 + 5x2 <br />
+                    3x1 + 3x2 <= 4x2 <br />
+                    5x1 + 6x2 >= 3x2
                 </li>
 
-                <!-- Variables -->
+                <!-- Method -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Variables -</span> This serves as the <span class="text-secondary">size of your variables.</span> Enter a <span class="text-secondary">single number</span> as the size of your variables.
-                </li>
-
-                <!-- Initial Tableau -->
-                <li class="list-group-item">
-                    <span class="fw-bold text-primary">Initial Tableau -</span> This serves as the <span class="text-secondary">initial tableau.</span> The <span class="text-secondary">rows</span> of the tableau should be separated by a <span class="text-secondary">new line.</span> In each row, the numbers are separated by <span class="text-secondary">commas.</span>
+                    <span class="fw-bold text-primary">Method -</span> This serves as the basis whether maximization or minimization is applied. The default value is maximization.
                 </li>
             </ul>
             '''

@@ -202,16 +202,10 @@ class ProblemForm(FlaskForm):
 | This class contains the initial tableau.
 - - -
 ** properties
-| - clen: The number of constraints
-| - vlen: The number of variables
-| - colnames: The column names of the tableau separated by commas
-| - tableau: The initial tableau
+# TODO: Documentation.
 | - method: The type of method used (Default: Maximization)
 '''
 class SimplexForm(FlaskForm):
-    clen = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_integer, Validator.is_many])
-    vlen = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_integer, Validator.is_many])
-    colnames = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED)])
-    tableau = TextAreaField('', validators = [DataRequired(message = Validator.MSG_REQUIRED)])
+    problem = TextAreaField('problem', validators = [DataRequired(message = Validator.MSG_REQUIRED)])
     method = RadioField('method', choices = [('maximization', 'Maximization'), ('minimization', 'Minimization')], default = 'maximization')
     send = SubmitField('display-simplex')

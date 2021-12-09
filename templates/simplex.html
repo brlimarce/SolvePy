@@ -15,122 +15,49 @@
 {% endblock %}
 <!-- End of Header -->
 
-<!-- Start of Custom CSS -->
-{% block custom_style %}
-    label:not(.exclude) {
-        display: none;
-    }
-
-    .help-block {
-        color: #DC3545;
-    }
-{% endblock %}
-<!-- End of Custom CSS -->
-
 <!-- Start of Nested Body -->
 {% block subbody %}
     <!-- Start of Form -->
-    <form method="post">
+    <form method="POST">
         {{ form.hidden_tag() }}
+        <!-- Start of Text Area -->
         <div class="row mb-4">
-            <!-- Start of Constraints -->
-            {{ form.clen.label(class="form-label exclude fw-bold col-1", text = "Constraints") }}
-            <div class="col-5">
+            {{ form.problem.label(class="form-label fw-bold col-2", text = "Equations") }}
+            <div class="col-10">
                 <div class="input-group mb-3">
-                    {% if form.clen.errors %}
-                        {{ form.clen(class = "form-control is-invalid", placeholder = "Enter a number", required = false) }}
-                        {% for e in form.clen.errors %}
+                    {% if form.problem.errors %}
+                        {{ form.problem(class = "form-control is-invalid", placeholder = "Enter the objective function before the constraints", required = false, rows = 6) }}
+                        {% for e in form.problem.errors %}
                             <div class="invalid-feedback mt-3">
                                 <span>{{ e }}</span>
                             </div>
                         {% endfor %}
                     {% else %}
-                        {{ form.clen(class = "form-control", placeholder = "Enter a number", required = false) }}
-                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter number of constraints.</small>
+                        {{ form.problem(class = "form-control", placeholder = "Enter the objective function before the constraints", required = false, rows = 6) }}
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter equations separated by new lines.</small>
                     {% endif %}
                 </div>
             </div>
-            <!-- End of Constraints -->
-
-            <!-- Start of Variables -->
-            {{ form.vlen.label(class = "form-label exclude fw-bold col-1", text = "Variables") }}
-            <div class="col-5">
-                <div class="input-group mb-3">
-                    {% if form.vlen.errors %}
-                        {{ form.vlen(class = "form-control is-invalid", placeholder = "Enter a number", required = false) }}
-                        {% for e in form.vlen.errors %}
-                            <div class="invalid-feedback mt-3">
-                                <span>{{ e }}</span>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        {{ form.vlen(class = "form-control", placeholder = "Enter a number", required = false) }}
-                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter number of variables.</small>
-                    {% endif %}
-                </div>
-            </div>
-            <!-- End of Variables -->
         </div>
+        <!-- End of Text Area -->
 
+        <!-- Start of Method Type -->
         <div class="row mb-5">
-            <!-- Start of Table -->
-            {{ form.tableau.label(class = "form-label exclude fw-bold col-1", text = "Initial Tableau") }}
-            <div class="col-5">
-                <div class="input-group mb-3">
-                    {% if form.tableau.errors %}
-                        {{ form.tableau(class = "form-control is-invalid", placeholder = "Enter rows (separated by a new line) filled with comma-separated value (numbers)", required = false, rows = 6) }}
-                        {% for e in form.tableau.errors %}
-                            <div class="invalid-feedback mt-3">
-                                <span>{{ e }}</span>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        {{ form.tableau(class = "form-control", placeholder = "Enter rows (separated by a new line) filled with comma-separated value (numbers)", required = false, rows = 6) }}
-                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter the initial tableau.</small>
-                    {% endif %}
+            <h5 class="col-2 mb-2"><span class="badge bg-primary">Type of Method</span></h5>
+            {% for m in form.method %}
+                <div class="form-check mb-2 col-2">
+                    {{ m(class = "form-check-input") }}
+                    {{ m.label(class = "form-check-label" )}}
                 </div>
-            </div>
-            <!-- End of Table -->
-
-            <!-- Start of Variables -->
-            {{ form.colnames.label(class = "form-label exclude fw-bold col-1", text = "Column Names") }}
-            <div class="col-5">
-                <div class="input-group mb-3">
-                    {% if form.colnames.errors %}
-                        {{ form.colnames(class = "form-control is-invalid", placeholder = "Enter the tableau's column names separated by commas", required = false) }}
-                        {% for e in form.colnames.errors %}
-                            <div class="invalid-feedback mt-3">
-                                <span>{{ e }}</span>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        {{ form.colnames(class = "form-control", placeholder = "Enter the tableau's column names separated by commas", required = false) }}
-                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter the column names separated by commas.</small>
-                    {% endif %}
-                </div>
-            </div>
-            <!-- End of Variables -->
+            {% endfor %}
         </div>
-
-        <div class="row mb-5">
-            <!-- Start of Method Type -->
-            <div class="col-6">
-                <h5 class="mb-3"><span class="badge bg-primary">Type of Method</span></h5>
-                {% for m in form.method %}
-                    <div class="form-check mb-2">
-                        {{ m(class = "form-check-input") }}
-                        {{ m.label(class = "form-check-label exclude" )}}
-                    </div>
-                {% endfor %}
-            </div>
-            <!-- End of Method Type -->
-        </div>
+        <!-- End of Method Type -->
 
         <!-- Start of Button Container -->
         <div class="row">
             <div class="d-flex flex-row">
                 {{ form.send(class = "btn btn-primary", value = "Display Output") }} &nbsp;
-                <input type="reset" class="btn btn-secondary" />
+                <button type="reset" class="btn btn-secondary">Reset</button>
             </div>
         </div>
         <!-- End of Button Container -->
