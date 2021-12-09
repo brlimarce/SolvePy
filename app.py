@@ -4,20 +4,19 @@
 '''
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
-from flask_wtf import csrf, FlaskForm
-from wtforms import FieldList, FormField, RadioField, SubmitField
+from flask_wtf import csrf
 
 from templates.layouts import data as d
-from api.scripts.forms import QSIForm, ProblemForm, SimplexForm, ComposeForm, Element
+from api.scripts.forms import QSIForm, ProblemForm, SimplexForm
 from api.scripts import qsi as q
 from api.scripts import simplex as s
-
-import sys
 
 app = Flask(__name__, static_folder = 'static') # Redirect the application to this file.
 app.config['SECRET_KEY'] = '2d0e13d09775d283668ef17a6f808894' # Generate the secret key in the form.
 
-csrf = csrf.CSRFProtect(app) # Integrate a CSRF token into the app.
+# Integrate a CSRF token into the app.
+csrf = csrf.CSRFProtect(app)
+
 Bootstrap(app) # Integrate Bootstrap into the app.
 
 '''
@@ -55,36 +54,8 @@ def solve_qsi():
 @app.route('/solve/simplex', methods = ['GET', 'POST'])
 def solve_simplex():
     # ** Declaration
-    clen = 0 # Store the number of constraints.
-    vlen = 0 # Store the number of variables.
-
-    # Store the page's form.
-    compose_form = ComposeForm(request.form)
-
-    # Validate the triggered form.
-    if compose_form.validate_on_submit():
-        # Store the data into variables.
-        clen = int(compose_form.clen.data)
-        vlen = int(compose_form.vlen.data)
-
-        # Reset the data.
-        compose_form.clen.data = compose_form.vlen.data = None
-    
-    # Subclass the form and bind a new field.
-    class SimplexForm(FlaskForm): pass
-    SimplexForm.tableau = FieldList(FormField(Element), min_entries = (clen + vlen + 2) * (clen + 1), max_entries = (clen + vlen + 2) * (clen + 1))
-    
-    SimplexForm.method = RadioField('method', choices = [('maximization', 'Maximization'), ('minimization', 'Minimization')], default = 'maximization')
-
-    SimplexForm.send = SubmitField('display-simplex')
-
-    # Instantiate the newly created form.
-    simplex_form = SimplexForm(request.form)
-    if simplex_form.validate_on_submit():
-        # Get the data.
-        tableau = simplex_form.tableau.data
-        print('Tableau:', tableau)
-    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, compose_form = compose_form, simplex_form = simplex_form, clen = clen, vlen = vlen)
+    form = SimplexForm(request.form)
+    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, form = form)
 
 # Problem-Specific Simplex Solver
 @app.route('/solve/simplex/problem', methods = ['GET', 'POST'])
@@ -110,7 +81,7 @@ def solve_problem():
         is_get_shipped = form.is_get_shipped.data
 
         # Get the clean data and perform Simplex.
-        clean_data = s.clean_input(demands, supplies, costs, method)
+        clean_data = s.clean_problem_input(demands, supplies, costs, method)
         tableau = s.create_initial_tableau(clean_data[0], clean_data[1])
 
         # Get the result from Simplex method.

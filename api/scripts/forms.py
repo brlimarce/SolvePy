@@ -5,7 +5,7 @@
 '''
 from flask.app import Flask
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FieldList, FormField, RadioField, BooleanField
+from wtforms import StringField, SubmitField, FieldList, FormField, RadioField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError
 
 '''
@@ -198,36 +198,20 @@ class ProblemForm(FlaskForm):
     send = SubmitField('display-problem')
 
 '''
-** ComposeForm
-| This class contains the specifications in composing the initial tableau.
-- - -
-** properties
-| - clen: The number of constraints
-| - vlen: The number of variables
-'''
-class ComposeForm(FlaskForm):
-    clen = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_integer, Validator.is_many])
-    vlen = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_integer, Validator.is_many])
-    send = SubmitField('display-tableau')
-
-'''
-** Element
-| This class contains the element in the initial tableau.
-- - -
-** properties
-| - value: The numerical value of the element
-'''
-class Element(FlaskForm):
-    value = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_number])
-
-'''
 ** SimplexForm
 | This class contains the initial tableau.
 - - -
 ** properties
-| - ?
+| - clen: The number of constraints
+| - vlen: The number of variables
+| - colnames: The column names of the tableau separated by commas
+| - tableau: The initial tableau
+| - method: The type of method used (Default: Maximization)
 '''
 class SimplexForm(FlaskForm):
-    tableau = FieldList(FormField(Element), min_entries = 5, max_entries = 5)
+    clen = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_integer, Validator.is_many])
+    vlen = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_integer, Validator.is_many])
+    colnames = StringField('', validators = [DataRequired(message = Validator.MSG_REQUIRED)])
+    tableau = TextAreaField('', validators = [DataRequired(message = Validator.MSG_REQUIRED)])
     method = RadioField('method', choices = [('maximization', 'Maximization'), ('minimization', 'Minimization')], default = 'maximization')
     send = SubmitField('display-simplex')

@@ -120,9 +120,9 @@ def create_initial_tableau(m, is_max):
     return { 'tableau' : np.array(tableau, dtype = float).transpose(),  'colnames' : ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12', 'x13', 'x14', 'x15', 'Z', 'Solution'] }
 
 '''
-** clean_input
+** clean_problem_input
 | This is a helper function to clean the data
-| from the form.
+| from the form (Problem-specific Solver).
 - - -
 ** params
 | - demands: A list containing the number of demand for each warehouse
@@ -135,5 +135,5 @@ def create_initial_tableau(m, is_max):
 | - demands, supplies, and cost: A matrix containing a problem-specific format
 | - method: Returns True if it's maximization else False
 '''
-def clean_input(demands, supplies, costs, method):
+def clean_problem_input(demands, supplies, costs, method):
     return [[[float(d) for d in demands], [float(c) for c in costs], [float(s) for s in supplies]], True if method == 'maximization' else False]

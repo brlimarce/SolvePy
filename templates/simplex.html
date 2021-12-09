@@ -31,21 +31,21 @@
 {% block subbody %}
     <!-- Start of Form -->
     <form method="post">
-        {{ compose_form.hidden_tag() }}
+        {{ form.hidden_tag() }}
         <div class="row mb-4">
             <!-- Start of Constraints -->
-            {{ compose_form.clen.label(class="form-label exclude fw-bold col-1", text = "Constraints") }}
+            {{ form.clen.label(class="form-label exclude fw-bold col-1", text = "Constraints") }}
             <div class="col-5">
                 <div class="input-group mb-3">
-                    {% if compose_form.clen.errors %}
-                        {{ compose_form.clen(class = "form-control is-invalid", placeholder = "Enter a number", required = false) }}
-                        {% for e in compose_form.clen.errors %}
+                    {% if form.clen.errors %}
+                        {{ form.clen(class = "form-control is-invalid", placeholder = "Enter a number", required = false) }}
+                        {% for e in form.clen.errors %}
                             <div class="invalid-feedback mt-3">
                                 <span>{{ e }}</span>
                             </div>
                         {% endfor %}
                     {% else %}
-                        {{ compose_form.clen(class = "form-control", placeholder = "Enter a number", required = false) }}
+                        {{ form.clen(class = "form-control", placeholder = "Enter a number", required = false) }}
                         <small class="form-text text-muted col-xl-12 mt-3">❔ Enter number of constraints.</small>
                     {% endif %}
                 </div>
@@ -53,18 +53,18 @@
             <!-- End of Constraints -->
 
             <!-- Start of Variables -->
-            {{ compose_form.vlen.label(class = "form-label exclude fw-bold col-1", text = "Variables") }}
+            {{ form.vlen.label(class = "form-label exclude fw-bold col-1", text = "Variables") }}
             <div class="col-5">
                 <div class="input-group mb-3">
-                    {% if compose_form.vlen.errors %}
-                        {{ compose_form.vlen(class = "form-control is-invalid", placeholder = "Enter a number", required = false) }}
-                        {% for e in compose_form.vlen.errors %}
+                    {% if form.vlen.errors %}
+                        {{ form.vlen(class = "form-control is-invalid", placeholder = "Enter a number", required = false) }}
+                        {% for e in form.vlen.errors %}
                             <div class="invalid-feedback mt-3">
                                 <span>{{ e }}</span>
                             </div>
                         {% endfor %}
                     {% else %}
-                        {{ compose_form.vlen(class = "form-control", placeholder = "Enter a number", required = false) }}
+                        {{ form.vlen(class = "form-control", placeholder = "Enter a number", required = false) }}
                         <small class="form-text text-muted col-xl-12 mt-3">❔ Enter number of variables.</small>
                     {% endif %}
                 </div>
@@ -72,84 +72,69 @@
             <!-- End of Variables -->
         </div>
 
+        <div class="row mb-5">
+            <!-- Start of Table -->
+            {{ form.tableau.label(class = "form-label exclude fw-bold col-1", text = "Initial Tableau") }}
+            <div class="col-5">
+                <div class="input-group mb-3">
+                    {% if form.tableau.errors %}
+                        {{ form.tableau(class = "form-control is-invalid", placeholder = "Enter rows (separated by a new line) filled with comma-separated value (numbers)", required = false, rows = 6) }}
+                        {% for e in form.tableau.errors %}
+                            <div class="invalid-feedback mt-3">
+                                <span>{{ e }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.tableau(class = "form-control", placeholder = "Enter rows (separated by a new line) filled with comma-separated value (numbers)", required = false, rows = 6) }}
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter the initial tableau.</small>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- End of Table -->
+
+            <!-- Start of Variables -->
+            {{ form.colnames.label(class = "form-label exclude fw-bold col-1", text = "Column Names") }}
+            <div class="col-5">
+                <div class="input-group mb-3">
+                    {% if form.colnames.errors %}
+                        {{ form.colnames(class = "form-control is-invalid", placeholder = "Enter the tableau's column names separated by commas", required = false) }}
+                        {% for e in form.colnames.errors %}
+                            <div class="invalid-feedback mt-3">
+                                <span>{{ e }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.colnames(class = "form-control", placeholder = "Enter the tableau's column names separated by commas", required = false) }}
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter the column names separated by commas.</small>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- End of Variables -->
+        </div>
+
+        <div class="row mb-5">
+            <!-- Start of Method Type -->
+            <div class="col-6">
+                <h5 class="mb-3"><span class="badge bg-primary">Type of Method</span></h5>
+                {% for m in form.method %}
+                    <div class="form-check mb-2">
+                        {{ m(class = "form-check-input") }}
+                        {{ m.label(class = "form-check-label exclude" )}}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- End of Method Type -->
+        </div>
+
         <!-- Start of Button Container -->
         <div class="row">
             <div class="d-flex flex-row">
-                {{ compose_form.send(class = "btn btn-primary", value = "Generate Table") }} &nbsp;
+                {{ form.send(class = "btn btn-primary", value = "Display Output") }} &nbsp;
                 <input type="reset" class="btn btn-secondary" />
             </div>
         </div>
         <!-- End of Button Container -->
     </form>
     <!-- End of Form -->
-
-    <!-- Start of Form (Matrix) -->
-    {% if clen > 0 and vlen > 0 %}
-    <div id="matrix" class="d-block">
-        <!-- Divider -->
-        <br /> <hr />
-
-        <!-- Table -->
-        <table class="table table-borderless table-striped">
-            <!-- Start of Header -->
-            <thead class="text-center">
-                <tr>
-                    <!-- Constraints and Slack Variables -->
-                    {% for _ in range(0, (clen + vlen)) %}
-                        {% if _ >= 0 and _ <= vlen - 1 %}
-                            <th scope="col">x{{ _ + 1 }}</th>
-                        {% else %}
-                            <th scope="col">s{{ (_ - vlen) + 1 }}</th>
-                        {% endif %}
-                    {% endfor %}
-
-                    <!-- Z and Solution -->
-                    <th scope="col">Z</th>
-                    <th scope="col">Solution</th>
-                </tr>
-            </thead>
-            <!-- End of Header -->
-
-            <!-- Start of Body -->
-            <h4 class="text-primary mt-5">Initial Tableau</h4>
-            <p class="text-secondary">Fill the cells with each of the constraints according to your specifications.</p>
-
-            <tbody class="text-center">
-                {% for i in range(0, clen + 1) %}
-                    <tr>
-                        {% for j in range(0, clen + vlen + 2) %}
-                            <td>
-                                {{ wtf.form_field(simplex_form.tableau[((clen + vlen + 2) * i) + j], class = "form-control") }}
-                            </td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-            <!-- End of Body -->
-        </table>
-
-        <!-- Start of Method Type -->
-        <div class="col-6">
-            <h5 class="mt-5 mb-3"><span class="badge bg-primary">Type of Method</span></h5>
-            {% for m in simplex_form.method %}
-                <div class="form-check mb-2">
-                    {{ m(class = "form-check-input") }}
-                    {{ m.label(class = "form-check-label exclude" )}}
-                </div>
-            {% endfor %}
-        </div>
-        <!-- End of Method Type -->
-
-        <!-- Start of Button Container -->
-        <div class="row">
-            <div class="d-flex flex-row mt-5">
-                {{ simplex_form.send(class = "btn btn-primary", value = "Solve Tableau") }} &nbsp;
-                <input type="reset" class="btn btn-secondary" />
-            </div>
-        </div>
-        <!-- End of Button Container -->
-    </div>
-    {% endif %}
-    <!-- End of Form (Matrix) -->
 {% endblock %}
 <!-- End of Nested Body -->

@@ -156,7 +156,7 @@ tabs_simplex = [
 
                 <!-- Initial Tableau -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Initial Tableau -</span> This serves as the <span class="text-secondary">initial tableau.</span> Based on the size of your constraints and variables, fill the cells of the table, which is inclusive of <span class="text-secondary">the variables, slack variables, Z, and the right-hand side.</span>
+                    <span class="fw-bold text-primary">Initial Tableau -</span> This serves as the <span class="text-secondary">initial tableau.</span> The <span class="text-secondary">rows</span> of the tableau should be separated by a <span class="text-secondary">new line.</span> In each row, the numbers are separated by <span class="text-secondary">commas.</span>
                 </li>
             </ul>
             '''
@@ -373,7 +373,7 @@ tabs_about = [
         'header' : 'How did I design this? 🎨',
         'body' :
             '''
-            Due to time constraints, I've resorted to using Bootstrap as my frontend library. Other than that, Bootstrap has the necessary components to provide a professional vibe to the app's interface. I've experimented with different themes and components to put both solves together in an interactive way.
+            Due to time constraints, I've resorted to using <span class="text-secondary">Bootstrap</span> as my frontend library. Other than that, Bootstrap has the necessary components to provide a professional vibe to the app's interface. I've experimented with different themes and components to put both solves together in an interactive way.
             '''
     },
 
@@ -414,9 +414,9 @@ profile = [
         'header': 'Technologies Used',
         'body' :
             '''
-            For <span class="text-primary">frontend development,</span> I've utilized Bootstrap 5 to translate the mockups from Figma into HTML code. <br /> <br />
+            For <span class="text-primary">frontend development,</span> I've utilized <span class="text-secondary">Bootstrap 5</span> to translate the mockups from Figma into HTML code. <br /> <br />
             
-            For <span class="text-primary">backend development,</span> however, I've used Python and Flask for the scripts and integration, respectively. I've also used other libraries such as WTForms. <br />
+            For <span class="text-primary">backend development,</span> however, I've used <span class="text-secondary">Python</span> and <span class="text-secondary">Flask</span> for the scripts and integration, respectively. I've also used other libraries such as WTForms. <br />
             '''
     },
 
