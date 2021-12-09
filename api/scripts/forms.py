@@ -115,16 +115,14 @@ class Validator():
             d = (field.data).split('\n')
 
             # Check if the objective function has the correct format.
-            if not re.match('^Z = (([0-9]+(.[0-9]+)?)x[0-9]+ \+ )+([0-9]+(.[0-9]+)?)x[0-9]+(\\r)?$', d[0]):
+            if not re.match('^Z = ((([0-9]+(.[0-9]+)?))?x[0-9]+ \+ )+(([0-9]+(.[0-9]+)?))?x[0-9]+(\\r)?$', d[0]):
                 raise Exception()
-            
             # Check if there are constraints.
             if len(d) <= 1:
                 raise Exception()
-            
             # Check if the constraints have the correct format.
             for _ in range(1, len(d)):
-                if not re.match('^(([0-9]+(.[0-9]+)?)x[0-9]+ \+ )+([0-9]+(.[0-9]+)?)x[0-9]+ (>=|<=|=) ([0-9]+(.[0-9]+)?)(\\r)?$', d[_]):
+                if not re.match('^((((([0-9]+(.[0-9]+)?))?x[0-9]+ \+ )+(([0-9]+(.[0-9]+)?))?x[0-9]+)|((([0-9]+(.[0-9]+)?))?x[0-9]+)) (>=|<=|=) ([0-9]+(.[0-9]+)?)(\\r)?$', d[_]):
                     raise Exception()
         except:
             raise ValidationError('❌ The format is incorrect. Check the input tab for more information.')
