@@ -8,6 +8,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FieldList, FormField, RadioField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError
 
+import re
+
 '''
 ** Validator
 | This class contains the custom validators
@@ -95,6 +97,37 @@ class Validator():
                 raise Exception()
         except:
             raise ValidationError('❌ Number should be greater than 1.')
+    
+    '''
+    ** is_equations
+    | This is a custom validator, which checks
+    | if the objective function and its constraints
+    | are obtained.
+    - - -
+    ** params
+    | - form: The current form
+    | - field: The input field of the data
+    '''
+    @staticmethod
+    def is_equations(form, field):
+        try:
+            # Get the data and store them in an array.
+            d = (field.data).split('\n')
+
+            # Check if the objective function has the correct format.
+            if not re.match('^Z = (([0-9]+(.[0-9]+)?)x[0-9]+ \+ )+([0-9]+(.[0-9]+)?)x[0-9]+(\\r)?$', d[0]):
+                raise Exception()
+            
+            # Check if there are constraints.
+            if len(d) <= 1:
+                raise Exception()
+            
+            # Check if the constraints have the correct format.
+            for _ in range(1, len(d)):
+                if not re.match('^(([0-9]+(.[0-9]+)?)x[0-9]+ \+ )+([0-9]+(.[0-9]+)?)x[0-9]+ (>=|<=|=) ([0-9]+(.[0-9]+)?)(\\r)?$', d[_]):
+                    raise Exception()
+        except:
+            raise ValidationError('❌ The format is incorrect. Check the input tab for more information.')
 
 '''
 ** QSIForm
@@ -202,10 +235,10 @@ class ProblemForm(FlaskForm):
 | This class contains the initial tableau.
 - - -
 ** properties
-# TODO: Documentation.
+| - problem: A list of equations (i.e. objective function and constraints)
 | - method: The type of method used (Default: Maximization)
 '''
 class SimplexForm(FlaskForm):
-    problem = TextAreaField('problem', validators = [DataRequired(message = Validator.MSG_REQUIRED)])
+    problem = TextAreaField('problem', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_equations])
     method = RadioField('method', choices = [('maximization', 'Maximization'), ('minimization', 'Minimization')], default = 'maximization')
     send = SubmitField('display-simplex')

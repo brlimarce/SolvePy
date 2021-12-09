@@ -137,3 +137,19 @@ def create_initial_tableau(m, is_max):
 '''
 def clean_problem_input(demands, supplies, costs, method):
     return [[[float(d) for d in demands], [float(c) for c in costs], [float(s) for s in supplies]], True if method == 'maximization' else False]
+
+'''
+** clean_generic_input
+| This is a helper function to clean the data
+| from the form (Generic Solver).
+- - -
+** params
+- - -
+** returns
+'''
+def clean_generic_input(equations):
+    print(equations)
+
+# Test the function here.
+equations = []
+clean_generic_input(equations)

@@ -146,15 +146,18 @@ tabs_simplex = [
             <ul class="list-group mt-4">
                 <!-- Equations -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Equations -</span> This contains the objective function and  its constraints. The equations must be separated by a new line, and it should follow the format below: <br />
-                    Z = 10x1 + 5x2 <br />
-                    3x1 + 3x2 <= 4x2 <br />
-                    5x1 + 6x2 >= 3x2
+                    <div class="mb-1">
+                        <span class="fw-bold text-primary">Equations -</span> This contains the <span class="text-secondary">objective function</span> and <span class="text-secondary">its constraints.</span> The equations must be separated by a <span class="text-secondary">new line</span>, and it should follow the format, which is provided by the following example:
+                    </div>
+
+                    &emsp;&emsp;Z = 10x1 + 5x2 <br />
+                    &emsp;&emsp;3x1 + 3x2 <= 4x2 <br />
+                    &emsp;&emsp;5x1 + 6x2 >= 3x2
                 </li>
 
                 <!-- Method -->
                 <li class="list-group-item">
-                    <span class="fw-bold text-primary">Method -</span> This serves as the basis whether maximization or minimization is applied. The default value is maximization.
+                    <span class="fw-bold text-primary">Method -</span> This serves as the basis whether maximization or minimization is applied. The <span class="text-secondary">default value</span> is <span class="text-secondary">maximization.</span>
                 </li>
             </ul>
             '''

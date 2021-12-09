@@ -55,6 +55,10 @@ def solve_qsi():
 def solve_simplex():
     # ** Declaration
     form = SimplexForm(request.form)
+
+    # If the form is validated, collect the data.
+    if form.validate_on_submit():
+        print('Placeholder')
     return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, form = form)
 
 # Problem-Specific Simplex Solver
