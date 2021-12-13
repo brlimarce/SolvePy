@@ -162,8 +162,6 @@ class QSIForm(FlaskForm):
             # Append the error messages.
             self.xv.errors.append(msg_size)
             self.yv.errors.append(msg_size)
-
-            # Return False.
             return False
         return True
     send = SubmitField('display-qsi')
@@ -210,8 +208,6 @@ class ShippingCost(FlaskForm):
 | - supplies: A list containing the number of supply for each plant
 | - costs: A list containing the shipping cost from a plant to a warehouse
 | - method: The type of method used (Default: Maximization)
-| - is_display_tableau: A boolean for displaying the initial tableau
-| - is_get_shipped: A boolean for display the number of shipped items
 '''
 class ProblemForm(FlaskForm):
     # ** Field List Schema
@@ -221,11 +217,6 @@ class ProblemForm(FlaskForm):
 
     # ** Radio Schema
     method = RadioField('method', choices = [('maximization', 'Maximization'), ('minimization', 'Minimization')], default = 'maximization')
-
-    # ** Checkbox Schema
-    is_display_tableau = BooleanField('Display Initial Tableau')
-    is_get_shipped = BooleanField('Get Number of Shipped Items')
-
     send = SubmitField('display-problem')
 
 '''

@@ -44,7 +44,7 @@ def solve_qsi():
 
         # Get the clean input and perform QSI.
         clean_data = q.clean_input(xv, yv, x)
-        result = q.poly_qsi(clean_data[0], clean_data[1], clean_data[2])
+        result = q.poly_qsi(clean_data['xv'], clean_data['yv'], clean_data['x'])
 
         # Reset the data.
         form.xv.data = form.yv.data = form.x.data = None
@@ -55,22 +55,23 @@ def solve_qsi():
 def solve_simplex():
     # ** Declaration
     form = SimplexForm(request.form)
+    result = -1 # Store the result
+    colnames = None
 
     # If the form is validated, collect the data.
     if form.validate_on_submit():
-        print(form.problem.data)
-    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, form = form)
+        clean_data = s.clean_generic_input((form.problem.data).split('\n'), form.method.data)
+        result = s.simplex(clean_data['initial_tableau'], clean_data['is_max'], False)
+        colnames = clean_data['colnames']
+    return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, form = form, colnames = colnames, output = result)
 
 # Problem-Specific Simplex Solver
 @app.route('/solve/simplex/problem', methods = ['GET', 'POST'])
 def solve_problem():
     # ** Declaration
     form = ProblemForm(request.form) # Store the page's form.
-    result = -1 # Store the result (dictionary)
+    result = -1 # Store the result
     tableau = None # Store the initial tableau.
-    
-    is_display_tableau = False # Determine if the initial tableau is displayed.
-    is_get_shipped = False # Determine if the no. of shipped items is displayed.
 
     # If the form is validated, collect the data.
     if form.validate_on_submit():
@@ -81,16 +82,14 @@ def solve_problem():
 
         # Collect the radio and select choices.
         method = form.method.data
-        is_display_tableau = form.is_display_tableau.data
-        is_get_shipped = form.is_get_shipped.data
 
         # Get the clean data and perform Simplex.
         clean_data = s.clean_problem_input(demands, supplies, costs, method)
-        tableau = s.create_initial_tableau(clean_data[0], clean_data[1])
+        tableau = s.create_problem_tableau(clean_data['problem_array'], clean_data['method'])
 
         # Get the result from Simplex method.
-        result = s.simplex(tableau['tableau'], clean_data[1], bool(is_get_shipped))
-    return render_template('problem.html', pages = d.pages, page = 'problem', tabs = d.tabs_problem, plants = d.plants, warehouses = d.warehouses, form = form, tableau = tableau, options = [bool(is_display_tableau), bool(is_get_shipped)], output = result)
+        result = s.simplex(tableau['tableau'], clean_data['method'], True)
+    return render_template('problem.html', pages = d.pages, page = 'problem', tabs = d.tabs_problem, plants = d.plants, warehouses = d.warehouses, form = form, output = result)
 
 # About SolvePy
 @app.route('/about')

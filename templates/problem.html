@@ -115,36 +115,17 @@
         </table> <br />
         <!-- End of Supply Table -->
 
-        <div class="row col-6 mb-5">
-            <!-- Start of Method Type -->
-            <div class="col-6">
-                <h5 class="mb-3"><span class="badge bg-primary">Type of Method</span></h5>
-                {% for m in form.method %}
-                    <div class="form-check mb-2">
-                        {{ m(class = "form-check-input") }}
-                        {{ m.label(class = "form-check-label" )}}
-                    </div>
-                {% endfor %}
-            </div>
-            <!-- End of Method Type -->
-
-            <!-- Start of Options -->
-            <div class="col-6">
-                <h5 class="mb-3"><span class="badge bg-primary">Options</span></h5>
-                <!-- Display Initial Tableau -->
-                <div class="form-check mb-2">
-                    {{ form.is_display_tableau(class = "form-check-input") }}
-                    {{ form.is_display_tableau.label(class = "form-check-label" )}}
+        <!-- Start of Method Type -->
+        <div class="row mb-5">
+            <h5 class="col-2 mb-2"><span class="badge bg-primary">Type of Method</span></h5>
+            {% for m in form.method %}
+                <div class="form-check mb-2 col-2">
+                    {{ m(class = "form-check-input") }}
+                    {{ m.label(class = "form-check-label" )}}
                 </div>
-
-                <!-- Get Number of Shipped Items -->
-                <div class="form-check mb-2">
-                    {{ form.is_get_shipped(class = "form-check-input") }}
-                    {{ form.is_get_shipped.label(class = "form-check-label" )}}
-                </div>
-            </div>
-            <!-- End of Options -->
+            {% endfor %}
         </div>
+        <!-- End of Method Type -->
 
         <!-- Start of Button Container -->
         <div class="row">
@@ -179,34 +160,32 @@
             <!-- End of Optimal Value -->
             
             <!-- Start of Initial Tableau -->
-            {% if options[0] %}
-                <table class="table table-striped table-borderless">
-                    <!-- Start of Header -->
-                    <thead class="text-center">
+            <table class="table table-striped table-borderless">
+                <!-- Start of Header -->
+                <thead class="text-center">
+                    <tr>
+                        {% for name in tableau['colnames'] %}
+                            <th scope="col" class="text-capitalize">{{ name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <!-- End of Header -->
+
+                <!-- Start of Body -->
+                <h4 class="text-success mt-5">Initial Tableau</h4>
+                <p class="text-secondary">Below is the initial tableau for the problem.</p>
+
+                <tbody class="text-center">
+                    {% for row in tableau['tableau'] %}
                         <tr>
-                            {% for name in tableau['colnames'] %}
-                                <th scope="col" class="text-capitalize">{{ name }}</th>
+                            {% for element in row %}
+                                <td>{{ element }}</td>
                             {% endfor %}
                         </tr>
-                    </thead>
-                    <!-- End of Header -->
-
-                    <!-- Start of Body -->
-                    <h4 class="text-success mt-5">Initial Tableau</h4>
-                    <p class="text-secondary">Below is the initial tableau for the problem.</p>
-
-                    <tbody class="text-center">
-                        {% for row in tableau['tableau'] %}
-                            <tr>
-                                {% for element in row %}
-                                    <td>{{ element }}</td>
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                    <!-- End of Body -->
-                </table>
-            {% endif %}
+                    {% endfor %}
+                </tbody>
+                <!-- End of Body -->
+            </table>
             <!-- End of Initial Tableau -->
 
             <!-- Start of Final Tableau -->
@@ -266,36 +245,34 @@
             <!-- End of Basic Solution -->
 
             <!-- Start of Number of Shipped Items -->
-            {% if options[1] %}
-                <table class="table table-striped table-borderless">
-                    <!-- Start of Header -->
-                    <thead class="text-center">
+            <table class="table table-striped table-borderless">
+                <!-- Start of Header -->
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col"></th>
+                        {% for name in ['SAC', 'SL', 'ALB', 'CHI', 'NYC'] %}
+                            <th scope="col" class="text-capitalize">{{ name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <!-- End of Header -->
+
+                <!-- Start of Body -->
+                <h4 class="text-success mt-5">Shipped Items</h4>
+                <p class="text-secondary">Below is the number of shipped items based on the total cost.</p>
+
+                <tbody class="text-center">
+                    {% for i in range(0, output['shipped_items']|length) %}
                         <tr>
-                            <th scope="col"></th>
-                            {% for name in ['SAC', 'SL', 'ALB', 'CHI', 'NYC'] %}
-                                <th scope="col" class="text-capitalize">{{ name }}</th>
+                            <th scope="col">{{ (['DEN', 'PHO', 'DAL'])[i] }}</th>
+                            {% for j in range(0, output['shipped_items'][i]|length) %}
+                                <td>{{ output['shipped_items'][i][j] }}</td>
                             {% endfor %}
                         </tr>
-                    </thead>
-                    <!-- End of Header -->
-
-                    <!-- Start of Body -->
-                    <h4 class="text-success mt-5">Shipped Items</h4>
-                    <p class="text-secondary">Below is the number of shipped items based on the total cost.</p>
-
-                    <tbody class="text-center">
-                        {% for i in range(0, output['shipped_items']|length) %}
-                            <tr>
-                                <th scope="col">{{ (['DEN', 'PHO', 'DAL'])[i] }}</th>
-                                {% for j in range(0, output['shipped_items'][i]|length) %}
-                                    <td>{{ output['shipped_items'][i][j] }}</td>
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                    <!-- End of Body -->
-                </table>
-            {% endif %}
+                    {% endfor %}
+                </tbody>
+                <!-- End of Body -->
+            </table>
             <!-- End of Number of Shipped Items -->
         </div>
     {% elif output == -1 %}
@@ -321,34 +298,32 @@
             <!-- End of Optimal Value -->
             
             <!-- Start of Initial Tableau -->
-            {% if options[0] %}
-                <table class="table table-striped table-borderless">
-                    <!-- Start of Header -->
-                    <thead class="text-center">
+            <table class="table table-striped table-borderless">
+                <!-- Start of Header -->
+                <thead class="text-center">
+                    <tr>
+                        {% for name in tableau['colnames'] %}
+                            <th scope="col" class="text-capitalize">{{ name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <!-- End of Header -->
+
+                <!-- Start of Body -->
+                <h4 class="text-success mt-5">Initial Tableau</h4>
+                <p class="text-secondary">Below is the initial tableau for the problem.</p>
+
+                <tbody class="text-center">
+                    {% for row in tableau['tableau'] %}
                         <tr>
-                            {% for name in tableau['colnames'] %}
-                                <th scope="col" class="text-capitalize">{{ name }}</th>
+                            {% for element in row %}
+                                <td>{{ element }}</td>
                             {% endfor %}
                         </tr>
-                    </thead>
-                    <!-- End of Header -->
-
-                    <!-- Start of Body -->
-                    <h4 class="text-success mt-5">Initial Tableau</h4>
-                    <p class="text-secondary">Below is the initial tableau for the problem.</p>
-
-                    <tbody class="text-center">
-                        {% for row in tableau['tableau'] %}
-                            <tr>
-                                {% for element in row %}
-                                    <td>{{ element }}</td>
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                    <!-- End of Body -->
-                </table>
-            {% endif %}
+                    {% endfor %}
+                </tbody>
+                <!-- End of Body -->
+            </table>
             <!-- End of Initial Tableau -->
         </div>
     {% endif %}

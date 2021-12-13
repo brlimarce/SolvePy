@@ -96,4 +96,4 @@ def get_row(coefficients, n, a = 0):
 | All parameters in the correct data type.
 '''
 def clean_input(xv, yv, x):
-    return [np.array([float(num) for num in xv.split(',')], dtype = float), np.array([float(num) for num in yv.split(',')], dtype = float), float(x)]
+    return { 'xv' :  np.array([float(num) for num in xv.split(',')], dtype = float), 'yv' : np.array([float(num) for num in yv.split(',')], dtype = float), 'x' : float(x) }

@@ -63,5 +63,107 @@
         <!-- End of Button Container -->
     </form>
     <!-- End of Form -->
+
+    <!-- Start of Output -->
+    {% if output is not none and output != -1 %}
+        <div id="output" class="d-block">
+            <!-- Divider -->
+            <br /> <hr />
+
+            <!-- Start of Optimal Value -->
+            <div class="card mt-5">
+                <!-- Header -->
+                <div class="card-header">
+                    Optimal Value
+                </div>
+
+                <!-- Body -->
+                <div class="card-body">
+                    <h5 class="card-title text-success">{{ output['optimal'] }}</h5>
+                    <p class="card-text">This is the {% if output.is_max %} maximized {% else %} minimized {% endif %} optimal value based on the objective function and its constraints.</p>
+                </div>
+            </div>
+            <!-- End of Optimal Value -->
+
+            <!-- Start of Final Tableau -->
+            <table class="table table-striped table-borderless">
+                <!-- Start of Header -->
+                <thead class="text-center">
+                    <tr>
+                        {% for name in (colnames) %}
+                            <th scope="col" class="text-capitalize">{{ name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <!-- End of Header -->
+
+                <!-- Start of Body -->
+                <h4 class="text-success mt-5">Final Tableau</h4>
+                <p class="text-secondary">Below is the final tableau for the problem.</p>
+
+                <tbody class="text-center">
+                    {% for row in output['final_tableau'] %}
+                        <tr>
+                            {% for element in row %}
+                                <td>{{ element }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <!-- End of Body -->
+            </table>
+            <!-- End of Final Tableau -->
+
+            <!-- Start of Basic Solution -->
+            <table class="table table-striped table-borderless">
+                <!-- Start of Header -->
+                <thead class="text-center">
+                    <tr>
+                        {% for _ in range(0, output['basic_solution']|length) %}
+                            <th scope="col" class="text-capitalize">{{ colnames[_] }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <!-- End of Header -->
+
+                <!-- Start of Body -->
+                <h4 class="text-success mt-5">Basic Solution</h4>
+                <p class="text-secondary">Below is the basic solution based on your data.</p>
+
+                <tbody class="text-center">
+                    <tr>
+                        {% for s in output['basic_solution'] %}
+                            <td>{{ s }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+                <!-- End of Body -->
+            </table>
+            <!-- End of Basic Solution -->
+        </div>
+    {% elif output == -1 %}
+        <div id="output" class="d-none"></div>
+    {% else %}
+        <div id="output" class="d-block">
+            <!-- Divider -->
+            <br /> <hr />
+
+            <!-- Start of Optimal Value -->
+            <div class="card mt-5">
+                <!-- Header -->
+                <div class="card-header">
+                    Optimal Value
+                </div>
+
+                <!-- Body -->
+                <div class="card-body">
+                    <h5 class="card-title text-danger">No Feasible Solution</h5>
+                    <p class="card-text">Sadly, there is no feasible solution based on the given data. Hence, you cannot view the final tableau, basic solution, and number of shipped items from one plant to one warehouse.</p>
+                </div>
+            </div>
+            <!-- End of Optimal Value -->
+        </div>
+    {% endif %}
+    <!-- End of Output -->
 {% endblock %}
 <!-- End of Nested Body -->
