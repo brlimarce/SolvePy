@@ -4,8 +4,7 @@
 | interval based on the data set using QSI.
 '''
 import numpy as np
-# from api.scripts import elimination as el
-import elimination as el
+from api.scripts import elimination as el
 
 '''
 ** poly_qsi
@@ -45,8 +44,7 @@ def poly_qsi(xv, yv, x):
     for _ in range(1, n):
         # ** Declaration
         coefficients = [2 * xv[_], 1] # Store the coefficients.
-        a1 = 3 * (_ - 1) # Store the small adder.
-        a2 = 3 * _ # Store the big adder.
+        a1, a2 = 3 * (_ - 1), 3 * _ # Store the adders.
 
         # Add a row to the matrix for condition 3.
         m.append([coefficients[i - a1] if i >= a1 and i <= a1 + 1 else -coefficients[i - a2] if i >= a2 and i <= a2 + 1 else 0 for i in range(3 * n + 1)])
@@ -57,14 +55,12 @@ def poly_qsi(xv, yv, x):
     for _ in range(len(solution) // 3):
         # Append the polynomial to the list.
         a = 3 * (_) # Get the adder for morphing.
-        test = str(solution[a]) + 'x^2 + ' + str(solution[a + 1]) + 'x + ' + str(solution[a + 2])
         polynomials.append(str(solution[a]) + 'x^2 + ' + str(solution[a + 1]) + 'x + ' + str(solution[a + 2]))
         intervals.append([xv[_], xv[_ + 1]]) # Append the intervals.
 
         # Get the approximate value if it is within the interval.
         if x >= xv[_] and x <= xv[_ + 1]:
-            y = (solution[a] * (x ** 2)) + (solution[a + 1] * x) + solution[a + 2]
-            intindex = _
+            y, intindex = (solution[a] * (x ** 2)) + (solution[a + 1] * x) + solution[a + 2], _
     # Return a dictionary (polynomials and y).
     return { 'polynomials' : polynomials, 'intervals' : intervals, 'intindex' : intindex, 'y' : np.round(y, 4) }
 
