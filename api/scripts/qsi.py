@@ -4,7 +4,8 @@
 | interval based on the data set using QSI.
 '''
 import numpy as np
-from api.scripts import elimination as el
+# from api.scripts import elimination as el
+import elimination as el
 
 '''
 ** poly_qsi
@@ -23,13 +24,12 @@ from api.scripts import elimination as el
 '''
 def poly_qsi(xv, yv, x):
     # ** Declaration
-    m = [] # Store the matrix from the conditions.
-    n = len(xv) - 1 # Store the number of intervals.
-    
-    polynomials = [] # Store the polynomials per interval.
-    intervals = [] # Store the intervals for each polynomial.
-    intindex = 0 # Store the index of the equation in the list.
-    y = 0 # Store the approximate value of f_n(x).
+    m, n = [], len(xv) - 1 # Store the matrix and no. of intervals.
+    polynomials, intervals = [], [] # Store the polynomials and its corresponding interval.
+    intindex, y = 0, 0 # Store the equation's index in the list and approximate of f_n(x).
+
+    # Sort xv with their corresponding values in yv.
+    modified_merge_sort(xv, yv, 0, len(xv) - 1)
     
     # Add rows to the matrix for condition 1.
     for _ in range(1, n):
@@ -69,6 +69,85 @@ def poly_qsi(xv, yv, x):
     return { 'polynomials' : polynomials, 'intervals' : intervals, 'intindex' : intindex, 'y' : np.round(y, 4) }
 
 '''
+** modified_merge_sort
+| This is a helper function, which sorts the x-values along
+| with its corresponding y-values via merge sort.
+|
+| @ref https://www.geeksforgeeks.org/python-program-for-merge-sort/
+- - -
+** params
+| - xv: A vector containing the x values
+| - yv: A vector containing the y values
+| - l: The left index of the vector
+| - r: The right index of the vector
+'''
+def modified_merge_sort(xv, yv, l, r):
+    if l < r:
+        # -> Compute the middle index.
+        # -> Similar to (l + r) // 2, but it avoids overflow for large l and h.
+        m = l + (r - l) // 2
+
+        # Sort the first and second vectors.
+        modified_merge_sort(xv, yv, l, m)
+        modified_merge_sort(xv, yv, m+1, r)
+        merge(xv, yv, l, m, r)
+
+'''
+** merge
+| This is a helper function, which sorts the x-values along
+| with its corresponding y-values via merge sort.
+|
+| @ref https://www.geeksforgeeks.org/python-program-for-merge-sort/
+- - -
+** params
+| - xv: A vector containing the x values
+| - yv: A vector containing the y values
+| - l: The left index of the vector
+| - m: The middle index
+| - r: The right index of the vector
+'''
+def merge(xv, yv, l, m, r):
+    # Compute for the vector sizes.
+    n1, n2 = m - l + 1, r - m
+
+    # Create temporary arrays for x and y vectors.
+    xvl = [0] * n1
+    yvl = [0] * n1
+
+    xvr = [0] * n2
+    yvr = [0] * n2
+
+    # Copy data to the temporary arrays.
+    for _ in range(0, n1):
+        xvl[_], yvl[_] = xv[l + _], yv[l + _]
+    for _ in range(0, n2):
+        xvr[_], yvr[_] = xv[m + 1 + _], yv[m + 1 + _]
+
+    # Merge the temporary arrays back into xv[l .. r].
+    i = j = 0 # Initial indices of the 1st and 2nd subarrays
+    k = l # Initial index of the merged subarray
+
+    while i < n1 and j < n2:
+        if xvl[i] <= xvr[j]:
+            xv[k], yv[k] = xvl[i], yvl[i]
+            i += 1
+        else:
+            xv[k], yv[k] = xvr[j], yvr[j]
+            j += 1
+        k += 1
+    
+    # Copy the remaining elements of xvl and yvl if possible.
+    while i < n1:
+        xv[k], yv[k] = xvl[i], yvl[i]
+        i += 1
+        k += 1
+    # Copy the remaining elements of xvr and yvr if possible.
+    while j < n2:
+        xv[k], yv[k] = xvr[j], yvr[j]
+        j += 1
+        k += 1
+
+'''
 ** get_row
 | This is a helper function, which returns a row based on the condition.
 - - -
@@ -76,6 +155,7 @@ def poly_qsi(xv, yv, x):
 | - coefficients: A list of coefficients
 | - n: Number of intervals
 | - a: Adder (Optional)
+- - -
 ** returns
 | The vector form of the equation without a1.
 '''
