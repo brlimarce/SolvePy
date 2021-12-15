@@ -20,20 +20,41 @@
     <!-- Start of Form -->
     <form method="POST">
         {{ form.hidden_tag() }}
-        <!-- Start of Text Area -->
+        <!-- Start of Objective Function -->
         <div class="row mb-4">
-            {{ form.problem.label(class="form-label fw-bold col-2", text = "Equations") }}
+            {{ form.obj_function.label(class="form-label fw-bold col-2", text = "Objective Function") }}
             <div class="col-10">
                 <div class="input-group mb-3">
-                    {% if form.problem.errors %}
-                        {{ form.problem(class = "form-control is-invalid", placeholder = "Enter the objective function before the constraints", required = false, rows = 6) }}
-                        {% for e in form.problem.errors %}
+                    {% if form.obj_function.errors %}
+                        {{ form.obj_function(class = "form-control is-invalid", placeholder = "i.e. Z = 10x1 + 5x2", required = false) }}
+                        {% for e in form.obj_function.errors %}
                             <div class="invalid-feedback mt-3">
                                 <span>{{ e }}</span>
                             </div>
                         {% endfor %}
                     {% else %}
-                        {{ form.problem(class = "form-control", placeholder = "Enter the objective function before the constraints", required = false, rows = 6) }}
+                        {{ form.obj_function(class = "form-control", placeholder = "i.e. Z = 10x1 + 5x2", required = false) }}
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Follow the format for your objective function.</small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- End of X-Values -->
+        
+        <!-- Start of Text Area -->
+        <div class="row mb-4">
+            {{ form.constraints.label(class="form-label fw-bold col-2", text = "Constraints") }}
+            <div class="col-10">
+                <div class="input-group mb-3">
+                    {% if form.constraints.errors %}
+                        {{ form.constraints(class = "form-control is-invalid", placeholder = "i.e. x1 + 3x2 <= 5", required = false, rows = 6) }}
+                        {% for e in form.constraints.errors %}
+                            <div class="invalid-feedback mt-3">
+                                <span>{{ e }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.constraints(class = "form-control", placeholder = "i.e. x1 + 3x2 <= 5", required = false, rows = 6) }}
                         <small class="form-text text-muted col-xl-12 mt-3">❔ Enter equations separated by new lines.</small>
                     {% endif %}
                 </div>

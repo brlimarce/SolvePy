@@ -60,7 +60,7 @@ def solve_simplex():
 
     # If the form is validated, collect the data.
     if form.validate_on_submit():
-        clean_data = s.clean_generic_input((form.problem.data).split('\n'), form.method.data)
+        clean_data = s.clean_generic_input((form.constraints.data).split('\n'), form.method.data)
         result = s.simplex(clean_data['initial_tableau'], clean_data['is_max'], False)
         colnames = clean_data['colnames']
     return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, form = form, colnames = colnames, output = result)
@@ -71,7 +71,7 @@ def solve_problem():
     # ** Declaration
     form = ProblemForm(request.form) # Store the page's form.
     result = -1 # Store the result
-    tableau = None # Store the initial tableau.
+    clean_data = None # Store the initial tableau.
 
     # If the form is validated, collect the data.
     if form.validate_on_submit():
@@ -83,13 +83,10 @@ def solve_problem():
         # Collect the radio and select choices.
         method = form.method.data
 
-        # Get the clean data and perform Simplex.
-        clean_data = s.clean_problem_input(demands, supplies, costs, method)
-        tableau = s.create_problem_tableau(clean_data['problem_array'], clean_data['method'])
-
-        # Get the result from Simplex method.
-        result = s.simplex(tableau['tableau'], clean_data['method'], True)
-    return render_template('problem.html', pages = d.pages, page = 'problem', tabs = d.tabs_problem, plants = d.plants, warehouses = d.warehouses, form = form, output = result)
+        # Create the tableau based on the problem.
+        clean_data = s.create_problem_tableau(demands, supplies, costs, method)
+        result = s.simplex(clean_data['tableau'], clean_data['is_max'], True)
+    return render_template('problem.html', pages = d.pages, page = 'problem', tabs = d.tabs_problem, plants = d.plants, warehouses = d.warehouses, form = form, tableau = clean_data, output = result)
 
 # About SolvePy
 @app.route('/about')

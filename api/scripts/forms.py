@@ -6,7 +6,7 @@
 from flask.app import Flask
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FieldList, FormField, RadioField, BooleanField, TextAreaField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms.validators import DataRequired, ValidationError, Regexp
 
 import re
 
@@ -25,6 +25,10 @@ import re
 class Validator():
     # ** Properties
     MSG_REQUIRED = '❌ Field is empty.'
+    MSG_REGEXP = '❌ The format is incorrect. Check the input tab for more information.'
+
+    MAX = 'maximization'
+    MIN = 'minimization'
 
     # ** Methods
     '''
@@ -97,12 +101,11 @@ class Validator():
                 raise Exception()
         except:
             raise ValidationError('❌ Number should be greater than 1.')
-    
+
     '''
     ** is_equations
     | This is a custom validator, which checks
-    | if the objective function and its constraints
-    | are obtained.
+    | if the constraints are obtained.
     - - -
     ** params
     | - form: The current form
@@ -114,18 +117,15 @@ class Validator():
             # Get the data and store them in an array.
             d = (field.data).split('\n')
 
-            # Check if the objective function has the correct format.
-            if not re.match('^Z = ((([0-9]+(.[0-9]+)?))?x[0-9]+ \+ )+(([0-9]+(.[0-9]+)?))?x[0-9]+(\\r)?$', d[0]):
-                raise Exception()
-            # Check if there are constraints.
+            # Check if the number of constraints <= 1.
             if len(d) <= 1:
                 raise Exception()
             # Check if the constraints have the correct format.
             for _ in range(1, len(d)):
-                if not re.match('^((((([0-9]+(.[0-9]+)?))?x[0-9]+ \+ )+(([0-9]+(.[0-9]+)?))?x[0-9]+)|((([0-9]+(.[0-9]+)?))?x[0-9]+)) (>=|<=|=) ([0-9]+(.[0-9]+)?)(\\r)?$', d[_]):
+                if not re.match('^((((([0-9]+(.[0-9]+)?))?x[0-9]+ \+ )+(([0-9]+(.[0-9]+)?))?x[0-9]+)|((([0-9]+(.[0-9]+)?))?x[0-9]+)) (>=|<=) ([0-9]+(.[0-9]+)?)(\\r)?$', d[_]):
                     raise Exception()
         except:
-            raise ValidationError('❌ The format is incorrect. Check the input tab for more information.')
+            raise ValidationError(Validator.MSG_REGEXP)
 
 '''
 ** QSIForm
@@ -216,7 +216,7 @@ class ProblemForm(FlaskForm):
     costs = FieldList(FormField(ShippingCost), min_entries = 15, max_entries = 15)
 
     # ** Radio Schema
-    method = RadioField('method', choices = [('maximization', 'Maximization'), ('minimization', 'Minimization')], default = 'maximization')
+    method = RadioField('method', choices = [(Validator.MAX, 'Maximization'), (Validator.MIN, 'Minimization')], default = Validator.MAX)
     send = SubmitField('display-problem')
 
 '''
@@ -224,10 +224,12 @@ class ProblemForm(FlaskForm):
 | This class contains the initial tableau.
 - - -
 ** properties
-| - problem: A list of equations (i.e. objective function and constraints)
+| - obj_function: A string containing the objective function
+| - constraints: A list of equations for the constraints
 | - method: The type of method used (Default: Maximization)
 '''
 class SimplexForm(FlaskForm):
-    problem = TextAreaField('problem', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_equations])
-    method = RadioField('method', choices = [('maximization', 'Maximization'), ('minimization', 'Minimization')], default = 'maximization')
+    obj_function = TextAreaField('objective function', validators = [DataRequired(message = Validator.MSG_REQUIRED), Regexp('^Z = ((([0-9]+(.[0-9]+)?))?x[0-9]+ \+ )+(([0-9]+(.[0-9]+)?))?x[0-9]+(\\r)?$', message = Validator.MSG_REGEXP)])
+    constraints = TextAreaField('constraints', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_equations])
+    method = RadioField('method', choices = [(Validator.MAX, 'Maximization'), (Validator.MIN, 'Minimization')], default = Validator.MAX)
     send = SubmitField('display-simplex')

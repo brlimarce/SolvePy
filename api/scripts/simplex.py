@@ -7,7 +7,10 @@ import numpy as np
 import math as mt
 import re
 
-from numpy.core.fromnumeric import var
+# ** Constants
+# This contains the methods for the Simplex method.
+MAX = 'maximization'
+MIN = 'minimization'
 
 '''
 ** simplex
@@ -27,11 +30,9 @@ from numpy.core.fromnumeric import var
 '''
 def simplex(tableau, is_max, problem):
     # ** Declaration
-    nrow = np.shape(tableau)[0] # Store the tableau's row number.
-    ncol = np.shape(tableau)[1] # Store the tableau's column number.
+    nrow, ncol = np.shape(tableau)[0], np.shape(tableau)[1]
+    basic_solution, shipped_items = [], []
     brow = tableau[nrow - 1, :] # Store the bottom row of the tableau.
-    basic_solution = [] # Store the final basic solution.
-    shipped_items = [] # Store the number of shipped items.
 
     # Perform Simplex until the bottom row has no negative value.
     while (len(brow[brow < 0]) > 0):
@@ -64,13 +65,15 @@ def simplex(tableau, is_max, problem):
     # Get the basic solution for maximization/minimization.
     if is_max:
         # The long line in the row index unlists the result, which is an array.
-        for _ in range(0, ncol):
+        for _ in range(0, ncol - 1):
             if (tableau[:, _] == 1).sum() == 1 and (tableau[:, _] == 0).sum() == len(tableau) - 1:
                 basic_solution.append(tableau[np.where(tableau[:, _] == 1)[0][0]][ncol - 1])
             else:
                 basic_solution.append(0)
+        
         # Store the number of shipped items.
-        shipped_items = basic_solution[0:14]
+        # basic_solution = np.delete(tableau[nrow - 1, :], ncol - 2) # Delete the extra column.
+        shipped_items = basic_solution[0:15]
     else:
         basic_solution = np.delete(tableau[nrow - 1, :], ncol - 2)
 
@@ -80,8 +83,8 @@ def simplex(tableau, is_max, problem):
     # Return a dictionary of the return values.
     return {
         'final_tableau' : tableau,
-        'basic_solution' : basic_solution[0:len(basic_solution) - 1],
-        'optimal' : basic_solution[len(basic_solution) - 2],
+        'basic_solution' : basic_solution,
+        'optimal' : basic_solution[len(basic_solution) - 1],
         'shipped_items' : np.array(shipped_items, dtype = float).reshape((3, 5)) if problem else None,
         'is_max' : is_max
     }
@@ -92,37 +95,57 @@ def simplex(tableau, is_max, problem):
 | for the problem.
 - - -
 ** params
-| - m: A nested list of the problem's parameters
-| - is_max: A boolean to identify if maximization/minimization is applied
+| - demands: A list containing the number of demand for each warehouse
+| - supplies: A list containing the number of supply for each plant
+| - costs: A list containing the shipping cost from a plant to a warehouse
+| - method: A string of the type of method of Simplex
 - - -
 ** returns
 | - initial_tableau: The initial tableau for the problem
 | - colnames: The column names for the initial tableau
+| - is_max: A boolean value to determine if maximization/minimization is applied
 '''
-def create_problem_tableau(m, is_max):
+def create_problem_tableau(demands, supplies, costs, method):
+    # ** Declaration
+    # This also contains the cleaned input from the form.
+    parray = [[float(d) for d in demands], [float(c) for c in costs], [float(s) for s in supplies]]
+    is_max = True if method == 'maximization' else False
     tableau = [] # Store the problem's tableau.
 
-    # Append the columns for minimization constraints.
-    tableau = [[(1 if is_max else -1) if j >= (i * 5) and j <= (i * 5) + 4 else (-m[2][i] if is_max else m[2][i]) if j == 15 else 0 for j in range(0, 16)] for i in range(0, 3)]
+    # Check if the initial tableau is for maximization or minimization.
+    if is_max:
+        # Append the rows for maximization constraints.
+        tableau = [[1 if j >= (i * 5) and j <= (i * 5) + 4 else parray[2][i] if j == 24 else 1 if j == 15 + i else 0 for j in range(0, 25)] for i in range(0, len(parray[2]))]
 
-    # Append the columns for maximization constraints.
-    [tableau.append([(-1 if is_max else 1) if j in [i, i + 5, i + 10] else (m[0][i] if is_max else -m[0][i]) if j == 15 else 0 for j in range(0, 16)]) for i in range(0, 5)]
+        # -> Append the rows for minimization constraints.
+        # -> Multiply the coefficients by -1.
+        [tableau.append([-1 if j in [i, i + 5, i + 10] else -parray[0][i] if j == 24 else 1 if j == 18 + i else 0 for j in range(0, 25)]) for i in range(0, len(parray[0]))]
 
-    # Append the columns for the slack variables.
-    [tableau.append([1 if j == i else 0 for j in range(0, 16)]) for i in range(0, 15)]
+        # Append the last row (objective function).
+        tableau.append([-parray[1][_] if _ >= 0 and _ <= 14 else 1 if _ == 23 else 0 for _ in range(0, 25)])
+    else:
+        # Append the columns for maximization constraints.
+        tableau = [[-1 if j >= (i * 5) and j <= (i * 5) + 4 else parray[2][i] if j == 15 else 0 for j in range(0, 16)] for i in range(0, 3)]
 
-    # Append the Z column.
-    tableau.append([1 if i == 15 else 0 for i in range(0, 16)])
+        # Append the columns for minimization constraints.
+        [tableau.append([1 if j in [i, i + 5, i + 10] else -parray[0][i] if j == 15 else 0 for j in range(0, 16)]) for i in range(0, 5)]
 
-    # Append the solution column (Append the solution then 0).
-    solution = m[1]
-    solution.append(0)
-    tableau.append(solution)
+        # Append the columns for the slack variables.
+        [tableau.append([1 if j == i else 0 for j in range(0, 16)]) for i in range(0, 15)]
+
+        # Append the Z column.
+        tableau.append([1 if i == 15 else 0 for i in range(0, 16)])
+
+        # Append the solution column (Append the solution then 0).
+        solution = parray[1]
+        solution.append(0)
+        tableau.append(solution)
 
     # Return a dictionary of the result.
     return {
-        'tableau' : np.array(tableau, dtype = float).transpose(),
-        'colnames' : ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12', 'x13', 'x14', 'x15', 'Z', 'Solution']
+        'tableau' : np.array(tableau, dtype = float).transpose() if not is_max else np.array(tableau, dtype = float),
+        'colnames' : ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12', 'x13', 'x14', 'x15', 'Z', 'Solution'] if not is_max else ['x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12', 'x13', 'x14', 'x15', 's1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 'Z', 'Solution'],
+        'is_max' : is_max
     }
 
 '''
@@ -141,25 +164,6 @@ def create_problem_tableau(m, is_max):
 def create_initial_tableau(m, is_max):
     # TODO: Implementation.
     print('Placeholder')
-
-'''
-** clean_problem_input
-| This is a helper function to clean the data from
-| the form of the problem-specific solver.
-- - -
-** params
-| - demands: A list containing the number of demand for each warehouse
-| - supplies: A list containing the number of supply for each plant
-| - costs: A list containing the shipping cost from a plant to a warehouse
-| - method: A string of the type of method of Simplex
-- - -
-** returns
-| - All parameters in the correct data type.
-| - problem_array: A matrix containing a problem-specific format
-| - is_max: Returns True if it's maximization else False
-'''
-def clean_problem_input(demands, supplies, costs, method):
-    return { 'problem_array' :  [[float(d) for d in demands], [float(c) for c in costs], [float(s) for s in supplies]], 'is_max' : True if method == 'maximization' else False}
 
 '''
 ** clean_generic_input
@@ -224,6 +228,7 @@ def clean_generic_input(equations, method):
     return { 'initial_tableau' : np.array(initial_tableau, dtype = float), 'is_max' : is_max, 'colnames' : colnames }
 
 # Test the function here.
-equations = ['Z = 150x1 + 175x2\r', '7x1 + 11x2 <= 77\r', '10x1 + 8x2 <= 80\r', 'x1 <= 9\r', 'x2 <= 6']
-result = clean_generic_input(equations, 'maximization')
-simplex(result['initial_tableau'], result['is_max'], False)
+# create_problem_tableau(['180', '80', '200', '160', '220'], ['310', '260', '280'], ['10', '8', '6', '5', '4', '6', '5', '4', '6', '5', '4', '3', '6', '3', '4', '5', '5', '9'], 'maximization')
+# equations = ['Z = 150x1 + 175x2\r', '7x1 + 11x2 <= 77\r', '10x1 + 8x2 <= 80\r', 'x1 <= 9\r', 'x2 <= 6']
+# result = clean_generic_input(equations, 'maximization')
+# simplex(result['initial_tableau'], result['is_max'], False)
