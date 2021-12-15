@@ -144,13 +144,19 @@ tabs_simplex = [
             '''
             To get the desired result, you should follow the input's format. Below is a guide for your reference.
             <ul class="list-group mt-4">
-                <!-- Equations -->
+                <!-- Objective Function -->
                 <li class="list-group-item">
                     <div class="mb-1">
-                        <span class="fw-bold text-primary">Equations -</span> This contains the <span class="text-secondary">objective function</span> and <span class="text-secondary">its constraints.</span> The equations must be separated by a <span class="text-secondary">new line</span>, and it should follow the format, which is provided by the following example:
+                        <span class="fw-bold text-primary">Objective Function -</span> This contains the <span class="text-secondary">objective function.</span> The equation must follow the format, which is provided by the following example:
                     </div>
+                    &emsp;&emsp;Z = 3x1 + 2x2
+                </li>
 
-                    &emsp;&emsp;Z = 10x1 + 5x2 <br />
+                <!-- Constraints -->
+                <li class="list-group-item">
+                    <div class="mb-1">
+                        <span class="fw-bold text-primary">Constraints -</span> This contains the <span class="text-secondary">constraints.</span> The equations must be separated by a <span class="text-secondary">new line</span>, and it should follow the format, which is provided by the following example:
+                    </div>
                     &emsp;&emsp;3x1 + 3x2 <= 4x2 <br />
                     &emsp;&emsp;5x1 + 6x2 >= 3x2
                 </li>
@@ -431,7 +437,7 @@ profile = [
             Thank you for the learnings in 150. I've been challenged with these exercises, and I was able to improve and hone my programming skills. <br /> <br />
 
             To <span class="text-primary">Junel,</span> <br />
-            Thanks. I owe you one, bro.
+            Thank you for giving me this idea. I wouldn't have done this without you. 💛
             '''
     }
 ]
