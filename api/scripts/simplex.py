@@ -82,6 +82,8 @@ def simplex(tableau, is_max, problem):
         # Store the number of shipped items.
         shipped_items = basic_solution[len(basic_solution) - 16:len(basic_solution) - 1]
     
+    # Check if the variables meet the constraints.
+    
     # Format the basic solution and tableau.
     np.round(tableau, 4)
     np.round(basic_solution, 4)
