@@ -1,0 +1,190 @@
+<!-- ** Simplex
+    | This serves as the web page for the
+    | generic solver using Simplex method.
+-->
+{% extends "layouts/sublayout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+<!-- Start of Header -->
+{% block subtitle %}
+    Generic Solver
+{% endblock %}
+
+{% block title %}
+    Simplex Method
+{% endblock %}
+<!-- End of Header -->
+
+<!-- Start of Nested Body -->
+{% block subbody %}
+    <!-- Start of Form -->
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <!-- Start of Objective Function -->
+        <div class="row mb-4">
+            {{ form.obj_function.label(class="form-label fw-bold col-2", text = "Objective Function") }}
+            <div class="col-10">
+                <div class="input-group mb-3">
+                    {% if form.obj_function.errors %}
+                        {{ form.obj_function(class = "form-control is-invalid", placeholder = "i.e. Z = 10x1 + 5x2", required = false) }}
+                        {% for e in form.obj_function.errors %}
+                            <div class="invalid-feedback mt-3">
+                                <span>{{ e }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.obj_function(class = "form-control", placeholder = "i.e. Z = 10x1 + 5x2", required = false) }}
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Follow the format for your objective function.</small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- End of X-Values -->
+        
+        <!-- Start of Text Area -->
+        <div class="row mb-4">
+            {{ form.constraints.label(class="form-label fw-bold col-2", text = "Constraints") }}
+            <div class="col-10">
+                <div class="input-group mb-3">
+                    {% if form.constraints.errors %}
+                        {{ form.constraints(class = "form-control is-invalid", placeholder = "i.e. x1 + 3x2 <= 5", required = false, rows = 6) }}
+                        {% for e in form.constraints.errors %}
+                            <div class="invalid-feedback mt-3">
+                                <span>{{ e }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.constraints(class = "form-control", placeholder = "i.e. x1 + 3x2 <= 5", required = false, rows = 6) }}
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter equations separated by new lines.</small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- End of Text Area -->
+
+        <!-- Start of Method Type -->
+        <div class="row mb-5">
+            <h5 class="col-2 mb-2"><span class="badge bg-primary">Type of Method</span></h5>
+            {% for m in form.method %}
+                <div class="form-check mb-2 col-2">
+                    {{ m(class = "form-check-input") }}
+                    {{ m.label(class = "form-check-label" )}}
+                </div>
+            {% endfor %}
+        </div>
+        <!-- End of Method Type -->
+
+        <!-- Start of Button Container -->
+        <div class="row">
+            <div class="d-flex flex-row">
+                {{ form.send(class = "btn btn-primary", value = "Display Output") }} &nbsp;
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </div>
+        <!-- End of Button Container -->
+    </form>
+    <!-- End of Form -->
+
+    <!-- Start of Output -->
+    {% if output is not none and output != -1 %}
+        <div id="output" class="d-block">
+            <!-- Divider -->
+            <br /> <hr />
+
+            <!-- Start of Optimal Value -->
+            <div class="card mt-5">
+                <!-- Header -->
+                <div class="card-header">
+                    Optimal Value
+                </div>
+
+                <!-- Body -->
+                <div class="card-body">
+                    <h5 class="card-title text-success">{{ output['optimal'] }}</h5>
+                    <p class="card-text">This is the {% if output.is_max %} maximized {% else %} minimized {% endif %} optimal value based on the objective function and its constraints.</p>
+                </div>
+            </div>
+            <!-- End of Optimal Value -->
+
+            <!-- Start of Final Tableau -->
+            <table class="table table-striped table-borderless">
+                <!-- Start of Header -->
+                <thead class="text-center">
+                    <tr>
+                        {% for name in (colnames) %}
+                            <th scope="col" class="text-capitalize">{{ name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <!-- End of Header -->
+
+                <!-- Start of Body -->
+                <h4 class="text-success mt-5">Final Tableau</h4>
+                <p class="text-secondary">Below is the final tableau for the problem.</p>
+
+                <tbody class="text-center">
+                    {% for row in output['final_tableau'] %}
+                        <tr>
+                            {% for element in row %}
+                                <td>{{ element }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <!-- End of Body -->
+            </table>
+            <!-- End of Final Tableau -->
+
+            <!-- Start of Basic Solution -->
+            <table class="table table-striped table-borderless">
+                <!-- Start of Header -->
+                <thead class="text-center">
+                    <tr>
+                        {% for _ in range(0, output['basic_solution']|length) %}
+                            <th scope="col" class="text-capitalize">{{ colnames[_] }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <!-- End of Header -->
+
+                <!-- Start of Body -->
+                <h4 class="text-success mt-5">Basic Solution</h4>
+                <p class="text-secondary">Below is the basic solution based on your data.</p>
+
+                <tbody class="text-center">
+                    <tr>
+                        {% for s in output['basic_solution'] %}
+                            <td>{{ s }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+                <!-- End of Body -->
+            </table>
+            <!-- End of Basic Solution -->
+        </div>
+    {% elif output == -1 %}
+        <div id="output" class="d-none"></div>
+    {% else %}
+        <div id="output" class="d-block">
+            <!-- Divider -->
+            <br /> <hr />
+
+            <!-- Start of Optimal Value -->
+            <div class="card mt-5">
+                <!-- Header -->
+                <div class="card-header">
+                    Optimal Value
+                </div>
+
+                <!-- Body -->
+                <div class="card-body">
+                    <h5 class="card-title text-danger">No Feasible Solution</h5>
+                    <p class="card-text">Sadly, there is no feasible solution based on the given data. Hence, you cannot view the final tableau, basic solution, and number of shipped items from one plant to one warehouse.</p>
+                </div>
+            </div>
+            <!-- End of Optimal Value -->
+        </div>
+    {% endif %}
+    <!-- End of Output -->
+{% endblock %}
+<!-- End of Nested Body -->
