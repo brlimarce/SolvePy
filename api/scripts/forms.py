@@ -7,7 +7,6 @@ from flask.app import Flask
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FieldList, FormField, RadioField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError, Regexp
-
 import re
 
 '''
@@ -27,8 +26,8 @@ class Validator():
     MSG_REQUIRED = '❌ Field is empty.'
     MSG_REGEXP = '❌ The format is incorrect. Check the input tab for more information.'
 
-    MAX = 'maximization'
-    MIN = 'minimization'
+    METHOD_MAX = 'maximization'
+    METHOD_MIN = 'minimization'
 
     # ** Methods
     '''
@@ -149,7 +148,6 @@ class QSIForm(FlaskForm):
     ** params
     | self: The class in question
     '''
-    @staticmethod
     def validate(self):
         # Store the error message for the custom validator.
         msg_size = '❌ Both vectors should have equal sizes.'
@@ -216,7 +214,7 @@ class ProblemForm(FlaskForm):
     costs = FieldList(FormField(ShippingCost), min_entries = 15, max_entries = 15)
 
     # ** Radio Schema
-    method = RadioField('method', choices = [(Validator.MAX, 'Maximization'), (Validator.MIN, 'Minimization')], default = Validator.MAX)
+    method = RadioField('method', choices = [(Validator.METHOD_MAX, 'Maximization'), (Validator.METHOD_MIN, 'Minimization')], default = Validator.METHOD_MAX)
     send = SubmitField('display-problem')
 
 '''
@@ -231,5 +229,5 @@ class ProblemForm(FlaskForm):
 class SimplexForm(FlaskForm):
     obj_function = TextAreaField('objective function', validators = [DataRequired(message = Validator.MSG_REQUIRED), Regexp('^Z = ((([0-9]+(.[0-9]+)?))?x[0-9]+ \+ )+(([0-9]+(.[0-9]+)?))?x[0-9]+(\\r)?$', message = Validator.MSG_REGEXP)])
     constraints = TextAreaField('constraints', validators = [DataRequired(message = Validator.MSG_REQUIRED), Validator.is_equations])
-    method = RadioField('method', choices = [(Validator.MAX, 'Maximization'), (Validator.MIN, 'Minimization')], default = Validator.MAX)
+    method = RadioField('method', choices = [(Validator.METHOD_MAX, 'Maximization'), (Validator.METHOD_MIN, 'Minimization')], default = Validator.METHOD_MAX)
     send = SubmitField('display-simplex')

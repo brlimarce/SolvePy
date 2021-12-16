@@ -74,13 +74,13 @@ def simplex(tableau, is_max, problem):
                 basic_solution.append(0)
         
         # Store the number of shipped items.
-        # basic_solution = np.delete(tableau[nrow - 1, :], ncol - 2) # Delete the extra column.
+        basic_solution = np.delete(tableau[nrow - 1, :], ncol - 2) # Delete the extra column.
         shipped_items = basic_solution[0:15]
     else:
         basic_solution = np.delete(tableau[nrow - 1, :], ncol - 2)
 
         # Store the number of shipped items.
-        shipped_items = basic_solution[len(basic_solution) - 17:len(basic_solution) - 2]
+        shipped_items = basic_solution[len(basic_solution) - 16:len(basic_solution) - 1]
     
     # Return a dictionary of the return values.
     return {
