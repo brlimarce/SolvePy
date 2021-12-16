@@ -62,7 +62,7 @@ def poly_qsi(xv, yv, x):
         if x >= xv[_] and x <= xv[_ + 1]:
             y, intindex = (solution[a] * (x ** 2)) + (solution[a + 1] * x) + solution[a + 2], _
     # Return a dictionary (polynomials and y).
-    return { 'polynomials' : polynomials, 'intervals' : intervals, 'intindex' : intindex, 'y' : np.round(y, 4) }
+    return { 'polynomials' : polynomials, 'intervals' : intervals, 'intindex' : intindex, 'y' : np.round(y, 4) if x >= xv[0] and x <= xv[len(xv) - 1] else None }
 
 '''
 ** modified_merge_sort

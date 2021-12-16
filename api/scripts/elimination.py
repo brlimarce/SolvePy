@@ -89,11 +89,17 @@ def gauss_jordan(m):
 | m: The updated matrix after pivoting
 '''
 def pivot(m, pptr):
-    # Find the row of the maximum number.
-    row = np.where(m[:, pptr] == max(abs(m[pptr:len(m), pptr])))[0][0]
-    
-    # If the maximum value is 0, return None.
-    if m[row, pptr] == 0:
-        return None
-    m[[row, pptr]] = m[[pptr, row]] # Swap the rows in the matrix.
+    # Pivot only if PE is 0.
+    if m[pptr, pptr] == 0:
+        # Get the row.
+        temp_row = m[pptr:len(m), pptr]
+
+        # -> Find the row of the maximum number.
+        # -> This depends if all values are negative or not.
+        row = np.where(m[:, pptr] == max(abs(temp_row[temp_row != 0])))[0][0] if len(temp_row) == len(temp_row[temp_row < 0]) else np.where(m[:, pptr] == max(temp_row[temp_row != 0]))[0][0]
+        
+        # If the maximum value is 0, return None.
+        if m[row, pptr] == 0:
+            return None
+        m[[row, pptr]] = m[[pptr, row]] # Swap the rows in the matrix.
     return m # Return the updated matrix.

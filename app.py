@@ -7,7 +7,7 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import csrf
 
 from templates.layouts import data as d
-from api.scripts.forms import QSIForm, ProblemForm, SimplexForm
+from api.scripts.forms import QSIForm, ProblemForm, SimplexForm, Validator
 from api.scripts import qsi as q
 from api.scripts import simplex as s
 

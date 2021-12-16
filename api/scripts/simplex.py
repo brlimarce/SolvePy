@@ -82,11 +82,15 @@ def simplex(tableau, is_max, problem):
         # Store the number of shipped items.
         shipped_items = basic_solution[len(basic_solution) - 16:len(basic_solution) - 1]
     
+    # Format the basic solution and tableau.
+    np.round(tableau, 4)
+    np.round(basic_solution, 4)
+    
     # Return a dictionary of the return values.
     return {
         'final_tableau' : tableau,
         'basic_solution' : basic_solution,
-        'optimal' : basic_solution[len(basic_solution) - 1],
+        'optimal' : np.round(basic_solution[len(basic_solution) - 1], 4),
         'shipped_items' : np.array(shipped_items, dtype = float).reshape((3, 5)) if problem else None,
         'is_max' : is_max
     }
