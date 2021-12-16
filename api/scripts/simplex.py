@@ -48,7 +48,7 @@ def simplex(tableau, is_max, problem):
         
         # Get the pivot row.
         filtered = [_ for _ in ratio if not mt.isinf(_)]
-        pptr = None if len(filtered) == 0 or len(filtered) == len(ratio) else min(np.where(ratio == min(filtered)))[0]
+        pptr = min(np.where(ratio == min(filtered)))[0] if len(filtered) > 0 else None
 
         # If all test ratios are negative, return -1 (Output).
         if pptr == None:
@@ -173,7 +173,6 @@ def create_problem_tableau(demands, supplies, costs, method):
 def create_initial_tableau(obj_function, constraints, method):
     # Determine if maximization or minimization is applied.
     is_max = True if method == METHOD_MAX else False
-    constraint = CONSTRAINT_MAX if is_max else CONSTRAINT_MIN
     initial_tableau, colnames = [], None
 
     # Get the variables from the objective function.
@@ -197,7 +196,8 @@ def create_initial_tableau(obj_function, constraints, method):
         temp_array = [0 for _ in range(0, len(variables))]
         for _ in range(0, len(terms)):
             temp_array[int(re.search(int_checker, re.search(var_checker, terms[_]).group(0)).group(0)) - 1] = (float(re.sub(var_checker, '', terms[_])) if is_max_constraint == is_max else -float(re.sub(var_checker, '', terms[_]))) if re.sub(var_checker, '', terms[_]).isnumeric() else (1 if is_max_constraint == is_max else -1)
-        extracted.append([temp_array, float(eq[1])]) # Append the terms to the extracted array.
+        # Append the terms to the extracted array.
+        extracted.append([temp_array, -float(eq[1]) if is_max_constraint == is_max and not is_max else float(eq[1])])
     
     # Get the numerical values from the objective function.
     constants = [] # Store the values from the objective function.
@@ -233,8 +233,3 @@ def create_initial_tableau(obj_function, constraints, method):
         # Append the column names of the tableau.
         colnames = ['s' + str(_ + 1) for _ in range(0, len(constraints))] + ['x' + str(_ + 1) for _ in range(0, len(variables))] + ['Z', 'Solution']
     return { 'initial_tableau' : np.array(initial_tableau, dtype = float), 'is_max' : is_max, 'colnames' : colnames }
-
-# Test the function here.
-# equations = ['x1 + x2 + x3 + x4 + x5  <= 310\r', 'x6 + x7 + x8 + x9 + x10 <= 260\r', 'x11 + x12 + x13 + x14 + x15 <= 280\r', 'x1 + x6 + x11 >= 180\r', 'x2 + x7 + x12 >= 80\r', 'x3 + x8 + x13 >= 200\r', 'x4 + x9 + x14 >= 160\r', 'x5 + x10 + x15 >= 220']
-# result = create_initial_tableau('Z = 10x1 + 8x2 + 6x3 + 5x4 + 4x5 + 6x6 + 5x7 + 4x8 + 3x9 + 6x10 + 3x11 + 4x12 + 5x13 + 5x14 + 9x15', equations, METHOD_MIN)
-# print(simplex(result['initial_tableau'], result['is_max'], False))
