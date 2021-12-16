@@ -8,9 +8,11 @@ import math as mt
 import re
 
 # ** Constants
-# This contains the methods for the Simplex method.
-MAX = 'maximization'
-MIN = 'minimization'
+# This contains the methods and constraint identifiers for the Simplex method.
+METHOD_MAX = 'maximization'
+METHOD_MIN = 'minimization'
+CONSTRAINT_MAX = '<='
+CONSTRAINT_MIN = '>='
 
 '''
 ** simplex
@@ -109,8 +111,8 @@ def create_problem_tableau(demands, supplies, costs, method):
     # ** Declaration
     # This also contains the cleaned input from the form.
     parray = [[float(d) for d in demands], [float(c) for c in costs], [float(s) for s in supplies]]
-    is_max = True if method == 'maximization' else False
-    tableau = [] # Store the problem's tableau.
+    is_max = True if method == METHOD_MAX else False
+    tableau, colnames = [], []
 
     # Check if the initial tableau is for maximization or minimization.
     if is_max:
@@ -123,6 +125,9 @@ def create_problem_tableau(demands, supplies, costs, method):
 
         # Append the last row (objective function).
         tableau.append([-parray[1][_] if _ >= 0 and _ <= 14 else 1 if _ == 23 else 0 for _ in range(0, 25)])
+
+        # Append the column names of the tableau.
+        colnames = ['x' + str(_ + 1) for _ in range(0, 15)] + ['s' + str(_ + 1) for _ in range(0, 8)] + ['Z', 'Solution']
     else:
         # Append the columns for maximization constraints.
         tableau = [[-1 if j >= (i * 5) and j <= (i * 5) + 4 else parray[2][i] if j == 15 else 0 for j in range(0, 16)] for i in range(0, 3)]
@@ -137,63 +142,52 @@ def create_problem_tableau(demands, supplies, costs, method):
         tableau.append([1 if i == 15 else 0 for i in range(0, 16)])
 
         # Append the solution column (Append the solution then 0).
-        solution = parray[1]
-        solution.append(0)
+        solution = parray[1] + [0]
         tableau.append(solution)
+
+        # Append the column names of the tableau.
+        colnames = ['s' + str(_ + 1) for _ in range(0, 8)] + ['x' + str(_ + 1) for _ in range(0, 15)] + ['Z', 'Solution']
 
     # Return a dictionary of the result.
     return {
         'tableau' : np.array(tableau, dtype = float).transpose() if not is_max else np.array(tableau, dtype = float),
-        'colnames' : ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12', 'x13', 'x14', 'x15', 'Z', 'Solution'] if not is_max else ['x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12', 'x13', 'x14', 'x15', 's1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 'Z', 'Solution'],
+        'colnames' : colnames,
         'is_max' : is_max
     }
 
 '''
 ** create_initial_tableau
-| This is a helper function to create the initial tableau
-| for the generic solver.
-- - -
-** params
-| - m: A nested list of the problem's parameters
-| - is_max: A boolean to identify if maximization/minimization is applied
-- - -
-** returns
-| - initial_tableau: The initial tableau for the problem
-| - colnames: The column names for the initial tableau
-'''
-def create_initial_tableau(m, is_max):
-    # TODO: Implementation.
-    print('Placeholder')
-
-'''
-** clean_generic_input
 | This is a helper function to clean the data from
 | the form of the generic solver.
 - - -
 ** params
-| - equations: A list containing the objective function and constraints
+| - obj_function: A string containing the objective function
+| - constraints: A list containing the constraints
 | - method: The method to be used in Simplex
 - - -
 ** returns
 | - initial_tableau: The initial tableau based on the problem
+| - colnames: The column names for the initial tableau
 | - is_max: Returns True if it's maximization else False
 '''
-def clean_generic_input(equations, method):
+def create_initial_tableau(obj_function, constraints, method):
     # Determine if maximization or minimization is applied.
-    is_max = True if method == 'maximization' else False
-    constraint = '<=' if is_max else '>='
-    initial_tableau = [] # Store the initial tableau.
+    is_max = True if method == METHOD_MAX else False
+    constraint = CONSTRAINT_MAX if is_max else CONSTRAINT_MIN
+    initial_tableau, colnames = [], None
 
     # Get the variables from the objective function.
-    var_checker = re.compile('x[0-9]+')
-    int_checker = re.compile('[0-9]+')
-    variables = var_checker.findall(equations[0])
+    var_checker, int_checker = re.compile('x[0-9]+'), re.compile('[0-9]+')
+    variables = var_checker.findall(obj_function)
 
     # Get the terms and RHS from each equation.
     extracted = [] # Store the extracted terms and RHS.
-    for _ in range(1, len(equations)):
-        eq = equations[_].split(constraint) # Split the equation and RHS.
-        terms = [t.replace(' ', '') for t in eq[0].split('+')] # Split the terms.
+    for _ in range(0, len(constraints)):
+        # -> Split the equations and RHS via the constraint.
+        # -> Then, split the terms in the equation.
+        is_max_constraint = True if CONSTRAINT_MAX in constraints[_] else False
+        eq = constraints[_].split(CONSTRAINT_MAX) if is_max_constraint else constraints[_].split(CONSTRAINT_MIN)
+        terms = [t.replace(' ', '') for t in eq[0].split('+')]
 
         # Check if the variables fit the objective function.
         for t in terms:
@@ -202,33 +196,45 @@ def clean_generic_input(equations, method):
         # Extract the terms and store them into a list.
         temp_array = [0 for _ in range(0, len(variables))]
         for _ in range(0, len(terms)):
-            temp_array[int(re.search(int_checker, re.search(var_checker, terms[_]).group(0)).group(0)) - 1] = float(re.sub(var_checker, '', terms[_])) if re.sub(var_checker, '', terms[_]).isnumeric() else 1
-        extracted.append([temp_array, float(eq[1])])
+            temp_array[int(re.search(int_checker, re.search(var_checker, terms[_]).group(0)).group(0)) - 1] = (float(re.sub(var_checker, '', terms[_])) if is_max_constraint == is_max else -float(re.sub(var_checker, '', terms[_]))) if re.sub(var_checker, '', terms[_]).isnumeric() else (1 if is_max_constraint == is_max else -1)
+        extracted.append([temp_array, float(eq[1])]) # Append the terms to the extracted array.
     
     # Get the numerical values from the objective function.
     constants = [] # Store the values from the objective function.
-    for _ in (equations[0].split('=')[1]).split('+'):
+    for _ in (obj_function.split('=')[1]).split('+'):
         _ = re.sub(var_checker, '', _)
         constants.append(float(_))
     
-    # Create a primal problem for maximization.
-    if is_max and sum([e.count(constraint) for e in equations]) == len(equations) - 1:
+    # Create the primal problem for maximization.
+    if is_max:
         # Append the constraints in the initial tableau.
-        for _ in range(0, len(extracted)):
-            initial_tableau.append([(extracted[_])[0][i] if i >= 0 and i < len(variables) else (extracted[_])[1] if i == len(variables) + len(extracted) + 1 else 1 if i == _ + len(variables) else 0 for i in range(0, len(variables) + len(extracted) + 2)])
+        [initial_tableau.append([(extracted[_])[0][i] if i >= 0 and i < len(variables) else (extracted[_])[1] if i == len(variables) + len(extracted) + 1 else 1 if i == _ + len(variables) else 0 for i in range(0, len(variables) + len(extracted) + 2)]) for _ in range(0, len(extracted))]
+
         # Append the last row.
         initial_tableau.append([-constants[i] if i >= 0 and i < len(variables) else 1 if i == len(variables) + len(extracted) else 0 for i in range(0, len(variables) + len(extracted) + 2)])
 
         # Create the column names.
-        colnames = ['x' + str(_ + 1) if _ >= 0 and _ < len(variables) else 's' + str(_ - len(variables) + 1) for _ in range(0, len(variables) + len(extracted))]
-        colnames.append('Z')
-        colnames.append('Solution')
-    
-    # TODO: Create the dual problem.
+        colnames = ['x' + str(_ + 1) for _ in range(0, len(variables))] + ['s' + str(_ + 1) for _ in range(0, len(constraints))] + ['Z', 'Solution']
+    else:
+        # Append the constraints and solution.
+        [initial_tableau.append((extracted[_])[0] + [(extracted[_])[1]]) for _ in range(0, len(extracted))]
+        initial_tableau.append(constants + [0])
+
+        # Tranpose the initial matrix.
+        initial_tableau = [list(row) for row in np.array(initial_tableau).transpose()]
+
+        # Append the created array for the slack variables to the tableau.
+        slack_array = [[1 if j == i else 0 for j in range(0, len(variables))] for i in range(0, len(variables))]
+        slack_array.append([0 for _ in range(0, len(variables))])
+        
+        # Remake the matrix by inserting the slack variables.
+        initial_tableau = [initial_tableau[_][0:len(constraints)] + slack_array[_] + [0 if _ >= 0 and _ < len(initial_tableau) - 1 else 1] + [initial_tableau[_][len(initial_tableau[_]) - 1]] for _ in range(0, len(initial_tableau))]
+        
+        # Append the column names of the tableau.
+        colnames = ['s' + str(_ + 1) for _ in range(0, len(constraints))] + ['x' + str(_ + 1) for _ in range(0, len(variables))] + ['Z', 'Solution']
     return { 'initial_tableau' : np.array(initial_tableau, dtype = float), 'is_max' : is_max, 'colnames' : colnames }
 
 # Test the function here.
-# create_problem_tableau(['180', '80', '200', '160', '220'], ['310', '260', '280'], ['10', '8', '6', '5', '4', '6', '5', '4', '6', '5', '4', '3', '6', '3', '4', '5', '5', '9'], 'maximization')
-# equations = ['Z = 150x1 + 175x2\r', '7x1 + 11x2 <= 77\r', '10x1 + 8x2 <= 80\r', 'x1 <= 9\r', 'x2 <= 6']
-# result = clean_generic_input(equations, 'maximization')
-# simplex(result['initial_tableau'], result['is_max'], False)
+# equations = ['x1 + x2 + x3 + x4 + x5  <= 310\r', 'x6 + x7 + x8 + x9 + x10 <= 260\r', 'x11 + x12 + x13 + x14 + x15 <= 280\r', 'x1 + x6 + x11 >= 180\r', 'x2 + x7 + x12 >= 80\r', 'x3 + x8 + x13 >= 200\r', 'x4 + x9 + x14 >= 160\r', 'x5 + x10 + x15 >= 220']
+# result = create_initial_tableau('Z = 10x1 + 8x2 + 6x3 + 5x4 + 4x5 + 6x6 + 5x7 + 4x8 + 3x9 + 6x10 + 3x11 + 4x12 + 5x13 + 5x14 + 9x15', equations, METHOD_MIN)
+# print(simplex(result['initial_tableau'], result['is_max'], False))

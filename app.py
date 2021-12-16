@@ -60,7 +60,7 @@ def solve_simplex():
 
     # If the form is validated, collect the data.
     if form.validate_on_submit():
-        clean_data = s.clean_generic_input((form.constraints.data).split('\n'), form.method.data)
+        clean_data = s.create_initial_tableau(form.obj_function.data, (form.constraints.data).split('\n'), form.method.data)
         result = s.simplex(clean_data['initial_tableau'], clean_data['is_max'], False)
         colnames = clean_data['colnames']
     return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, form = form, colnames = colnames, output = result)
