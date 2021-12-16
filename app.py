@@ -33,7 +33,7 @@ def index():
 def solve_qsi():
     # ** Declaration
     form = QSIForm(request.form) # Store the page's form.
-    result = None # Store the result (dictionary)
+    result = -1 # Store the result (dictionary)
 
     # If the form is submitted, collect the data.
     if form.validate_on_submit():

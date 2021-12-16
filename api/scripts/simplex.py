@@ -154,7 +154,7 @@ def create_problem_tableau(demands, supplies, costs, method):
 
     # Return a dictionary of the result.
     return {
-        'tableau' : np.array(tableau, dtype = float).transpose() if not is_max else np.array(tableau, dtype = float),
+        'tableau' : np.round(np.array(tableau, dtype = float).transpose(), 4) if not is_max else np.round(np.array(tableau, dtype = float), 4),
         'colnames' : colnames,
         'is_max' : is_max
     }
