@@ -35,6 +35,7 @@ def simplex(tableau, is_max, problem):
     nrow, ncol = np.shape(tableau)[0], np.shape(tableau)[1]
     basic_solution, shipped_items = [], []
     brow = tableau[nrow - 1, :] # Store the bottom row of the tableau.
+    shipped_items = None # Store the number of shipped items (problem-specific).
 
     # Perform Simplex until the bottom row has no negative value.
     while (len(brow[brow < 0]) > 0):
@@ -67,6 +68,7 @@ def simplex(tableau, is_max, problem):
     # Get the basic solution for maximization/minimization.
     if is_max:
         # The long line in the row index unlists the result, which is an array.
+        print('is this right')
         for _ in range(0, ncol - 1):
             if (tableau[:, _] == 1).sum() == 1 and (tableau[:, _] == 0).sum() == len(tableau) - 1:
                 basic_solution.append(tableau[np.where(tableau[:, _] == 1)[0][0]][ncol - 1])
@@ -74,7 +76,6 @@ def simplex(tableau, is_max, problem):
                 basic_solution.append(0)
         
         # Store the number of shipped items.
-        basic_solution = np.delete(tableau[nrow - 1, :], ncol - 2) # Delete the extra column.
         shipped_items = basic_solution[0:15]
     else:
         basic_solution = np.delete(tableau[nrow - 1, :], ncol - 2)
@@ -82,16 +83,10 @@ def simplex(tableau, is_max, problem):
         # Store the number of shipped items.
         shipped_items = basic_solution[len(basic_solution) - 16:len(basic_solution) - 1]
     
-    # Check if the variables meet the constraints.
-    
-    # Format the basic solution and tableau.
-    np.round(tableau, 4)
-    np.round(basic_solution, 4)
-    
     # Return a dictionary of the return values.
     return {
-        'final_tableau' : tableau,
-        'basic_solution' : basic_solution,
+        'final_tableau' : np.round(tableau, 4),
+        'basic_solution' : np.round(basic_solution, 4),
         'optimal' : np.round(basic_solution[len(basic_solution) - 1], 4),
         'shipped_items' : np.array(shipped_items, dtype = float).reshape((3, 5)) if problem else None,
         'is_max' : is_max
@@ -156,7 +151,7 @@ def create_problem_tableau(demands, supplies, costs, method):
 
     # Return a dictionary of the result.
     return {
-        'tableau' : np.round(np.array(tableau, dtype = float).transpose(), 4) if not is_max else np.round(np.array(tableau, dtype = float), 4),
+        'tableau' : np.array(tableau, dtype = float).transpose() if not is_max else np.array(tableau, dtype = float),
         'colnames' : colnames,
         'is_max' : is_max
     }
