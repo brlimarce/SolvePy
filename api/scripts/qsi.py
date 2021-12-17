@@ -49,7 +49,12 @@ def poly_qsi(xv, yv, x):
         # Add a row to the matrix for condition 3.
         m.append([coefficients[i - a1] if i >= a1 and i <= a1 + 1 else -coefficients[i - a2] if i >= a2 and i <= a2 + 1 else 0 for i in range(3 * n + 1)])
     m = np.delete(np.array(m), 0, axis = 1) # Delete the first column since a1 = 0.
-    solution = [np.round(num, 4) for num in np.concatenate(([0], el.gauss_jordan(m)['solution']))]
+    result = el.gauss_jordan(m) # Get the result including the solution.
+
+    # Return None if the result is None.
+    if result == None:
+        return None
+    solution = [np.round(num, 4) for num in np.concatenate(([0], result['solution']))]
 
     # Create the polynomials per interval.
     for _ in range(len(solution) // 3):
