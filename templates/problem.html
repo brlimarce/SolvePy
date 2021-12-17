@@ -129,9 +129,8 @@
 
         <!-- Start of Button Container -->
         <div class="row">
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row justify-content-center">
                 {{ form.send(class = "btn btn-primary", value = "Display Output") }} &nbsp;
-                <button type="reset" class="btn btn-secondary">Reset</button>
             </div>
         </div>
         <!-- End of Button Container -->
@@ -154,7 +153,7 @@
                 <!-- Body -->
                 <div class="card-body">
                     <h5 class="card-title text-success">{{ output['optimal'] }}</h5>
-                    <p class="card-text">This is the {% if output.is_max %} maximized {% else %} minimized {% endif %} cost for DIVOC when shipping from one manufacturing plant to one warehouse.</p>
+                    <p class="card-text">This is the {% if output.is_max %} maximized {% else %} minimized {% endif %} cost for DIVOC when shipping from each manufacturing plant to each warehouse.</p>
                 </div>
             </div>
             <!-- End of Optimal Value -->
@@ -164,7 +163,7 @@
                 <!-- Start of Header -->
                 <thead class="text-center">
                     <tr>
-                        {% for name in tableau['colnames'] %}
+                        {% for name in colnames %}
                             <th scope="col" class="text-capitalize">{{ name }}</th>
                         {% endfor %}
                     </tr>
@@ -193,7 +192,7 @@
                 <!-- Start of Header -->
                 <thead class="text-center">
                     <tr>
-                        {% for name in (tableau['colnames'])[0:(tableau['colnames']|length) - 1] %}
+                        {% for name in (colnames)[0:(colnames|length) - 1] %}
                             <th scope="col" class="text-capitalize">{{ name }}</th>
                         {% endfor %}
                     </tr>
@@ -202,7 +201,7 @@
 
                 <!-- Start of Body -->
                 <h4 class="text-success mt-5">Basic Solution</h4>
-                <p class="text-secondary">Below is the basic solution based on your data.</p>
+                <p class="text-secondary">Below is the basic solution based on the data.</p>
 
                 <tbody class="text-center">
                     <tr>
@@ -253,20 +252,20 @@
             <!-- Divider -->
             <br /> <hr />
 
-            <!-- Start of Optimal Value -->
+            <!-- Start of Solution Error -->
             <div class="card mt-5">
                 <!-- Header -->
                 <div class="card-header">
-                    Optimal Value
+                    ❌ Error
                 </div>
 
                 <!-- Body -->
                 <div class="card-body">
                     <h5 class="card-title text-danger">No Feasible Solution</h5>
-                    <p class="card-text">Sadly, there is no feasible solution based on the given data. Hence, you cannot view the final tableau, basic solution, and number of shipped items from one plant to one warehouse.</p>
+                    <p class="card-text">There is no feasible solution based on the provided data. Thus, the shipping cost cannot be {% if output.is_max %} maximized {% else %} minimized {% endif %}.</p>
                 </div>
             </div>
-            <!-- End of Optimal Value -->
+            <!-- End of Solution Error -->
         </div>
     {% endif %}
     <!-- End of Output -->

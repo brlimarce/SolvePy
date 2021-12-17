@@ -33,7 +33,7 @@
                         {% endfor %}
                     {% else %}
                         {{ form.xv(class = "form-control", placeholder = "i.e. 1,2,3,4,5", required = false) }}
-                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter values separated by a comma.</small>
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter multiple numbers separated by commas.</small>
                     {% endif %}
                 </div>
             </div>
@@ -52,7 +52,7 @@
                         {% endfor %}
                     {% else %}
                         {{ form.yv(class = "form-control", placeholder = "i.e. 1,2,3,4,5", required = false) }}
-                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter values separated by a comma.</small>
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter multiple numbers separated by commas.</small>
                     {% endif %}
                 </div>
             </div>
@@ -73,7 +73,7 @@
                         {% endfor %}
                     {% else %}
                         {{ form.x(class = "form-control", placeholder = "i.e. 1", required = false) }}
-                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter a numerical value.</small>
+                        <small class="form-text text-muted col-xl-12 mt-3">❔ Enter a number.</small>
                     {% endif %}
                 </div>
             </div>
@@ -82,9 +82,8 @@
 
         <!-- Start of Button Container -->
         <div class="row">
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row justify-content-center">
                 {{ form.send(class = "btn btn-primary", value = "Display Output") }} &nbsp;
-                <input type="reset" class="btn btn-secondary" />
             </div>
         </div>
         <!-- End of Button Container -->
@@ -92,7 +91,7 @@
     <!-- End of Form -->
 
     <!-- Start of Output -->
-    {% if output is not none %}
+    {% if output is not none and output != -1 %}
         <div id="output" class="d-block">
             <!-- Divider -->
             <br /> <hr />
@@ -117,11 +116,11 @@
 
                     <!-- Start of Body -->
                     <tbody class="text-center">
-                        {% for _ in range(1, 4) %}
+                        {% for _ in range(0, output['polynomials']|length) %}
                             <tr>
-                                <th scope="row">{{ _ }}</th>
-                                <td>{{ (output['polynomials'])[_ - 1] }}</td>
-                                <td>{{ (output['intervals'])[_ - 1][0] }} ≤ x ≤ {{ (output['intervals'])[_ - 1][1] }}</td>
+                                <th scope="row">{{ _ + 1 }}</th>
+                                <td>{{ (output['polynomials'])[_] }}</td>
+                                <td>{{ (output['intervals'])[_][0] }} ≤ x ≤ {{ (output['intervals'])[_][1] }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -130,36 +129,80 @@
             </div>
             <!-- End of Polynomials -->
 
-            <!-- Start of Approximate -->
-            <div class="row">
-                <!-- Header -->
-                <h4 class="text-success mt-5">Approximate</h4>
-                <p class="text-secondary">Below is the approximate value of f(x) based on the interval.</p>
-                
-                <!-- Table -->
-                <table class="table table-striped table-borderless">
-                    <!-- Start of Header -->
-                    <thead class="text-center">
-                        <tr>
-                            <th scope="col">Interval</th>
-                            <th scope="col">Polynomial</th>
-                            <th scope="col">Approximate Value</th>
-                        </tr>
-                    </thead>
-                    <!-- End of Header -->
+            {% if output['y'] is not none %}
+                <!-- Start of Approximate -->
+                <div class="row">
+                    <!-- Header -->
+                    <h4 class="text-success mt-5">Approximate</h4>
+                    <p class="text-secondary">Below is the approximate value of f(x) based on the interval.</p>
+                    
+                    <!-- Table -->
+                    <table class="table table-striped table-borderless">
+                        <!-- Start of Header -->
+                        <thead class="text-center">
+                            <tr>
+                                <th scope="col">Interval</th>
+                                <th scope="col">Polynomial</th>
+                                <th scope="col">Approximate Value</th>
+                            </tr>
+                        </thead>
+                        <!-- End of Header -->
 
-                    <!-- Start of Body -->
-                    <tbody class="text-center">
-                        <tr>
-                            <td scope="row">{{ (output['intervals'])[output['intindex']][0] }} ≤ x ≤ {{ (output['intervals'])[output['intindex']][1] }}</td>
-                            <td>{{ (output['polynomials'])[output['intindex']] }}</td>
-                            <td>{{ output['y'] }}</td>
-                        </tr>
-                    </tbody>
-                    <!-- End of Body -->
-                </table>
+                        <!-- Start of Body -->
+                        <tbody class="text-center">
+                            <tr>
+                                <td scope="row">{{ (output['intervals'])[output['intindex']][0] }} ≤ x ≤ {{ (output['intervals'])[output['intindex']][1] }}</td>
+                                <td>{{ (output['polynomials'])[output['intindex']] }}</td>
+                                <td>{{ output['y'] }}</td>
+                            </tr>
+                        </tbody>
+                        <!-- End of Body -->
+                    </table>
+                </div>
+                <!-- End of Approximate -->
+            {% else %}
+                <div id="output" class="d-block">
+                    <!-- Divider -->
+                    <br /> <hr />
+        
+                    <!-- Start of Approximate Error -->
+                    <div class="card mt-5">
+                        <!-- Header -->
+                        <div class="card-header">
+                            ❌ Error
+                        </div>
+        
+                        <!-- Body -->
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">No Approximate Value Available</h5>
+                            <p class="card-text">The number to be evaluated does not belong in any of the given intervals. Try again with a different number.</p>
+                        </div>
+                    </div>
+                    <!-- End of Approximate Error -->
+                </div>
+            {% endif %}
+        </div>
+    {% elif output == -1 %}
+        <div id="output" class="d-none"></div>
+    {% else %}
+        <div id="output" class="d-block">
+            <!-- Divider -->
+            <br /> <hr />
+
+            <!-- Start of Polynomials Error -->
+            <div class="card mt-5">
+                <!-- Header -->
+                <div class="card-header">
+                    ❌ Error
+                </div>
+
+                <!-- Body -->
+                <div class="card-body">
+                    <h5 class="card-title text-danger">No Feasible Solution</h5>
+                    <p class="card-text">There is no feasible solution based on the given data points. This is because the resulting matrix is not diagonally dominant.</p>
+                </div>
             </div>
-            <!-- End of Approximate -->
+            <!-- End of Polynomials Error -->
         </div>
     {% endif %}
     <!-- End of Output -->
