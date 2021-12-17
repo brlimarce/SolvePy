@@ -7,7 +7,7 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import csrf
 
 from templates.layouts import data as d
-from api.scripts.forms import QSIForm, ProblemForm, SimplexForm, Validator
+from api.scripts.forms import QSIForm, ProblemForm, SimplexForm
 from api.scripts import qsi as q
 from api.scripts import simplex as s
 
@@ -58,9 +58,14 @@ def solve_simplex():
 
     # If the form is validated, collect the data.
     if form.validate_on_submit():
+        # Get the clean input and perform the Simplex method.
         clean_data = s.create_initial_tableau(form.obj_function.data, (form.constraints.data).split('\n'), form.method.data)
         result = s.simplex(clean_data['initial_tableau'], clean_data['is_max'], False)
         colnames = clean_data['colnames']
+
+        # Reset the data.
+        form.obj_function.data = form.constraints.data = None
+        form.method.data = s.METHOD_MAX
     return render_template('simplex.html', pages = d.pages, page = 'simplex', tabs = d.tabs_simplex, form = form, colnames = colnames, output = result)
 
 # ** Problem-Specific Simplex Solver
@@ -83,9 +88,17 @@ def solve_problem():
 
         # Create the tableau based on the problem.
         clean_data = s.create_problem_tableau(demands, supplies, costs, method)
-        print(demands, supplies, costs, method)
         result = s.simplex(clean_data['tableau'], clean_data['is_max'], True)
         colnames = clean_data['colnames']
+
+        # Reset the data.
+        for _ in form.demands:
+            _.demand.data = None
+        for _ in form.supplies:
+            _.supply.data = None
+        for _ in form.costs:
+            _.cost.data = None
+        form.method.data = s.METHOD_MAX
     return render_template('problem.html', pages = d.pages, page = 'problem', tabs = d.tabs_problem, plants = d.plants, warehouses = d.warehouses, form = form, colnames = colnames, output = result)
 
 # ** About SolvePy

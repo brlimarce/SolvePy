@@ -68,7 +68,6 @@ def simplex(tableau, is_max, problem):
     # Get the basic solution for maximization/minimization.
     if is_max:
         # The long line in the row index unlists the result, which is an array.
-        print('is this right')
         for _ in range(0, ncol - 1):
             if (tableau[:, _] == 1).sum() == 1 and (tableau[:, _] == 0).sum() == len(tableau) - 1:
                 basic_solution.append(tableau[np.where(tableau[:, _] == 1)[0][0]][ncol - 1])
