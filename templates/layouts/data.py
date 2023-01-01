@@ -437,7 +437,7 @@ profile = [
             Thank you for the learnings in 150. I've been challenged with these exercises, and I was able to improve and hone my programming skills. <br /> <br />
 
             To <span class="text-primary">Junel,</span> <br />
-            Thank you for giving me this idea. I wouldn't have done this without you. 💛
+            Thank you for giving me this idea.
             '''
     }
 ]

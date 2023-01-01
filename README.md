@@ -1,24 +1,91 @@
-<!-- Start of Banner -->
-![Image of Banner](static/banner.png)
-<!-- End of Banner -->
+<!-- Banner -->
+![Banner](static/banner.png)
 
-<!-- Start of Heading -->
+<!-- Header -->
 <div align="center">
-    <h1><b>SolvePy 🧮</b></h1>
-    <p><b>A web app for QSI and Simplex solvers on Flask and Python.</b><br>SolvePy is a project for CMSC 150 <i>(Numerical and Symbolic Computation).</i></p>
+  <h1><b>🧮 SolvePy</b></h1>
+  <p>A web app that contains <b>QSI</b> (Quadratic Spline Interpolation) and <b>Simplex</b> solvers using Flask and Python.</p>
 </div>
-<!-- End of Heading -->
+<br />
 
-<!-- Start of Solvers -->
-## **Solvers 🔹**
-- **QSI Solver.** This is a generic solver using **Quadratic Spline Interpolation (QSI).** It displays the interpolating polynomials, intervals, and approximate value based on the given data.
+<!-- App Preview -->
+## 📱&ensp;App Preview
+![App Preview](static/app_preview.png)
 
-- **Simplex Solver.** This is a generic solver using the **Simplex Method.** It displays the final tableau, basic solution, and maximized or minimized value based on the provided objective function and its constraints.
+<!-- Solvers -->
+## ✨&ensp;Solvers
+<table>
+  <!-- Column Names -->
+  <thead>
+    <tr>
+      <th>Solver</th>
+      <th>Input</th>
+      <th>Output</th>
+    </tr>
+  </thead>
 
-- **Problem Solver.** This is a problem-specific solver using the **Simplex Method.** Similar to its generic counterpart, it displays the final tableau, basic solution, and optimal value based on the data from the table. This also provides a table of the number of shipped items from each plant to each warehouse to follow the maximized or minimized cost.
-<!-- End of Solvers -->
+  <tbody>
+  <!-- QSI Solver -->
+  <tr>
+    <td><b>QSI</b></td>
+    <td>
+      <ul>
+        <li>X and Y values</li>
+        <li>Value</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Interpolating polynomials</li>
+        <li>Intervals</li>
+        <li>Approximate value</li>
+      </ul>
+    </td>
+  </tr>
 
-<!-- Start of Get Started -->
-## **Get Started ⬇️**
-This web app is deployed via **Heroku.** Visit the app at **https://solvepy.herokuapp.com/**.
-<!-- End of Get Started -->
+  <!-- Simplex Solver -->
+  <tr>
+    <td><b>Simplex Method</b></td>
+    <td>
+      <ul>
+        <li>Mode (Max/Min)</li>
+        <li>Objective Function</li>
+        <li>Constraints</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Final tableau</li>
+        <li>Basic solution</li>
+        <li>Optimal value</li>
+      </ul>
+    </td>
+  </tr>
+
+  <!-- Problem Solver -->
+  <tr>
+    <td><b>Simplex (Problem)</b></td>
+    <td>
+      <ul>
+        <li>Mode (Max/Min)</li>
+        <li>Objective Function</li>
+        <li>Constraints</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Final tableau</li>
+        <li>Basic solution</li>
+        <li>Optimal value</li>
+        <li>Table of the no. of shipped items from a plant to a warehouse</li>
+        <li>Optimal cost</li>
+      </ul>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Deployment -->
+<br />
+
+>> 🌐&ensp;Visit the web app at **https://solvepy.vercel.app**
