@@ -37,7 +37,7 @@
     <td>
       <ul>
         <li>Interpolating polynomials</li>
-        <li>Intervals</li>
+        <li>Intervals <i>(based on the polynomials)</i></li>
         <li>Approximate value</li>
       </ul>
     </td>
@@ -50,7 +50,7 @@
       <ul>
         <li>Objective Function</li>
         <li>Constraints</li>
-        <li>Method (Max/Min)</li>
+        <li>Method <i>(Max/Min)</i></li>
       </ul>
     </td>
     <td>
@@ -67,9 +67,10 @@
     <td><b>Simplex (Problem)</b></td>
     <td>
       <ul>
-        <li>Objective Function</li>
-        <li>Constraints</li>
-        <li>Method (Max/Min)</li>
+        <li>Demand <i>(Warehouse)</i></li>
+        <li>Supply <i>(Plant)</i></li>
+        <li>Cost <i>(Plant & Warehouse)</i></li>
+        <li>Method <i>(Max/Min)</i></li>
       </ul>
     </td>
     <td>
@@ -77,7 +78,7 @@
         <li>Final tableau</li>
         <li>Basic solution</li>
         <li>Optimal cost</li>
-        <li>Table of the # of shipped items from a plant to a warehouse</li>
+        <li>Number of <b>shipped items</b> from a <i>plant</i> to a <i>warehouse</i> <b>(table)</b></li>
       </ul>
     </td>
   </tr>
